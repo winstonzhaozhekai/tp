@@ -391,6 +391,137 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
+**Use case: View Contacts by Course**
+
+**MSS**
+
+1. Student enters: view COURSE.
+2. CourseBook normalizes COURSE (trim + uppercase).
+3. CourseBook finds contacts tagged with COURSE.
+4. UI lists the matching contacts (name, phone, email).
+
+   Use case ends.
+
+**Extensions**
+
+- 1a. Missing course (e.g., view):
+
+  - 1a1. Error: "Please specify the course!"
+
+    Use case ends.
+
+- 3a. Course does not exist / no contact has it (e.g., view johngreen):
+
+  - 3a1. Error: "Course does not exist, please enter a valid course."
+
+    Use case ends.
+
+- 4a. Large result set:
+
+  - 4a1. CourseBook paginates or scrolls list (if supported).
+
+    Use case ends.
+
+**Use case: Delete Contact**
+
+**MSS**
+
+1. Student enters: delete PERSON_NAME.
+2. CourseBook searches for matching names (trim/case insensitive, internal spaces significant).
+3. If exactly one match, CourseBook deletes that contact.
+4. UI reflects the removal.
+5. CourseBook persists the change.
+
+   Use case ends.
+
+**Extensions**
+
+- 1a. Missing name (e.g., delete only):
+
+  - 1a1. Error: "Please specify the contact name to be deleted!"
+
+    Use case ends.
+
+- 2a. Multiple matches (duplicate names):
+
+  - 2a1. CourseBook lists matches with indices.
+  - 2a2. Student enters the index to delete.
+  - 2a3. CourseBook deletes the selected contact, updates UI, and saves.
+
+    Use case ends.
+
+- 2b. No match (e.g., internal spacing differs):
+
+  - 2b1. Error: "No contacts found! Please specify correct contact names."
+
+    Use case ends.
+
+**Use case: Auto-Save on Change (Internal)**
+
+**MSS**
+
+1. A data-mutating use case completes successfully.
+2. CourseBook serializes current state to a cleanly structured JSON file.
+3. On next app start, CourseBook loads this file and renders the latest contacts.
+
+   Use case ends.
+
+**Extensions**
+
+- 2a. Disk write error:
+
+  - 2a1. CourseBook shows a clear error and advises retry or checking file permissions.
+  - 2a2. In-memory state remains; user can retry operation or exit safely.
+
+**Use case: Exit Application**
+
+**MSS**
+
+1. Student enters: exit.
+2. CourseBook confirms any pending in-memory state has already been saved (UC05).
+3. CourseBook terminates.
+
+   Use case ends.
+
+**Extensions**
+
+- 1a. Extra arguments (e.g., exit now):
+
+  - 1a1. Error: "The 'exit' command does not take any arguments."
+  - 1a2. App remains open.
+
+    Use case ends.
+
+- 1b. Mixed case / whitespace (e.g., EXIT):
+
+  - 1b1. CourseBook trims and treats as valid; resume Step 2.
+
+**Use case: Identify Who To Ask for a Module (End-to-End "Value Prop" Flow)**
+
+**MSS**
+
+1. Student enters: view COURSE (e.g., view CS2103T).
+2. CourseBook normalizes COURSE and lists matching contacts with phone/email.
+3. Student selects a contact and copies a detail (e.g., email) from the UI.
+4. Student contacts the friend outside CourseBook (e.g., email/WhatsApp).
+
+   Use case ends.
+
+**Extensions**
+
+- 1a. Course not found or nobody tagged yet:
+
+  - 1a1. Error: "Course does not exist, please enter a valid course."
+  - 1a2. (Optional helper) CourseBook hints: "Try take CS2103T \name John Doe to tag a friend first."
+
+    Use case ends.
+
+- 2a. Many contacts:
+
+  - 2a1. (Optional) CourseBook supports filtering or sorting (future).
+
+    Use case ends.
+
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
