@@ -262,29 +262,34 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
+* is a student
 * has a need to manage a significant number of contacts
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
+* wants to see friends who are taking the same module as them
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: Easily identify and contact friends from a particular mod to resolve problems e.g. questions about assignments.
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| Priority | As a …​                                    | I want to …​                                   | So that I can…​                                                        |
+|----------|--------------------------------------------|------------------------------------------------|------------------------------------------------------------------------|
+| `* * *`  | user                                       | launch coursebook from my laptop               | use it                                                                 |
+| `* * *`  | new user                                   | see usage instructions                         | refer to instructions when I forget how to use the App                 |
+| `* * *`  | user                                       | add a new person                               |                                                                        |
+| `* * *`  | user                                       | delete a person                                | remove entries that I no longer need                                   |
+| `* * *`  | user                                       | edit a contact                                 | stay up to date                                                        |
+| `* *`    | time-conscious user                        | search for friends by name or keyword          | find a person quickly                                                  |
+| `* *`    | user                                       | see my friends who have common courses with me | identify and contact them quickly                                      |
+| `* *`    | user                                       | differentiate courses by colours               | identify which courses my friends take easily                          |
+| `* *`    | user with many persons in the address book | to keep a list of favourite contacts           | find my close friends easily                                           |
 
-*{More to be added}*
+
 
 ### Use cases
 
