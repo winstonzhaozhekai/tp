@@ -9,6 +9,16 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
+### Jared Ee
+
+<img src="images/jaredee123.png" width="200px">
+
+[[homepage](http://www.comp.nus.edu.sg/~jaredee123)]
+[[github](https://github.com/jaredee123)]
+[[portfolio](team/jared.md)]
+
+* Role: Developer
+
 ### Zhao Zhe Kai, Winston
 
 <img src="images/winstonzhaozhekai.png" width="200px">
@@ -17,11 +27,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](https://github.com/winstonzhaozhekai)]
 [[portfolio](team/winstonzhaozhekai.md)]
 
+* Role: Developer
+
 ### Liang Ka Hei
 
 <img src="images/kahei9299.png" width="200px">
 
+[[homepage](http://www.comp.nus.edu.sg/~liangkahei)]
 [[github](https://github.com/kahei9299)]
+[[portfolio](team/liangkehei.md)]
 
 * Role: Developer
 * Responsibilities: UI
@@ -33,25 +47,6 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](http://github.com/bobbodi)]
 
 * Role: Developer
-
-### Johnny Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: Data
-
-### Jean Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: Dev Ops + Threading
 
 ### Subhitsha Prabakaran
 
