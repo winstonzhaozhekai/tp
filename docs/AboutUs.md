@@ -19,41 +19,40 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Developer
 
-### Jane Doe
+### Zhao Zhe Kai, Winston
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/winstonzhaozhekai.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Team Lead
-* Responsibilities: UI
-
-### Johnny Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[homepage](http://www.comp.nus.edu.sg/~winstonzhaozhekai)]
+[[github](https://github.com/winstonzhaozhekai)]
+[[portfolio](team/winstonzhaozhekai.md)]
 
 * Role: Developer
-* Responsibilities: Data
 
-### Jean Doe
+### Liang Ka Hei
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/kahei9299.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: Dev Ops + Threading
-
-### James Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[homepage](http://www.comp.nus.edu.sg/~liangkahei)]
+[[github](https://github.com/kahei9299)]
+[[portfolio](team/liangkehei.md)]
 
 * Role: Developer
 * Responsibilities: UI
+
+### Lee Yi Xuan
+
+<img src="images/bobbodi.png" width="200px">
+
+[[github](http://github.com/bobbodi)]
+
+* Role: Developer
+
+### Subhitsha Prabakaran
+
+<img src="images/subhitsha-sp.png" width="200px">
+
+[[github](https://github.com/subhitsha-sp)]
+
+* Role: Developer
+* Responsibilities: Backend
