@@ -3,12 +3,14 @@
 
 ![Ui](docs/images/Ui.png)
 
-* This is **a project done by Software Engineering (SE) students**.<br>
+* This is **CourseBook**, a desktop application for **students** who want to easily identify and contact friends from particular modules to resolve problems such as questions about assignments.<br>
   Example usages:
-  * to find the contacts of friends taking the same course as you
-* The project simulates an ongoing software project for a desktop application (called _AddressBook_) used for managing contact details.
-  * It is **written in OOP fashion**. It provides a **reasonably well-written** code base **bigger** (around 6 KLoC) than what students usually write in beginner-level SE modules, without being overwhelmingly big.
+  * Find classmates taking the same module to ask questions
+  * Organize study groups with friends from specific courses
+  * Get help with assignments from peers in the same class
+* CourseBook helps students manage their academic network by organizing contacts based on the modules they are taking together.
+  * It is **written in OOP fashion** and provides a **reasonably well-written** code base.
   * It comes with a **reasonable level of user and developer documentation**.
-* It is named `CourseBook` because it was initially created as a part of a series of `AddressBook` projects.
-* For the detailed documentation of this `AddressBook` project, see the **[Address Book Product Website](https://se-education.org/addressbook-level3)**.
+* CourseBook is optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
+* For the detailed documentation of this project, see the **[CourseBook Product Website](https://ay2526s1-cs2103t-f10-2.github.io/tp/)**.
 * This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org).
