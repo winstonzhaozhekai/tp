@@ -320,8 +320,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
 2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-*{More to be added}*
+4.  The application should aim for less than 1 hour of downtime per month to ensure continuous availability for users 
+5.  A user should be able to complete all tasks using the command line interface
+6.  Developers should resolve critical bugs within a day of detection. Quick issue resolution is vital for maintaining a positive user experience. 
+7.  The application should not interfere with existing antivirus software. This compatibility is essential for ensuring seamless integration into users' workflows.
+8.  Results of commands should be returned within 1 second to ensure a smooth user experience. If results take too long, users may become frustrated and abandon the search. 
 
 ### Glossary
 
