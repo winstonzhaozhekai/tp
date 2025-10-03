@@ -262,16 +262,18 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* is a student
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* is a university student
+* has a need to manage a significant number of academic contacts (classmates, professors, TAs)
+* takes multiple courses/modules each semester
+* wants to easily identify and connect with classmates in specific courses
+* prefers desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
-* wants to see friends who are taking the same module as them
+* values quick access to course-related contact information
+* seeks academic collaboration and support from peers
 
-**Value proposition**: Easily identify and contact friends from a particular mod to resolve problems e.g. questions about assignments.
-
+**Value proposition**: CourseBook helps university students efficiently manage and organise their academic contacts by course affiliation, making it easy to identify classmates, access instructor information, and foster academic collaboration within specific modules.
 
 ### User stories
 
@@ -281,15 +283,20 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 |----------|--------------------------------------------|------------------------------------------------|------------------------------------------------------------------------|
 | `* * *`  | user                                       | launch coursebook from my laptop               | use it                                                                 |
 | `* * *`  | new user                                   | see usage instructions                         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person                               |                                                                        |
+| `* * *`  | user                                       | add a new person                               | keep track of my academic contacts                                     |
 | `* * *`  | user                                       | delete a person                                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | edit a contact                                 | stay up to date                                                        |
+| `* * *`  | user                                       | edit a contact                                 | keep contact information up to date                                    |
+| `* * *`  | user                                       | input all the courses that I am taking        | identify friends taking the same courses as me                         |
+| `* * *`  | user                                       | view contacts by course                        | easily find classmates for specific modules                            |
 | `* *`    | time-conscious user                        | search for friends by name or keyword          | find a person quickly                                                  |
-| `* *`    | user                                       | see my friends who have common courses with me | identify and contact them quickly                                      |
-| `* *`    | user                                       | differentiate courses by colours               | identify which courses my friends take easily                          |
-| `* *`    | user with many persons in the address book | to keep a list of favourite contacts           | find my close friends easily                                           |
-
-
+| `* *`    | user                                       | see my friends who have common courses with me | identify and contact them for study groups or collaboration            |
+| `* *`    | user                                       | differentiate courses by colours               | visually identify which courses my friends take easily                 |
+| `* *`    | user with many persons in the address book | keep a list of favourite contacts              | find my close friends easily                                           |
+| `* *`    | user                                       | see each course's professor and TA contact information | contact them to ask for help more easily                     |
+| `* *`    | user                                       | receive course recommendations based on what my friends are taking | discover relevant modules easily                        |
+| `* *`    | user                                       | filter contacts by academic year              | connect with peers at similar academic levels                          |
+| `*`      | user                                       | export course contact lists                   | share them with study group members                                    |                    |
+| `*`      | user                                       | view course statistics                         | see how many friends are in each course                                |                              |                           |
 
 ### Use cases
 
