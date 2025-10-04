@@ -327,6 +327,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Actor**: A user or external entity that interacts with the system
+* **AddressBook**: The system that stores and manages contact information
+* **Contact**: A person whose details are stored in the address book
+* **Main Success Scenario (MSS)**: The typical flow of events in a use case when everything goes as expected
+* **Parser**: The component that interprets user input and converts it into a command that the program can execute
 
 --------------------------------------------------------------------------------------------------------------------
 
