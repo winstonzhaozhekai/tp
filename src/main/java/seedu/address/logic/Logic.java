@@ -1,14 +1,14 @@
-package seedu.address.logic;
+package seedu.coursebook.logic;
 
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.coursebook.commons.core.GuiSettings;
+import seedu.coursebook.logic.commands.CommandResult;
+import seedu.coursebook.logic.commands.exceptions.CommandException;
+import seedu.coursebook.logic.parser.exceptions.ParseException;
+import seedu.coursebook.model.ReadOnlyCourseBook;
+import seedu.coursebook.model.person.Person;
 
 /**
  * API of the Logic component
@@ -24,11 +24,11 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the CourseBook.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see seedu.coursebook.model.Model#getCourseBook()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyCourseBook getCourseBook();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
@@ -36,7 +36,7 @@ public interface Logic {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getCourseBookFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

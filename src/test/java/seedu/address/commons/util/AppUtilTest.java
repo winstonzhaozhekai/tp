@@ -1,7 +1,7 @@
-package seedu.address.commons.util;
+package seedu.coursebook.commons.util;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.coursebook.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 

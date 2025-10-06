@@ -1,6 +1,6 @@
-package seedu.address.logic.commands;
+package seedu.coursebook.logic.commands;
 
-import seedu.address.model.Model;
+import seedu.coursebook.model.Model;
 
 /**
  * Format full help instructions for every command for display.

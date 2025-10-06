@@ -1,11 +1,11 @@
-package seedu.address.model;
+package seedu.coursebook.model;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
+import seedu.coursebook.commons.core.GuiSettings;
+import seedu.coursebook.model.person.Person;
 
 /**
  * The API of the Model component.
@@ -37,20 +37,20 @@ public interface Model {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getCourseBookFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setCourseBookFilePath(Path courseBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces address book data with the data in {@code CourseBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setCourseBook(ReadOnlyCourseBook courseBook);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the CourseBook */
+    ReadOnlyCourseBook getCourseBook();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.

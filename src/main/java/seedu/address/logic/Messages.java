@@ -1,11 +1,11 @@
-package seedu.address.logic;
+package seedu.coursebook.logic;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.address.logic.parser.Prefix;
-import seedu.address.model.person.Person;
+import seedu.coursebook.logic.parser.Prefix;
+import seedu.coursebook.model.person.Person;
 
 /**
  * Container for user visible messages.

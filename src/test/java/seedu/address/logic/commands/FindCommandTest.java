@@ -1,31 +1,31 @@
-package seedu.address.logic.commands;
+package seedu.coursebook.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.ELLE;
-import static seedu.address.testutil.TypicalPersons.FIONA;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.coursebook.logic.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static seedu.coursebook.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.coursebook.testutil.TypicalPersons.CARL;
+import static seedu.coursebook.testutil.TypicalPersons.ELLE;
+import static seedu.coursebook.testutil.TypicalPersons.FIONA;
+import static seedu.coursebook.testutil.TypicalPersons.getTypicalCourseBook;
 
 import java.util.Arrays;
 import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.coursebook.model.Model;
+import seedu.coursebook.model.ModelManager;
+import seedu.coursebook.model.UserPrefs;
+import seedu.coursebook.model.person.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalCourseBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalCourseBook(), new UserPrefs());
 
     @Test
     public void equals() {

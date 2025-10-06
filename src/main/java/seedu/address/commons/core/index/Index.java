@@ -1,6 +1,6 @@
-package seedu.address.commons.core.index;
+package seedu.coursebook.commons.core.index;
 
-import seedu.address.commons.util.ToStringBuilder;
+import seedu.coursebook.commons.util.ToStringBuilder;
 
 /**
  * Represents a zero-based or one-based index.

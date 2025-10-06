@@ -1,16 +1,16 @@
-package seedu.address.logic.commands;
+package seedu.coursebook.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.coursebook.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.coursebook.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.coursebook.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.coursebook.testutil.TypicalPersons.getTypicalCourseBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
+import seedu.coursebook.model.Model;
+import seedu.coursebook.model.ModelManager;
+import seedu.coursebook.model.UserPrefs;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
@@ -22,8 +22,8 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalCourseBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getCourseBook(), new UserPrefs());
     }
 
     @Test

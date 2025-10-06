@@ -1,12 +1,12 @@
-package seedu.address.logic.commands;
+package seedu.coursebook.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT;
+import static seedu.coursebook.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.coursebook.logic.commands.ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
+import seedu.coursebook.model.Model;
+import seedu.coursebook.model.ModelManager;
 
 public class ExitCommandTest {
     private Model model = new ModelManager();

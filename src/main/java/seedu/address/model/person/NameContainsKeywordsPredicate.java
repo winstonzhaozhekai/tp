@@ -1,10 +1,10 @@
-package seedu.address.model.person;
+package seedu.coursebook.model.person;
 
 import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.address.commons.util.StringUtil;
-import seedu.address.commons.util.ToStringBuilder;
+import seedu.coursebook.commons.util.StringUtil;
+import seedu.coursebook.commons.util.ToStringBuilder;
 
 /**
  * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.

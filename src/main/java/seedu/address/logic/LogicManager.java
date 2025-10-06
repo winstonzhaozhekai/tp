@@ -1,4 +1,4 @@
-package seedu.address.logic;
+package seedu.coursebook.logic;
 
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
@@ -6,17 +6,17 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
-import seedu.address.storage.Storage;
+import seedu.coursebook.commons.core.GuiSettings;
+import seedu.coursebook.commons.core.LogsCenter;
+import seedu.coursebook.logic.commands.Command;
+import seedu.coursebook.logic.commands.CommandResult;
+import seedu.coursebook.logic.commands.exceptions.CommandException;
+import seedu.coursebook.logic.parser.CourseBookParser;
+import seedu.coursebook.logic.parser.exceptions.ParseException;
+import seedu.coursebook.model.Model;
+import seedu.coursebook.model.ReadOnlyCourseBook;
+import seedu.coursebook.model.person.Person;
+import seedu.coursebook.storage.Storage;
 
 /**
  * The main LogicManager of the app.
@@ -31,7 +31,7 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final CourseBookParser courseBookParser;
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
@@ -39,7 +39,7 @@ public class LogicManager implements Logic {
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        courseBookParser = new CourseBookParser();
     }
 
     @Override
@@ -47,13 +47,13 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = courseBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveCourseBook(model.getCourseBook());
         } catch (AccessDeniedException e) {
-            throw new CommandException(String.format(FILE_OPS_PERMISSION_ERROR_FORMAT, e.getMessage()), e);
+            throw new CommandException(String.format(FILE_OPS_PERMISSION_ERROR_FORMAT, e.getMessage()));
         } catch (IOException ioe) {
             throw new CommandException(String.format(FILE_OPS_ERROR_FORMAT, ioe.getMessage()), ioe);
         }
@@ -62,8 +62,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyCourseBook getCourseBook() {
+        return model.getCourseBook();
     }
 
     @Override
@@ -72,8 +72,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getCourseBookFilePath() {
+        return model.getCourseBookFilePath();
     }
 
     @Override
