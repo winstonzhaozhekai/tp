@@ -1,19 +1,19 @@
-package seedu.address.logic.commands;
+package seedu.coursebook.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.coursebook.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.coursebook.testutil.TypicalPersons.getTypicalCourseBook;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
+import seedu.coursebook.model.CourseBook;
+import seedu.coursebook.model.Model;
+import seedu.coursebook.model.ModelManager;
+import seedu.coursebook.model.UserPrefs;
 
 public class ClearCommandTest {
 
     @Test
-    public void execute_emptyAddressBook_success() {
+    public void execute_emptyCourseBook_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
 
@@ -21,10 +21,10 @@ public class ClearCommandTest {
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel.setAddressBook(new AddressBook());
+    public void execute_nonEmptyCourseBook_success() {
+        Model model = new ModelManager(getTypicalCourseBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalCourseBook(), new UserPrefs());
+        expectedModel.setCourseBook(new CourseBook());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }

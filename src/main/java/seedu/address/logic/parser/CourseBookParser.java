@@ -1,34 +1,34 @@
-package seedu.address.logic.parser;
+package seedu.coursebook.logic.parser;
 
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.coursebook.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.coursebook.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.coursebook.commons.core.LogsCenter;
+import seedu.coursebook.logic.commands.AddCommand;
+import seedu.coursebook.logic.commands.ClearCommand;
+import seedu.coursebook.logic.commands.Command;
+import seedu.coursebook.logic.commands.DeleteCommand;
+import seedu.coursebook.logic.commands.EditCommand;
+import seedu.coursebook.logic.commands.ExitCommand;
+import seedu.coursebook.logic.commands.FindCommand;
+import seedu.coursebook.logic.commands.HelpCommand;
+import seedu.coursebook.logic.commands.ListCommand;
+import seedu.coursebook.logic.parser.exceptions.ParseException;
 
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class CourseBookParser {
 
     /**
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    private static final Logger logger = LogsCenter.getLogger(AddressBookParser.class);
+    private static final Logger logger = LogsCenter.getLogger(CourseBookParser.class);
 
     /**
      * Parses user input into command for execution.

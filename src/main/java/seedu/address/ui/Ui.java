@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.coursebook.ui;
 
 import javafx.stage.Stage;
 

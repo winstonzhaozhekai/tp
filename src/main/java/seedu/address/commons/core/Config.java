@@ -1,11 +1,11 @@
-package seedu.address.commons.core;
+package seedu.coursebook.commons.core;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.logging.Level;
 
-import seedu.address.commons.util.ToStringBuilder;
+import seedu.coursebook.commons.util.ToStringBuilder;
 
 /**
  * Config values used by the app

@@ -1,10 +1,10 @@
-package seedu.address.logic.commands;
+package seedu.coursebook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
-import seedu.address.commons.util.ToStringBuilder;
+import seedu.coursebook.commons.util.ToStringBuilder;
 
 /**
  * Represents the result of a command execution.

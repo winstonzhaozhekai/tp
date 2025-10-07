@@ -1,4 +1,4 @@
-package seedu.address;
+package seedu.coursebook;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -7,29 +7,29 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import seedu.address.commons.core.Config;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.Version;
-import seedu.address.commons.exceptions.DataLoadingException;
-import seedu.address.commons.util.ConfigUtil;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.Logic;
-import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.Storage;
-import seedu.address.storage.StorageManager;
-import seedu.address.storage.UserPrefsStorage;
-import seedu.address.ui.Ui;
-import seedu.address.ui.UiManager;
+import seedu.coursebook.commons.core.Config;
+import seedu.coursebook.commons.core.LogsCenter;
+import seedu.coursebook.commons.core.Version;
+import seedu.coursebook.commons.exceptions.DataLoadingException;
+import seedu.coursebook.commons.util.ConfigUtil;
+import seedu.coursebook.commons.util.StringUtil;
+import seedu.coursebook.logic.Logic;
+import seedu.coursebook.logic.LogicManager;
+import seedu.coursebook.model.CourseBook;
+import seedu.coursebook.model.Model;
+import seedu.coursebook.model.ModelManager;
+import seedu.coursebook.model.ReadOnlyCourseBook;
+import seedu.coursebook.model.ReadOnlyUserPrefs;
+import seedu.coursebook.model.UserPrefs;
+import seedu.coursebook.model.util.SampleDataUtil;
+import seedu.coursebook.storage.CourseBookStorage;
+import seedu.coursebook.storage.JsonCourseBookStorage;
+import seedu.coursebook.storage.JsonUserPrefsStorage;
+import seedu.coursebook.storage.Storage;
+import seedu.coursebook.storage.StorageManager;
+import seedu.coursebook.storage.UserPrefsStorage;
+import seedu.coursebook.ui.Ui;
+import seedu.coursebook.ui.UiManager;
 
 /**
  * Runs the application.
@@ -48,7 +48,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing CourseBook ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -57,8 +57,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        CourseBookStorage courseBookStorage = new JsonCourseBookStorage(userPrefs.getCourseBookFilePath());
+        storage = new StorageManager(courseBookStorage, userPrefsStorage);
 
         model = initModelManager(storage, userPrefs);
 
@@ -73,21 +73,21 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        logger.info("Using data file : " + storage.getAddressBookFilePath());
+        logger.info("Using data file : " + storage.getCourseBookFilePath());
 
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyCourseBook> courseBookOptional;
+        ReadOnlyCourseBook initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Creating a new data file " + storage.getAddressBookFilePath()
-                        + " populated with a sample AddressBook.");
+            courseBookOptional = storage.readCourseBook();
+            if (!courseBookOptional.isPresent()) {
+                logger.info("Creating a new data file " + storage.getCourseBookFilePath()
+                        + " populated with a sample CourseBook.");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = courseBookOptional.orElseGet(SampleDataUtil::getSampleCourseBook);
         } catch (DataLoadingException e) {
-            logger.warning("Data file at " + storage.getAddressBookFilePath() + " could not be loaded."
-                    + " Will be starting with an empty AddressBook.");
-            initialData = new AddressBook();
+            logger.warning("Data file at " + storage.getCourseBookFilePath() + " could not be loaded."
+                    + " Will be starting with an empty CourseBook.");
+            initialData = new CourseBook();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -170,13 +170,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting CourseBook " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping AddressBook ] =============================");
+        logger.info("============================ [ Stopping CourseBook ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

@@ -1,4 +1,4 @@
-package seedu.address.commons.util;
+package seedu.coursebook.commons.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -7,8 +7,8 @@ import java.nio.file.Path;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.testutil.SerializableTestClass;
-import seedu.address.testutil.TestUtil;
+import seedu.coursebook.testutil.SerializableTestClass;
+import seedu.coursebook.testutil.TestUtil;
 
 /**
  * Tests JSON Read and Write

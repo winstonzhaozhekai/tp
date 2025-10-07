@@ -1,6 +1,6 @@
-package seedu.address.logic.parser.exceptions;
+package seedu.coursebook.logic.parser.exceptions;
 
-import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.coursebook.commons.exceptions.IllegalValueException;
 
 /**
  * Represents a parse error encountered by a parser.
