@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.coursebook.commons.core.GuiSettings;
+import seedu.coursebook.commons.core.index.Index;
 import seedu.coursebook.logic.commands.exceptions.CommandException;
 import seedu.coursebook.model.Model;
 import seedu.coursebook.model.ReadOnlyCourseBook;
@@ -27,7 +28,7 @@ public class RemoveCourseCommandTest {
     @Test
     public void execute_existingCourse_success() throws Exception {
         ModelStubWithCourse modelStub = new ModelStubWithCourse();
-        Course sampleCourse = new Course("CS2103T");
+        Course sampleCourse = new Course("CS2101");
         modelStub.addCourse(sampleCourse);
 
         Set<Course> toRemove = new HashSet<>();
@@ -55,12 +56,47 @@ public class RemoveCourseCommandTest {
         assertEquals(RemoveCourseCommand.MESSAGE_NO_MATCHING_COURSES, ex.getMessage());
     }
 
+    @Test
+    public void execute_invalidIndex_throwsCommandException() {
+        // Use your existing ModelStubWithCourse (contains one valid person)
+        ModelStubWithCourse modelStub = new ModelStubWithCourse();
+
+        // Prepare a valid course but pass an invalid index
+        Course sampleCourse = new Course("CS2101");
+        Set<Course> courses = new HashSet<>();
+        courses.add(sampleCourse);
+
+        // Index 5 is invalid since modelStub likely has only 1 person
+        RemoveCourseCommand command = new RemoveCourseCommand(Index.fromOneBased(5), courses);
+
+        assertThrows(CommandException.class, () -> command.execute(modelStub));
+    }
+
+    @Test
+    public void execute_courseNotInPerson_throwsCommandException() {
+        // Person in the model stub has some course, but not this one
+        ModelStubWithCourse modelStub = new ModelStubWithCourse();
+
+        // This course is NOT in the stub person's existing courses
+        Course nonExistentCourse = new Course("CS2103T");
+        Set<Course> coursesToRemove = new HashSet<>();
+        coursesToRemove.add(nonExistentCourse);
+
+        RemoveCourseCommand command = new RemoveCourseCommand(Index.fromOneBased(1), coursesToRemove);
+
+        CommandException exception = assertThrows(CommandException.class, () -> command.execute(modelStub));
+        System.out.println("Actual message: " + exception.getMessage());
+        assertTrue(exception.getMessage().contains(RemoveCourseCommand.MESSAGE_NO_MATCHING_COURSES));
+    }
+
+
+
     // --- Model Stub ---
 
     private static class ModelStubWithCourse implements Model {
         final Set<Course> courses = new HashSet<>();
         final ObservableList<Person> persons = FXCollections.observableArrayList(
-                new PersonBuilder().withCourses("CS2103T").build());
+                new PersonBuilder().withCourses("CS2101").build());
 
         public seedu.coursebook.commons.core.index.Index getFirstIndex() {
             return seedu.coursebook.commons.core.index.Index.fromOneBased(1);

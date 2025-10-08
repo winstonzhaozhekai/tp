@@ -57,6 +57,18 @@ public class AddCourseCommandTest {
         assertThrows(CommandException.class, () -> command.execute(modelStub));
     }
 
+    @Test
+    public void execute_invalidIndex_throwsCommandException() {
+        ModelStubWithOnePerson modelStub = new ModelStubWithOnePerson();
+        Course sampleCourse = new Course("CS2103T");
+        Set<Course> courses = new HashSet<>();
+        courses.add(sampleCourse);
+
+        AddCourseCommand command = new AddCourseCommand(Index.fromOneBased(5), courses); // invalid
+        assertThrows(CommandException.class, () -> command.execute(modelStub));
+    }
+
+
     // =========================================================
     // =============== SUPPORTING STUB CLASSES =================
     // =========================================================
