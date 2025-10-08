@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.function.Predicate;
 
+import seedu.coursebook.logic.CommandHistory;
 import seedu.coursebook.model.Model;
 import seedu.coursebook.model.person.Person;
 /**
@@ -37,7 +38,7 @@ public class ListByCourseCommand extends Command {
      */
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         Predicate<Person> personsInCourse = person ->
                 person.getCourses().stream()
