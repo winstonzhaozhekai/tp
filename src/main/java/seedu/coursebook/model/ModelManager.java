@@ -7,6 +7,8 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.model.VersionedCourseBook;
@@ -35,6 +37,7 @@ public class ModelManager implements Model {
         versionedCourseBook = new VersionedCourseBook(courseBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedCourseBook.getPersonList());
+        filteredPersons.addListener(this::ensureSelectedPersonIsValid);
     }
 
     public ModelManager() {
@@ -80,12 +83,12 @@ public class ModelManager implements Model {
 
     @Override
     public void setCourseBook(ReadOnlyCourseBook courseBook) {
-        this.courseBook.resetData(courseBook);
+        versionedCourseBook.resetData(courseBook);
     }
 
     @Override
     public ReadOnlyCourseBook getCourseBook() {
-        return courseBook;
+        return versionedCourseBook;
     }
 
     @Override
@@ -145,6 +148,55 @@ public class ModelManager implements Model {
 
     @Override
     public void commitCourseBook() { versionedCourseBook.commit(); }
+
+    //=========== Selected person ===========================================================================
+
+    @Override
+    public ReadOnlyProperty<Person> selectedPersonProperty() {
+        return selectedPerson;
+    }
+
+    @Override
+    public Person getSelectedPerson() {
+        return selectedPerson.getValue();
+    }
+
+    @Override
+    public void setSelectedPerson(Person person) {
+        if (person != null && !filteredPersons.contains(person)) {
+            throw new PersonNotFoundException();
+        }
+        selectedPerson.setValue(person);
+    }
+
+    /**
+     * Ensures {@code selectedPerson} is a valid person in {@code filteredPersons}.
+     */
+    private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends Person> change) {
+        while (change.next()) {
+            if (selectedPerson.getValue() == null) {
+                // null is always a valid selected person, so we do not need to check that it is valid anymore.
+                return;
+            }
+
+            boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedPerson.getValue());
+            if (wasSelectedPersonReplaced) {
+                // Update selectedPerson to its new value.
+                int index = change.getRemoved().indexOf(selectedPerson.getValue());
+                selectedPerson.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedPersonRemoved = change.getRemoved().stream()
+                    .anyMatch(removedPerson -> selectedPerson.getValue().isSamePerson(removedPerson));
+            if (wasSelectedPersonRemoved) {
+                // Select the person that came before it in the list,
+                // or clear the selection if there is no such person.
+                selectedPerson.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
+    }
 
     @Override
     public boolean equals(Object other) {
