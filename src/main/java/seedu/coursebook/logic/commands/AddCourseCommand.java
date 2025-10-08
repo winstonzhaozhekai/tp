@@ -60,12 +60,12 @@ public class AddCourseCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        
+
         // Check for duplicate courses
         Set<Course> existingCourses = personToEdit.getCourses();
         Set<Course> duplicates = new HashSet<>(coursesToAdd);
         duplicates.retainAll(existingCourses);
-        
+
         if (!duplicates.isEmpty()) {
             throw new CommandException(MESSAGE_DUPLICATE_COURSE);
         }
