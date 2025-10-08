@@ -9,10 +9,10 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.coursebook.commons.core.GuiSettings;
 import seedu.coursebook.logic.commands.exceptions.CommandException;
 import seedu.coursebook.model.Model;
@@ -38,7 +38,7 @@ public class RemoveCourseCommandTest {
         CommandResult result = command.execute(modelStub);
 
         assertTrue(result.getFeedbackToUser()
-        .contains("Removed courses from Person:"));
+            .contains("Removed courses from Person:"));
     }
 
     @Test
@@ -81,18 +81,24 @@ public class RemoveCourseCommandTest {
 
         // --- Model interface boilerplate ---
         @Override public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {}
-        @Override public ReadOnlyUserPrefs getUserPrefs() { return null; }
-        @Override public GuiSettings getGuiSettings() { return null; }
+        @Override public ReadOnlyUserPrefs getUserPrefs() {
+            return null; }
+        @Override public GuiSettings getGuiSettings() {
+            return null; }
         @Override public void setGuiSettings(GuiSettings guiSettings) {}
-        @Override public Path getCourseBookFilePath() { return null; }
+        @Override public Path getCourseBookFilePath() {
+            return null; }
         @Override public void setCourseBookFilePath(Path courseBookFilePath) {}
         @Override public void setCourseBook(ReadOnlyCourseBook courseBook) {}
-        @Override public ReadOnlyCourseBook getCourseBook() { return null; }
-        @Override public boolean hasPerson(Person person) { return false; }
+        @Override public ReadOnlyCourseBook getCourseBook() {
+            return null; }
+        @Override public boolean hasPerson(Person person) {
+            return false; }
         @Override public void deletePerson(Person target) {}
         @Override public void addPerson(Person person) {}
         @Override public void setPerson(Person target, Person editedPerson) {}
-        @Override public ObservableList<Person> getFilteredPersonList() { return persons; }
+        @Override public ObservableList<Person> getFilteredPersonList() {
+            return persons; }
         @Override public void updateFilteredPersonList(Predicate<Person> predicate) {}
     }
 }

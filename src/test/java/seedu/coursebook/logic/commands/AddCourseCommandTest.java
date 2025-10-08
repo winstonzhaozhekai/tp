@@ -8,10 +8,10 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.coursebook.commons.core.GuiSettings;
 import seedu.coursebook.commons.core.index.Index;
 import seedu.coursebook.logic.commands.exceptions.CommandException;
@@ -21,6 +21,7 @@ import seedu.coursebook.model.ReadOnlyUserPrefs;
 import seedu.coursebook.model.course.Course;
 import seedu.coursebook.model.person.Person;
 import seedu.coursebook.testutil.PersonBuilder;
+
 
 public class AddCourseCommandTest {
 
@@ -61,19 +62,29 @@ public class AddCourseCommandTest {
     // =========================================================
 
     private static class ModelStub implements Model {
-        @Override public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {}
-        @Override public ReadOnlyUserPrefs getUserPrefs() { return null; }
-        @Override public GuiSettings getGuiSettings() { return null; }
-        @Override public void setGuiSettings(GuiSettings guiSettings) {}
-        @Override public Path getCourseBookFilePath() { return null; }
+        @Override public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+
+        }
+        @Override public ReadOnlyUserPrefs getUserPrefs() {
+            return null; }
+        @Override public GuiSettings getGuiSettings() {
+            return null; }
+        @Override public void setGuiSettings(GuiSettings guiSettings) {
+
+        }
+        @Override public Path getCourseBookFilePath() {
+            return null; }
         @Override public void setCourseBookFilePath(Path courseBookFilePath) {}
         @Override public void setCourseBook(ReadOnlyCourseBook courseBook) {}
-        @Override public ReadOnlyCourseBook getCourseBook() { return null; }
-        @Override public boolean hasPerson(Person person) { return false; }
+        @Override public ReadOnlyCourseBook getCourseBook() {
+            return null; }
+        @Override public boolean hasPerson(Person person) {
+            return false; }
         @Override public void deletePerson(Person target) {}
         @Override public void addPerson(Person person) {}
         @Override public void setPerson(Person target, Person editedPerson) {}
-        @Override public ObservableList<Person> getFilteredPersonList() { return FXCollections.observableArrayList(); }
+        @Override public ObservableList<Person> getFilteredPersonList() {
+            return FXCollections.observableArrayList(); }
         @Override public void updateFilteredPersonList(Predicate<Person> predicate) {}
     }
 
@@ -86,18 +97,23 @@ public class AddCourseCommandTest {
             return persons;
         }
 
-        @Override public boolean hasPerson(Person person) { return false; }
+        @Override public boolean hasPerson(Person person) {
+            return false; }
         @Override public void addPerson(Person person) {}
         @Override public void setPerson(Person target, Person editedPerson) {}
         @Override public void deletePerson(Person target) {}
         @Override public void updateFilteredPersonList(Predicate<Person> predicate) {}
         @Override public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {}
-        @Override public ReadOnlyUserPrefs getUserPrefs() { return null; }
-        @Override public GuiSettings getGuiSettings() { return null; }
+        @Override public ReadOnlyUserPrefs getUserPrefs() {
+            return null; }
+        @Override public GuiSettings getGuiSettings() {
+            return null; }
         @Override public void setGuiSettings(GuiSettings guiSettings) {}
-        @Override public Path getCourseBookFilePath() { return null; }
+        @Override public Path getCourseBookFilePath() {
+            return null; }
         @Override public void setCourseBookFilePath(Path courseBookFilePath) {}
         @Override public void setCourseBook(ReadOnlyCourseBook courseBook) {}
-        @Override public ReadOnlyCourseBook getCourseBook() { return null; }
+        @Override public ReadOnlyCourseBook getCourseBook() {
+            return null; }
     }
 }
