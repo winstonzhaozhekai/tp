@@ -21,6 +21,7 @@ import seedu.coursebook.logic.commands.HelpCommand;
 import seedu.coursebook.logic.commands.ListByCourseCommand;
 import seedu.coursebook.logic.commands.ListCommand;
 import seedu.coursebook.logic.commands.RemoveCourseCommand;
+import seedu.coursebook.logic.commands.SummaryCommand;
 import seedu.coursebook.logic.parser.exceptions.ParseException;
 
 /**
@@ -81,6 +82,9 @@ public class CourseBookParser {
             } else {
                 throw new ParseException("Invalid command format.\n" + ListByCourseCommand.MESSAGE_USAGE);
             }
+
+        case SummaryCommand.COMMAND_WORD:
+            return new SummaryCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
