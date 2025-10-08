@@ -9,6 +9,7 @@ import java.util.Set;
 
 import seedu.coursebook.commons.core.index.Index;
 import seedu.coursebook.commons.util.ToStringBuilder;
+import seedu.coursebook.logic.CommandHistory;
 import seedu.coursebook.logic.Messages;
 import seedu.coursebook.logic.commands.exceptions.CommandException;
 import seedu.coursebook.model.Model;
@@ -49,7 +50,7 @@ public class RemoveCourseCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
@@ -80,6 +81,7 @@ public class RemoveCourseCommand extends Command {
         );
 
         model.setPerson(personToEdit, editedPerson);
+        model.commitCourseBook();
         return new CommandResult(String.format(MESSAGE_REMOVE_COURSE_SUCCESS, Messages.format(editedPerson)));
     }
 

@@ -3,6 +3,7 @@ package seedu.coursebook.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.coursebook.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import seedu.coursebook.logic.CommandHistory;
 import seedu.coursebook.model.Model;
 
 /**
@@ -16,7 +17,7 @@ public class ListCommand extends Command {
 
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(MESSAGE_SUCCESS);

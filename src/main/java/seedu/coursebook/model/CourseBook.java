@@ -6,7 +6,6 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import javafx.beans.InvalidationListener;
-import seedu.coursebook.commons.util.ToStringBuilder;
 import seedu.coursebook.commons.util.InvalidationListenerManager;
 import seedu.coursebook.model.person.Person;
 import seedu.coursebook.model.person.UniquePersonList;
