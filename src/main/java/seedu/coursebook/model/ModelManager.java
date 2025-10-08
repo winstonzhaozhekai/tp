@@ -31,10 +31,10 @@ public class ModelManager implements Model {
         requireAllNonNull(courseBook, userPrefs);
 
         logger.fine("Initializing with address book: " + courseBook + " and user prefs " + userPrefs);
-        
-        this.courseBook = new CourseBook(courseBook);
+
+        versionedCourseBook = new VersionedCourseBook(courseBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.courseBook.getPersonList());
+        filteredPersons = new FilteredList<>(versionedCourseBook.getPersonList());
     }
 
     public ModelManager() {
@@ -91,17 +91,17 @@ public class ModelManager implements Model {
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
-        return courseBook.hasPerson(person);
+        return versionedCourseBook.hasPerson(person);
     }
 
     @Override
     public void deletePerson(Person target) {
-        courseBook.removePerson(target);
+        versionedCourseBook.removePerson(target);
     }
 
     @Override
     public void addPerson(Person person) {
-        courseBook.addPerson(person);
+        versionedCourseBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -109,7 +109,7 @@ public class ModelManager implements Model {
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
-        courseBook.setPerson(target, editedPerson);
+        versionedCourseBook.setPerson(target, editedPerson);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -129,6 +129,23 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    //============ Undo/Redo =====================================================================================
+
+    @Override
+    public boolean canUndoCourseBook() { return versionedCourseBook.canUndo(); }
+
+    @Override
+    public boolean canRedoCourseBook() { return versionedCourseBook.canRedo(); }
+
+    @Override
+    public void undoCourseBook() { versionedCourseBook.undo(); }
+
+    @Override
+    public void redoCourseBook() { versionedCourseBook.redo(); }
+
+    @Override
+    public void commitCourseBook() { versionedCourseBook.commit(); }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -141,7 +158,7 @@ public class ModelManager implements Model {
         }
 
         ModelManager otherModelManager = (ModelManager) other;
-        return courseBook.equals(otherModelManager.courseBook)
+        return versionedCourseBook.equals(otherModelManager.versionedCourseBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
                 && filteredPersons.equals(otherModelManager.filteredPersons);
     }
