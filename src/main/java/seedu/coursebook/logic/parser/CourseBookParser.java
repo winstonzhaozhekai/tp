@@ -76,16 +76,11 @@ public class CourseBookParser {
             ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(arguments, PREFIX_COURSE);
             if (argMultimap.getValue(PREFIX_COURSE).isPresent()) {
                 return new ListByCourseCommandParser().parse(arguments);
-            }
-
-            else if(arguments.trim().isEmpty()) {
+            } else if (arguments.trim().isEmpty()) {
                 return new ListCommand();
-            }
-
-            else{
+            } else {
                 throw new ParseException("Invalid command format.\n" + ListByCourseCommand.MESSAGE_USAGE);
             }
-
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

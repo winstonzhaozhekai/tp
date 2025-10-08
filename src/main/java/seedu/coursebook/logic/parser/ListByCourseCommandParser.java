@@ -34,13 +34,16 @@ public class ListByCourseCommandParser implements Parser<ListByCourseCommand> {
         }
 
         // must have only one c/
-        if (argMultimap.getAllValues(PREFIX_COURSE).size()>1) {
+        if (argMultimap.getAllValues(PREFIX_COURSE).size() > 1) {
             throw new ParseException(String.format(MESSAGE_SINGLE_COURSE_ONLY, ListByCourseCommand.MESSAGE_USAGE));
         }
 
         Course courseToSearch = ParserUtil.parseCourse(
                 argMultimap.getValue(PREFIX_COURSE)
-                        .orElseThrow(() -> new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListByCourseCommand.MESSAGE_USAGE)))
+                        .orElseThrow(() -> new ParseException(
+                                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListByCourseCommand.MESSAGE_USAGE)
+                                )
+                        )
         );
 
         return new ListByCourseCommand(courseToSearch.courseCode);
