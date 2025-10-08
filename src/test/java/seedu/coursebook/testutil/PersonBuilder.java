@@ -2,6 +2,8 @@ package seedu.coursebook.testutil;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import seedu.coursebook.model.person.Address;
 import seedu.coursebook.model.person.Email;
@@ -9,6 +11,7 @@ import seedu.coursebook.model.person.Name;
 import seedu.coursebook.model.person.Person;
 import seedu.coursebook.model.person.Phone;
 import seedu.coursebook.model.tag.Tag;
+import seedu.coursebook.model.course.Course;
 import seedu.coursebook.model.util.SampleDataUtil;
 
 /**
@@ -26,6 +29,7 @@ public class PersonBuilder {
     private Email email;
     private Address address;
     private Set<Tag> tags;
+    private Set<Course> courses;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -36,6 +40,7 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
+        courses = new HashSet<>();
     }
 
     /**
@@ -47,6 +52,7 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
+        courses = new HashSet<>(personToCopy.getCourses());
     }
 
     /**
@@ -62,6 +68,16 @@ public class PersonBuilder {
      */
     public PersonBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
+        return this;
+    }
+
+    /**
+     * Parses the {@code courses} into a {@code Set<Course>} and set it to the {@code Person} that we are building.
+     */
+    public PersonBuilder withCourses(String... courseCodes) {
+        this.courses = Arrays.stream(courseCodes)
+                .map(Course::new)
+                .collect(Collectors.toSet());
         return this;
     }
 
@@ -90,7 +106,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, tags);
+        return new Person(name, phone, email, address, tags, courses);
     }
 
 }

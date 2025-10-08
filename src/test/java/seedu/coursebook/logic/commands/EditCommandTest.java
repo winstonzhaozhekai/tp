@@ -37,7 +37,12 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Person editedPerson = new PersonBuilder().build();
+        Person firstPerson = model.getFilteredPersonList().get(0);
+        // Ensure expected edited person retains existing courses (descriptor does not set courses)
+        String[] existingCourses = firstPerson.getCourses().stream()
+                .map(c -> c.courseCode)
+                .toArray(String[]::new);
+        Person editedPerson = new PersonBuilder().withCourses(existingCourses).build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
 

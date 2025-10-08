@@ -14,6 +14,7 @@ import seedu.coursebook.model.person.Email;
 import seedu.coursebook.model.person.Name;
 import seedu.coursebook.model.person.Phone;
 import seedu.coursebook.model.tag.Tag;
+import seedu.coursebook.model.course.Course;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -121,4 +122,31 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    /**
+ * Parses a {@code String course} into a {@code Course}.
+ * Leading and trailing whitespaces will be trimmed.
+ *
+ * @throws ParseException if the given {@code course} is invalid.
+ */
+public static Course parseCourse(String course) throws ParseException {
+    requireNonNull(course);
+    String trimmedCourse = course.trim();
+    if (!Course.isValidCourseCode(trimmedCourse)) {
+        throw new ParseException(Course.MESSAGE_CONSTRAINTS);
+    }
+    return new Course(trimmedCourse);
+}
+
+/**
+ * Parses {@code Collection<String> courses} into a {@code Set<Course>}.
+ */
+public static Set<Course> parseCourses(Collection<String> courses) throws ParseException {
+    requireNonNull(courses);
+    final Set<Course> courseSet = new HashSet<>();
+    for (String courseName : courses) {
+        courseSet.add(parseCourse(courseName));
+    }
+    return courseSet;
+}
 }

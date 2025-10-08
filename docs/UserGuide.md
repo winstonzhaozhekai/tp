@@ -77,7 +77,7 @@ Format: `help`
 
 Adds a person to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]… [c/COURSE]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A person can have any number of tags (including 0)
@@ -86,6 +86,7 @@ A person can have any number of tags (including 0)
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Alice p/94351253 e/alice@example.com a/123, Jurong West Ave 6, #08-111 c/CS2103T c/CS2101`
 
 ### Listing all persons : `list`
 
@@ -97,18 +98,50 @@ Format: `list`
 
 Edits an existing person in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​ [c/COURSE]…`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* When editing courses, the existing courses of the person will be replaced by the provided courses (i.e., not cumulative).
 * You can remove all the person’s tags by typing `t/` without
     specifying any tags after it.
+* You can clear all courses by typing `c/` without specifying any course after it.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+*  `edit 3 c/CS2103T c/CS2040S` Replaces the 3rd person’s courses with `CS2103T` and `CS2040S`.
+*  `edit 4 c/` Clears all courses for the 4th person.
+
+### Adding courses to a person: `addcourse`
+
+Adds one or more courses to the specified person without replacing existing courses.
+
+Format: `addcourse INDEX c/COURSE_CODE [c/COURSE_CODE]...`
+
+- INDEX refers to the index in the currently displayed list (must be a positive integer).
+- At least one `c/COURSE_CODE` must be provided.
+- Duplicate courses (already assigned) will be rejected.
+
+Examples:
+- `addcourse 1 c/CS2103T`
+- `addcourse 2 c/CS2101 c/CS2040S`
+
+### Removing courses from a person: `removecourse`
+
+Removes one or more courses from the specified person.
+
+Format: `removecourse INDEX c/COURSE_CODE [c/COURSE_CODE]...`
+
+- INDEX refers to the index in the currently displayed list (must be a positive integer).
+- At least one `c/COURSE_CODE` must be provided.
+- If none of the specified courses are assigned to the person, the command fails.
+
+Examples:
+- `removecourse 1 c/CS2103T`
+- `removecourse 2 c/CS2101 c/CS2040S`
 
 ### Locating persons by name: `find`
 
@@ -191,10 +224,12 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]… [c/COURSE]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]… [c/COURSE]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**AddCourse** | `addcourse INDEX c/COURSE_CODE [c/COURSE_CODE]...`<br> e.g., `addcourse 1 c/CS2103T`
+**RemoveCourse** | `removecourse INDEX c/COURSE_CODE [c/COURSE_CODE]...`<br> e.g., `removecourse 1 c/CS2103T c/CS2101`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
 **Help** | `help`

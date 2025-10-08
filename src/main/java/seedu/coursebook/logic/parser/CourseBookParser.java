@@ -17,6 +17,8 @@ import seedu.coursebook.logic.commands.ExitCommand;
 import seedu.coursebook.logic.commands.FindCommand;
 import seedu.coursebook.logic.commands.HelpCommand;
 import seedu.coursebook.logic.commands.ListCommand;
+import seedu.coursebook.logic.commands.AddCourseCommand;
+import seedu.coursebook.logic.commands.RemoveCourseCommand;
 import seedu.coursebook.logic.parser.exceptions.ParseException;
 
 /**
@@ -76,6 +78,12 @@ public class CourseBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case AddCourseCommand.COMMAND_WORD:
+            return new AddCourseCommandParser().parse(arguments);
+
+        case RemoveCourseCommand.COMMAND_WORD:
+            return new RemoveCourseCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);

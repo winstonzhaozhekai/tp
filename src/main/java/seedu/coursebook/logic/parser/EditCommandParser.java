@@ -7,6 +7,7 @@ import static seedu.coursebook.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.coursebook.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.coursebook.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.coursebook.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.coursebook.logic.parser.CliSyntax.PREFIX_COURSE;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -18,6 +19,7 @@ import seedu.coursebook.logic.commands.EditCommand;
 import seedu.coursebook.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.coursebook.logic.parser.exceptions.ParseException;
 import seedu.coursebook.model.tag.Tag;
+import seedu.coursebook.model.course.Course;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -32,7 +34,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG, 
+                PREFIX_COURSE);
 
         Index index;
 
