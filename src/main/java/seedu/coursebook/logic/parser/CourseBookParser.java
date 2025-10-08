@@ -2,6 +2,7 @@ package seedu.coursebook.logic.parser;
 
 import static seedu.coursebook.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.coursebook.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.coursebook.logic.parser.CliSyntax.PREFIX_COURSE;
 
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -17,6 +18,7 @@ import seedu.coursebook.logic.commands.EditCommand;
 import seedu.coursebook.logic.commands.ExitCommand;
 import seedu.coursebook.logic.commands.FindCommand;
 import seedu.coursebook.logic.commands.HelpCommand;
+import seedu.coursebook.logic.commands.ListByCourseCommand;
 import seedu.coursebook.logic.commands.ListCommand;
 import seedu.coursebook.logic.commands.RemoveCourseCommand;
 import seedu.coursebook.logic.parser.exceptions.ParseException;
@@ -71,7 +73,19 @@ public class CourseBookParser {
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(arguments, PREFIX_COURSE);
+            if (argMultimap.getValue(PREFIX_COURSE).isPresent()) {
+                return new ListByCourseCommandParser().parse(arguments);
+            }
+
+            else if(arguments.trim().isEmpty()) {
+                return new ListCommand();
+            }
+
+            else{
+                throw new ParseException("Invalid command format.\n" + ListByCourseCommand.MESSAGE_USAGE);
+            }
+
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
