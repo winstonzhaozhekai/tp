@@ -13,13 +13,14 @@ import java.util.stream.Stream;
 
 import seedu.coursebook.logic.commands.AddCommand;
 import seedu.coursebook.logic.parser.exceptions.ParseException;
+import seedu.coursebook.model.course.Course;
 import seedu.coursebook.model.person.Address;
 import seedu.coursebook.model.person.Email;
 import seedu.coursebook.model.person.Name;
 import seedu.coursebook.model.person.Person;
 import seedu.coursebook.model.person.Phone;
 import seedu.coursebook.model.tag.Tag;
-import seedu.coursebook.model.course.Course;
+
 
 /**
  * Parses input arguments and creates a new AddCommand object

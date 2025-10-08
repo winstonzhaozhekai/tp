@@ -11,8 +11,8 @@ import seedu.coursebook.commons.core.index.Index;
 import seedu.coursebook.commons.util.ToStringBuilder;
 import seedu.coursebook.logic.Messages;
 import seedu.coursebook.logic.commands.exceptions.CommandException;
-import seedu.coursebook.model.Model;
 import seedu.coursebook.model.course.Course;
+import seedu.coursebook.model.Model;
 import seedu.coursebook.model.person.Person;
 
 /**

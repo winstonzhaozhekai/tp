@@ -21,6 +21,7 @@ import seedu.coursebook.commons.util.CollectionUtil;
 import seedu.coursebook.commons.util.ToStringBuilder;
 import seedu.coursebook.logic.Messages;
 import seedu.coursebook.logic.commands.exceptions.CommandException;
+import seedu.coursebook.model.course.Course;
 import seedu.coursebook.model.Model;
 import seedu.coursebook.model.person.Address;
 import seedu.coursebook.model.person.Email;
@@ -28,7 +29,7 @@ import seedu.coursebook.model.person.Name;
 import seedu.coursebook.model.person.Person;
 import seedu.coursebook.model.person.Phone;
 import seedu.coursebook.model.tag.Tag;
-import seedu.coursebook.model.course.Course;
+
 
 /**
  * Edits the details of an existing person in the address book.

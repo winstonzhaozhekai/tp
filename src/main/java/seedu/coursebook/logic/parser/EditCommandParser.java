@@ -18,8 +18,9 @@ import seedu.coursebook.commons.core.index.Index;
 import seedu.coursebook.logic.commands.EditCommand;
 import seedu.coursebook.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.coursebook.logic.parser.exceptions.ParseException;
-import seedu.coursebook.model.tag.Tag;
 import seedu.coursebook.model.course.Course;
+import seedu.coursebook.model.tag.Tag;
+
 
 /**
  * Parses input arguments and creates a new EditCommand object

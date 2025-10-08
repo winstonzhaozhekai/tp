@@ -9,12 +9,13 @@ import java.util.Set;
 import seedu.coursebook.commons.core.index.Index;
 import seedu.coursebook.commons.util.StringUtil;
 import seedu.coursebook.logic.parser.exceptions.ParseException;
+import seedu.coursebook.model.course.Course;
 import seedu.coursebook.model.person.Address;
 import seedu.coursebook.model.person.Email;
 import seedu.coursebook.model.person.Name;
 import seedu.coursebook.model.person.Phone;
 import seedu.coursebook.model.tag.Tag;
-import seedu.coursebook.model.course.Course;
+
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

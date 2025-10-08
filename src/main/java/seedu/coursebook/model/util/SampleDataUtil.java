@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.coursebook.model.CourseBook;
+import seedu.coursebook.model.course.Course;
 import seedu.coursebook.model.ReadOnlyCourseBook;
 import seedu.coursebook.model.person.Address;
 import seedu.coursebook.model.person.Email;
@@ -12,7 +13,7 @@ import seedu.coursebook.model.person.Name;
 import seedu.coursebook.model.person.Person;
 import seedu.coursebook.model.person.Phone;
 import seedu.coursebook.model.tag.Tag;
-import seedu.coursebook.model.course.Course;
+
 
 /**
  * Contains utility methods for populating {@code CourseBook} with sample data.

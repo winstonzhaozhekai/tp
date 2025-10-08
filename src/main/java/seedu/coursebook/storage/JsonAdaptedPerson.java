@@ -10,13 +10,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.coursebook.commons.exceptions.IllegalValueException;
+import seedu.coursebook.model.course.Course;
 import seedu.coursebook.model.person.Address;
 import seedu.coursebook.model.person.Email;
 import seedu.coursebook.model.person.Name;
 import seedu.coursebook.model.person.Person;
 import seedu.coursebook.model.person.Phone;
 import seedu.coursebook.model.tag.Tag;
-import seedu.coursebook.model.course.Course;
+
 
 import java.util.Arrays;
 
