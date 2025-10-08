@@ -2,11 +2,11 @@ package seedu.coursebook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.coursebook.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.coursebook.logic.parser.CliSyntax.PREFIX_COURSE;
 import static seedu.coursebook.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.coursebook.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.coursebook.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.coursebook.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.coursebook.logic.parser.CliSyntax.PREFIX_COURSE;
 import static seedu.coursebook.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -21,8 +21,8 @@ import seedu.coursebook.commons.util.CollectionUtil;
 import seedu.coursebook.commons.util.ToStringBuilder;
 import seedu.coursebook.logic.Messages;
 import seedu.coursebook.logic.commands.exceptions.CommandException;
-import seedu.coursebook.model.course.Course;
 import seedu.coursebook.model.Model;
+import seedu.coursebook.model.course.Course;
 import seedu.coursebook.model.person.Address;
 import seedu.coursebook.model.person.Email;
 import seedu.coursebook.model.person.Name;
@@ -223,7 +223,7 @@ public class EditCommand extends Command {
          * A defensive copy of {@code courses} is used internally.
         */
         public void setCourses(Set<Course> courses) {
-        this.courses = (courses != null) ? new HashSet<>(courses) : null;
+            this.courses = (courses != null) ? new HashSet<>(courses) : null;
         }
 
         /**

@@ -19,7 +19,6 @@ import seedu.coursebook.model.person.Phone;
 import seedu.coursebook.model.tag.Tag;
 
 
-import java.util.Arrays;
 
 /**
  * Jackson-friendly version of {@link Person}.

@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import seedu.coursebook.commons.core.LogsCenter;
 import seedu.coursebook.logic.commands.AddCommand;
+import seedu.coursebook.logic.commands.AddCourseCommand;
 import seedu.coursebook.logic.commands.ClearCommand;
 import seedu.coursebook.logic.commands.Command;
 import seedu.coursebook.logic.commands.DeleteCommand;
@@ -17,7 +18,6 @@ import seedu.coursebook.logic.commands.ExitCommand;
 import seedu.coursebook.logic.commands.FindCommand;
 import seedu.coursebook.logic.commands.HelpCommand;
 import seedu.coursebook.logic.commands.ListCommand;
-import seedu.coursebook.logic.commands.AddCourseCommand;
 import seedu.coursebook.logic.commands.RemoveCourseCommand;
 import seedu.coursebook.logic.parser.exceptions.ParseException;
 

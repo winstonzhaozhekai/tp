@@ -17,7 +17,6 @@ import java.util.List;
 
 import seedu.coursebook.model.CourseBook;
 import seedu.coursebook.model.person.Person;
-import seedu.coursebook.model.course.Course;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.

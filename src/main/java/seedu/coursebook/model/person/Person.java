@@ -1,7 +1,6 @@
 package seedu.coursebook.model.person;
 
 import static seedu.coursebook.commons.util.CollectionUtil.requireAllNonNull;
-import seedu.coursebook.model.course.Course;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -9,6 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.coursebook.commons.util.ToStringBuilder;
+import seedu.coursebook.model.course.Course;
 import seedu.coursebook.model.tag.Tag;
 
 /**

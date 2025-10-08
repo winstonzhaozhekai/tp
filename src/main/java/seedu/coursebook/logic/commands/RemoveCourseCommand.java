@@ -11,8 +11,8 @@ import seedu.coursebook.commons.core.index.Index;
 import seedu.coursebook.commons.util.ToStringBuilder;
 import seedu.coursebook.logic.Messages;
 import seedu.coursebook.logic.commands.exceptions.CommandException;
-import seedu.coursebook.model.course.Course;
 import seedu.coursebook.model.Model;
+import seedu.coursebook.model.course.Course;
 import seedu.coursebook.model.person.Person;
 
 /**
@@ -37,6 +37,10 @@ public class RemoveCourseCommand extends Command {
     private final Index index;
     private final Set<Course> coursesToRemove;
 
+    /**
+     * Constructs a command to remove specific courses from a person at the given index.
+     * The provided set is defensively copied.
+     */
     public RemoveCourseCommand(Index index, Set<Course> coursesToRemove) {
         requireNonNull(index);
         requireNonNull(coursesToRemove);
@@ -81,8 +85,12 @@ public class RemoveCourseCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        if (other == this) return true;
-        if (!(other instanceof RemoveCourseCommand)) return false;
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof RemoveCourseCommand)) {
+            return false;
+        }
         RemoveCourseCommand o = (RemoveCourseCommand) other;
         return index.equals(o.index) && coursesToRemove.equals(o.coursesToRemove);
     }

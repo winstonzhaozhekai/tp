@@ -1,17 +1,17 @@
 package seedu.coursebook.testutil;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Arrays;
 import java.util.stream.Collectors;
 
+import seedu.coursebook.model.course.Course;
 import seedu.coursebook.model.person.Address;
 import seedu.coursebook.model.person.Email;
 import seedu.coursebook.model.person.Name;
 import seedu.coursebook.model.person.Person;
 import seedu.coursebook.model.person.Phone;
 import seedu.coursebook.model.tag.Tag;
-import seedu.coursebook.model.course.Course;
 import seedu.coursebook.model.util.SampleDataUtil;
 
 /**
