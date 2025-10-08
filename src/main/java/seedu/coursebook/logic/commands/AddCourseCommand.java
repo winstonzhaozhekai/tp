@@ -51,41 +51,39 @@ public class AddCourseCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+public CommandResult execute(Model model) throws CommandException {
+    requireNonNull(model);
+    List<Person> lastShownList = model.getFilteredPersonList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        }
-
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-
-        // Check for duplicate courses
-        Set<Course> existingCourses = personToEdit.getCourses();
-        Set<Course> duplicates = new HashSet<>(coursesToAdd);
-        duplicates.retainAll(existingCourses);
-
-        if (!duplicates.isEmpty()) {
-            throw new CommandException(MESSAGE_DUPLICATE_COURSE);
-        }
-
-        // Add new courses to existing ones
-        Set<Course> updatedCourses = new HashSet<>(existingCourses);
-        updatedCourses.addAll(coursesToAdd);
-
-        Person editedPerson = new Person(
-                personToEdit.getName(),
-                personToEdit.getPhone(),
-                personToEdit.getEmail(),
-                personToEdit.getAddress(),
-                personToEdit.getTags(),
-                updatedCourses
-        );
-
-        model.setPerson(personToEdit, editedPerson);
-        return new CommandResult(String.format(MESSAGE_ADD_COURSE_SUCCESS, Messages.format(editedPerson)));
+    if (index.getZeroBased() >= lastShownList.size()) {
+        throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
+
+    Person personToEdit = lastShownList.get(index.getZeroBased());
+    Set<Course> existing = personToEdit.getCourses();
+
+    Set<Course> intersection = new HashSet<>(existing);
+    intersection.retainAll(coursesToAdd);
+    if (!intersection.isEmpty()) {
+        throw new CommandException(MESSAGE_DUPLICATE_COURSE);
+    }
+
+    Set<Course> updatedCourses = new HashSet<>(existing);
+    updatedCourses.addAll(coursesToAdd);
+
+    Person editedPerson = new Person(
+            personToEdit.getName(),
+            personToEdit.getPhone(),
+            personToEdit.getEmail(),
+            personToEdit.getAddress(),
+            personToEdit.getTags(),
+            updatedCourses
+    );
+
+    model.setPerson(personToEdit, editedPerson);
+    return new CommandResult(String.format(MESSAGE_ADD_COURSE_SUCCESS, Messages.format(editedPerson)));
+}
+
 
     @Override
     public boolean equals(Object other) {
