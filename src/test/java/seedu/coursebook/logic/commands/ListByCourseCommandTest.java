@@ -51,4 +51,5 @@ public class ListByCourseCommandTest {
 
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
+    
 }
