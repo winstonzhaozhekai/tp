@@ -8,13 +8,14 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import seedu.address.model.VersionedCourseBook;
 import seedu.coursebook.commons.core.GuiSettings;
 import seedu.coursebook.commons.core.LogsCenter;
 import seedu.coursebook.model.person.Person;
+import seedu.coursebook.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -25,6 +26,7 @@ public class ModelManager implements Model {
     private final VersionedCourseBook versionedCourseBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given CourseBook and userPrefs.

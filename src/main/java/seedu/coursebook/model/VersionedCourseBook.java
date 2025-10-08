@@ -1,6 +1,4 @@
-package seedu.address.model;
-import seedu.coursebook.model.CourseBook;
-import seedu.coursebook.model.ReadOnlyCourseBook;
+package seedu.coursebook.model;
 
 import java.util.ArrayList;
 import java.util.List;

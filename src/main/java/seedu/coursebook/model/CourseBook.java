@@ -5,7 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import javafx.beans.InvalidationListener;
 import seedu.coursebook.commons.util.ToStringBuilder;
+import seedu.coursebook.commons.util.InvalidationListenerManager;
 import seedu.coursebook.model.person.Person;
 import seedu.coursebook.model.person.UniquePersonList;
 
@@ -16,6 +18,8 @@ import seedu.coursebook.model.person.UniquePersonList;
 public class CourseBook implements ReadOnlyCourseBook {
 
     private final UniquePersonList persons;
+    private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
+
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -46,6 +50,7 @@ public class CourseBook implements ReadOnlyCourseBook {
      */
     public void setPersons(List<Person> persons) {
         this.persons.setPersons(persons);
+        indicateModified();
     }
 
     /**
@@ -73,6 +78,7 @@ public class CourseBook implements ReadOnlyCourseBook {
      */
     public void addPerson(Person p) {
         persons.add(p);
+        indicateModified();
     }
 
     /**
@@ -84,6 +90,7 @@ public class CourseBook implements ReadOnlyCourseBook {
         requireNonNull(editedPerson);
 
         persons.setPerson(target, editedPerson);
+        indicateModified();
     }
 
     /**
@@ -92,15 +99,31 @@ public class CourseBook implements ReadOnlyCourseBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+        indicateModified();
+    }
+
+    @Override
+    public void addListener(InvalidationListener listener) {
+        invalidationListenerManager.addListener(listener);
+    }
+
+    @Override
+    public void removeListener(InvalidationListener listener) {
+        invalidationListenerManager.removeListener(listener);
+    }
+
+    /**
+     * Notifies listeners that the address book has been modified.
+     */
+    protected void indicateModified() {
+        invalidationListenerManager.callListeners(this);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .add("persons", persons)
-                .toString();
+        return persons.asUnmodifiableObservableList().size() + " persons";
     }
 
     @Override
@@ -110,18 +133,11 @@ public class CourseBook implements ReadOnlyCourseBook {
 
     @Override
     public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof CourseBook)) {
-            return false;
-        }
-
-        CourseBook otherCourseBook = (CourseBook) other;
-        return persons.equals(otherCourseBook.persons);
+        return other == this // short circuit if same object
+                || (other instanceof CourseBook // instanceof handles nulls
+                && persons.equals(((CourseBook) other).persons));
     }
+
 
     @Override
     public int hashCode() {

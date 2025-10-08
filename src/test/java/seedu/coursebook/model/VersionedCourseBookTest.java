@@ -1,16 +1,20 @@
-package seedu.address.model;
+package seedu.coursebook.model;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.testutil.CourseBookBuilder;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.coursebook.testutil.Assert.assertThrows;
+import static seedu.coursebook.testutil.TypicalPersons.AMY;
+import static seedu.coursebook.testutil.TypicalPersons.BOB;
+import static seedu.coursebook.testutil.TypicalPersons.CARL;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.*;
+import org.junit.jupiter.api.Test;
+
+import seedu.coursebook.testutil.CourseBookBuilder;
 
 public class VersionedCourseBookTest {
 
@@ -275,8 +279,8 @@ public class VersionedCourseBookTest {
         assertFalse(courseBookStates.length == 0);
 
         VersionedCourseBook versionedCourseBook = new VersionedCourseBook(courseBookStates[0]);
-        for (int i = 1; i < CourseBookStates.length; i++) {
-            versionedCourseBook.resetData(CourseBookStates[i]);
+        for (int i = 1; i < courseBookStates.length; i++) {
+            versionedCourseBook.resetData(courseBookStates[i]);
             versionedCourseBook.commit();
         }
 
