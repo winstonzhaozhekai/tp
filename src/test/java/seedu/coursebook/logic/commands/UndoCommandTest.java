@@ -1,7 +1,6 @@
 package seedu.coursebook.logic.commands;
 
-import static seedu.coursebook.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.coursebook.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.coursebook.logic.commands.CommandTestUtil.*;
 import static seedu.coursebook.testutil.TypicalPersons.getTypicalCourseBook;
 
 import org.junit.jupiter.api.BeforeEach;
