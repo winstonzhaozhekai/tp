@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import seedu.address.model.VersionedCourseBook;
 import seedu.coursebook.commons.core.GuiSettings;
 import seedu.coursebook.commons.core.LogsCenter;
 import seedu.coursebook.model.person.Person;
@@ -19,7 +20,7 @@ import seedu.coursebook.model.person.Person;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final CourseBook courseBook;
+    private final VersionedCourseBook versionedCourseBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
@@ -30,7 +31,7 @@ public class ModelManager implements Model {
         requireAllNonNull(courseBook, userPrefs);
 
         logger.fine("Initializing with address book: " + courseBook + " and user prefs " + userPrefs);
-
+        
         this.courseBook = new CourseBook(courseBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.courseBook.getPersonList());
