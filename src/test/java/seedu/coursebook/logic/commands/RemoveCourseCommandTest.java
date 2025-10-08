@@ -9,12 +9,14 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Predicate;
 
+import javafx.beans.property.ReadOnlyProperty;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.coursebook.commons.core.GuiSettings;
 import seedu.coursebook.commons.core.index.Index;
+import seedu.coursebook.logic.CommandHistory;
 import seedu.coursebook.logic.commands.exceptions.CommandException;
 import seedu.coursebook.model.Model;
 import seedu.coursebook.model.ReadOnlyCourseBook;
@@ -24,6 +26,8 @@ import seedu.coursebook.model.person.Person;
 import seedu.coursebook.testutil.PersonBuilder;
 
 public class RemoveCourseCommandTest {
+
+    private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_existingCourse_success() throws Exception {
@@ -36,7 +40,7 @@ public class RemoveCourseCommandTest {
 
         RemoveCourseCommand command =
                 new RemoveCourseCommand(modelStub.getFirstIndex(), toRemove);
-        CommandResult result = command.execute(modelStub);
+        CommandResult result = command.execute(modelStub, commandHistory);
 
         assertTrue(result.getFeedbackToUser()
             .contains("Removed courses from Person:"));
@@ -52,7 +56,7 @@ public class RemoveCourseCommandTest {
         RemoveCourseCommand command =
                 new RemoveCourseCommand(modelStub.getFirstIndex(), toRemove);
 
-        CommandException ex = assertThrows(CommandException.class, () -> command.execute(modelStub));
+        CommandException ex = assertThrows(CommandException.class, () -> command.execute(modelStub, commandHistory));
         assertEquals(RemoveCourseCommand.MESSAGE_NO_MATCHING_COURSES, ex.getMessage());
     }
 
@@ -69,7 +73,7 @@ public class RemoveCourseCommandTest {
         // Index 5 is invalid since modelStub likely has only 1 person
         RemoveCourseCommand command = new RemoveCourseCommand(Index.fromOneBased(5), courses);
 
-        assertThrows(CommandException.class, () -> command.execute(modelStub));
+        assertThrows(CommandException.class, () -> command.execute(modelStub, commandHistory));
     }
 
     @Test
@@ -84,7 +88,7 @@ public class RemoveCourseCommandTest {
 
         RemoveCourseCommand command = new RemoveCourseCommand(Index.fromOneBased(1), coursesToRemove);
 
-        CommandException exception = assertThrows(CommandException.class, () -> command.execute(modelStub));
+        CommandException exception = assertThrows(CommandException.class, () -> command.execute(modelStub, commandHistory));
         System.out.println("Actual message: " + exception.getMessage());
         assertTrue(exception.getMessage().contains(RemoveCourseCommand.MESSAGE_NO_MATCHING_COURSES));
     }
@@ -136,5 +140,46 @@ public class RemoveCourseCommandTest {
         @Override public ObservableList<Person> getFilteredPersonList() {
             return persons; }
         @Override public void updateFilteredPersonList(Predicate<Person> predicate) {}
+
+        @Override
+        public boolean canUndoCourseBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedoCourseBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoCourseBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoCourseBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commitCourseBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<Person> selectedPersonProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Person getSelectedPerson() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 }

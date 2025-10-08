@@ -8,12 +8,14 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Predicate;
 
+import javafx.beans.property.ReadOnlyProperty;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.coursebook.commons.core.GuiSettings;
 import seedu.coursebook.commons.core.index.Index;
+import seedu.coursebook.logic.CommandHistory;
 import seedu.coursebook.logic.commands.exceptions.CommandException;
 import seedu.coursebook.model.Model;
 import seedu.coursebook.model.ReadOnlyCourseBook;
@@ -25,6 +27,10 @@ import seedu.coursebook.testutil.PersonBuilder;
 
 public class AddCourseCommandTest {
 
+    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
+
+    private CommandHistory commandHistory = new CommandHistory();
+
     @Test
     public void execute_validCourse_success() throws Exception {
         ModelStubWithOnePerson modelStub = new ModelStubWithOnePerson();
@@ -33,7 +39,7 @@ public class AddCourseCommandTest {
         courseSet.add(sampleCourse);
 
         AddCourseCommand command = new AddCourseCommand(Index.fromOneBased(1), courseSet);
-        CommandResult result = command.execute(modelStub);
+        CommandResult result = command.execute(modelStub, commandHistory);
 
         System.out.println("Actual message: " + result.getFeedbackToUser());
         assertTrue(result.getFeedbackToUser().toLowerCase().contains("added"));
@@ -54,7 +60,7 @@ public class AddCourseCommandTest {
 
         AddCourseCommand command = new AddCourseCommand(Index.fromOneBased(1), duplicateCourseSet);
 
-        assertThrows(CommandException.class, () -> command.execute(modelStub));
+        assertThrows(CommandException.class, () -> command.execute(modelStub, commandHistory));
     }
 
     @Test
@@ -65,7 +71,7 @@ public class AddCourseCommandTest {
         courses.add(sampleCourse);
 
         AddCourseCommand command = new AddCourseCommand(Index.fromOneBased(5), courses); // invalid
-        assertThrows(CommandException.class, () -> command.execute(modelStub));
+        assertThrows(CommandException.class, () -> command.execute(modelStub, commandHistory));
     }
 
 
@@ -98,7 +104,48 @@ public class AddCourseCommandTest {
         @Override public ObservableList<Person> getFilteredPersonList() {
             return FXCollections.observableArrayList(); }
         @Override public void updateFilteredPersonList(Predicate<Person> predicate) {}
+
+        @Override
+        public boolean canUndoCourseBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedoCourseBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoCourseBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoCourseBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commitCourseBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<Person> selectedPersonProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Person getSelectedPerson() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
+
 
     private static class ModelStubWithOnePerson implements Model {
         private final ObservableList<Person> persons =
@@ -127,5 +174,44 @@ public class AddCourseCommandTest {
         @Override public void setCourseBook(ReadOnlyCourseBook courseBook) {}
         @Override public ReadOnlyCourseBook getCourseBook() {
             return null; }
+        @Override
+        public boolean canUndoCourseBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedoCourseBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoCourseBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoCourseBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commitCourseBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<Person> selectedPersonProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Person getSelectedPerson() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 }
