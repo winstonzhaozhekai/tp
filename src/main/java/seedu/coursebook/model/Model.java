@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.coursebook.commons.core.GuiSettings;
+import seedu.coursebook.model.course.Course;
 import seedu.coursebook.model.person.Person;
 
 /**
@@ -127,5 +128,14 @@ public interface Model {
      * Sets the selected person in the filtered person list.
      */
     void setSelectedPerson(Person person);
+
+    /** Returns an unmodifiable view of the filtered course list */
+    ObservableList<Course> getFilteredCourseList();
+
+    /**
+     * Updates the filter of the filtered course list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredCourseList(Predicate<Course> predicate);
 
 }
