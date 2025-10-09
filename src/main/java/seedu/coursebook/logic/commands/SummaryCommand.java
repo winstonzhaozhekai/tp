@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import seedu.coursebook.logic.CommandHistory;
 import seedu.coursebook.model.Model;
 
 /**
@@ -17,7 +18,7 @@ public class SummaryCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Summary: %d person(s) found\n\nBreakdown by course:\n%s";
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
 
         // Get the person count from the course book
@@ -47,3 +48,4 @@ public class SummaryCommand extends Command {
         return new CommandResult(message);
     }
 }
+
