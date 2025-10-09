@@ -137,19 +137,29 @@ public class ModelManager implements Model {
     //============ Undo/Redo =====================================================================================
 
     @Override
-    public boolean canUndoCourseBook() { return versionedCourseBook.canUndo(); }
+    public boolean canUndoCourseBook() {
+        return versionedCourseBook.canUndo();
+    }
 
     @Override
-    public boolean canRedoCourseBook() { return versionedCourseBook.canRedo(); }
+    public boolean canRedoCourseBook() {
+        return versionedCourseBook.canRedo();
+    }
 
     @Override
-    public void undoCourseBook() { versionedCourseBook.undo(); }
+    public void undoCourseBook() {
+        versionedCourseBook.undo();
+    }
 
     @Override
-    public void redoCourseBook() { versionedCourseBook.redo(); }
+    public void redoCourseBook() {
+        versionedCourseBook.redo();
+    }
 
     @Override
-    public void commitCourseBook() { versionedCourseBook.commit(); }
+    public void commitCourseBook() {
+        versionedCourseBook.commit();
+    }
 
     //=========== Selected person ===========================================================================
 

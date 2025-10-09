@@ -1,9 +1,9 @@
 package seedu.coursebook.logic;
 
+import static java.util.Objects.requireNonNull;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Store history of commands executed

@@ -11,6 +11,10 @@ public class VersionedCourseBook extends CourseBook {
     private final List<ReadOnlyCourseBook> courseBookStateList;
     private int currentStatePointer;
 
+    /**
+     * Initialize coursebook to be empty
+     * @param initialState starts as a read only course book
+     */
     public VersionedCourseBook(ReadOnlyCourseBook initialState) {
         super(initialState);
 

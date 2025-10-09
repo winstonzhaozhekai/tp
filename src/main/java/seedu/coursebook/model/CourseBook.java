@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import javafx.collections.ObservableList;
 import javafx.beans.InvalidationListener;
+import javafx.collections.ObservableList;
 import seedu.coursebook.commons.util.InvalidationListenerManager;
 import seedu.coursebook.model.person.Person;
 import seedu.coursebook.model.person.UniquePersonList;
