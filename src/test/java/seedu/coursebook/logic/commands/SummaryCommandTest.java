@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.coursebook.logic.CommandHistory;
 import seedu.coursebook.model.Model;
 import seedu.coursebook.model.ModelManager;
 import seedu.coursebook.model.UserPrefs;
@@ -47,7 +48,7 @@ public class SummaryCommandTest {
 
         Model expectedModel = new ModelManager(model.getCourseBook(), new UserPrefs());
 
-        assertCommandSuccess(summaryCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(summaryCommand, model, new CommandHistory(), expectedMessage, expectedModel);
     }
 
     @Test
@@ -58,6 +59,6 @@ public class SummaryCommandTest {
         String expectedMessage = String.format(SummaryCommand.MESSAGE_SUCCESS, 0, "No courses found");
         Model expectedModel = new ModelManager();
 
-        assertCommandSuccess(summaryCommand, emptyModel, expectedMessage, expectedModel);
+        assertCommandSuccess(summaryCommand, emptyModel, new CommandHistory(), expectedMessage, expectedModel);
     }
 }

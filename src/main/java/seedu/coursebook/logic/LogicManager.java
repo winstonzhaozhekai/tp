@@ -86,7 +86,9 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<String> getHistory() { return history.getHistory(); }
+    public ObservableList<String> getHistory() {
+        return history.getHistory();
+    }
 
     @Override
     public Path getCourseBookFilePath() {
