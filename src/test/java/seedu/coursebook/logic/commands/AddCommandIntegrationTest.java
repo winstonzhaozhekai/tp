@@ -7,6 +7,7 @@ import static seedu.coursebook.testutil.TypicalPersons.getTypicalCourseBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.coursebook.logic.CommandHistory;
 import seedu.coursebook.logic.Messages;
 import seedu.coursebook.model.Model;
 import seedu.coursebook.model.ModelManager;
@@ -20,6 +21,7 @@ import seedu.coursebook.testutil.PersonBuilder;
 public class AddCommandIntegrationTest {
 
     private Model model;
+    private CommandHistory commandHistory = new CommandHistory();
 
     @BeforeEach
     public void setUp() {
@@ -32,8 +34,9 @@ public class AddCommandIntegrationTest {
 
         Model expectedModel = new ModelManager(model.getCourseBook(), new UserPrefs());
         expectedModel.addPerson(validPerson);
+        expectedModel.commitCourseBook();
 
-        assertCommandSuccess(new AddCommand(validPerson), model,
+        assertCommandSuccess(new AddCommand(validPerson), model, commandHistory,
                 String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validPerson)),
                 expectedModel);
     }
@@ -41,7 +44,7 @@ public class AddCommandIntegrationTest {
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Person personInList = model.getCourseBook().getPersonList().get(0);
-        assertCommandFailure(new AddCommand(personInList), model,
+        assertCommandFailure(new AddCommand(personInList), model, commandHistory,
                 AddCommand.MESSAGE_DUPLICATE_PERSON);
     }
 

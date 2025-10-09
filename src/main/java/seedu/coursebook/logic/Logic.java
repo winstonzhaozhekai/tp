@@ -2,6 +2,7 @@ package seedu.coursebook.logic;
 
 import java.nio.file.Path;
 
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.coursebook.commons.core.GuiSettings;
 import seedu.coursebook.logic.commands.CommandResult;
@@ -34,6 +35,12 @@ public interface Logic {
     ObservableList<Person> getFilteredPersonList();
 
     /**
+     * Returns an unmodifiable view of the list of commands entered by the user.
+     * The list is ordered from the least recent command to the most recent command.
+     */
+    ObservableList<String> getHistory();
+
+    /**
      * Returns the user prefs' address book file path.
      */
     Path getCourseBookFilePath();
@@ -47,4 +54,19 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Selected person in the filtered person list.
+     * null if no person is selected.
+     *
+     * @see seedu.coursebook.model.Model#selectedPersonProperty()
+     */
+    ReadOnlyProperty<Person> selectedPersonProperty();
+
+    /**
+     * Sets the selected person in the filtered person list.
+     *
+     * @see seedu.coursebook.model.Model#setSelectedPerson(Person)
+     */
+    void setSelectedPerson(Person person);
 }

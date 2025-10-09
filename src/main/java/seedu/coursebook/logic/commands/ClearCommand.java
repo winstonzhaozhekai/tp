@@ -2,6 +2,7 @@ package seedu.coursebook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.coursebook.logic.CommandHistory;
 import seedu.coursebook.model.CourseBook;
 import seedu.coursebook.model.Model;
 
@@ -15,9 +16,10 @@ public class ClearCommand extends Command {
 
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.setCourseBook(new CourseBook());
+        model.commitCourseBook();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

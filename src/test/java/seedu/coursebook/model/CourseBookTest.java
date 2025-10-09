@@ -16,6 +16,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.coursebook.model.person.Person;
@@ -83,14 +85,34 @@ public class CourseBookTest {
         assertThrows(UnsupportedOperationException.class, () -> courseBook.getPersonList().remove(0));
     }
 
+
     @Test
     public void toStringMethod() {
         String expected = CourseBook.class.getCanonicalName() + "{persons=" + courseBook.getPersonList() + "}";
         assertEquals(expected, courseBook.toString());
     }
 
+    @Test
+    public void addListener_withInvalidationListener_listenerAdded() {
+        SimpleIntegerProperty counter = new SimpleIntegerProperty();
+        InvalidationListener listener = observable -> counter.set(counter.get() + 1);
+        courseBook.addListener(listener);
+        courseBook.addPerson(ALICE);
+        assertEquals(1, counter.get());
+    }
+
+    @Test
+    public void removeListener_withInvalidationListener_listenerRemoved() {
+        SimpleIntegerProperty counter = new SimpleIntegerProperty();
+        InvalidationListener listener = observable -> counter.set(counter.get() + 1);
+        courseBook.addListener(listener);
+        courseBook.removeListener(listener);
+        courseBook.addPerson(ALICE);
+        assertEquals(0, counter.get());
+    }
+
     /**
-     * A stub ReadOnlyCourseBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
      */
     private static class CourseBookStub implements ReadOnlyCourseBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
@@ -102,6 +124,16 @@ public class CourseBookTest {
         @Override
         public ObservableList<Person> getPersonList() {
             return persons;
+        }
+
+        @Override
+        public void addListener(InvalidationListener listener) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeListener(InvalidationListener listener) {
+            throw new AssertionError("This method should not be called.");
         }
     }
 

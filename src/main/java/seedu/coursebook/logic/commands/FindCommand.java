@@ -3,6 +3,7 @@ package seedu.coursebook.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.coursebook.commons.util.ToStringBuilder;
+import seedu.coursebook.logic.CommandHistory;
 import seedu.coursebook.logic.Messages;
 import seedu.coursebook.model.Model;
 import seedu.coursebook.model.person.NameContainsKeywordsPredicate;
@@ -27,7 +28,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredPersonList(predicate);
         return new CommandResult(

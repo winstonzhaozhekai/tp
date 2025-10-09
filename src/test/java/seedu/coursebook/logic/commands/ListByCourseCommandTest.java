@@ -6,6 +6,7 @@ import static seedu.coursebook.testutil.TypicalPersons.getTypicalCourseBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.coursebook.logic.CommandHistory;
 import seedu.coursebook.model.Model;
 import seedu.coursebook.model.ModelManager;
 import seedu.coursebook.model.UserPrefs;
@@ -17,6 +18,7 @@ public class ListByCourseCommandTest {
 
     private Model model;
     private Model expectedModel;
+    private CommandHistory commandHistory = new CommandHistory();
 
     @BeforeEach
     public void setUp() {
@@ -35,7 +37,7 @@ public class ListByCourseCommandTest {
 
         String expectedMessage = "Listed all persons in " + courseCode;
 
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
@@ -49,6 +51,6 @@ public class ListByCourseCommandTest {
 
         String expectedMessage = "No such course: " + courseCode;
 
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
 }
