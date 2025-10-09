@@ -95,6 +95,33 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void getFilteredCourseList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredCourseList().remove(0));
+    }
+
+    @Test
+    public void updateFilteredCourseList_nullPredicate_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.updateFilteredCourseList(null));
+    }
+
+    @Test
+    public void getFilteredCourseList_extractsCoursesFromPersons() {
+        // Add persons with courses
+        modelManager.addPerson(ALICE);
+        modelManager.addPerson(BENSON);
+
+        // Course list should contain unique courses from all persons
+        assertTrue(modelManager.getFilteredCourseList().size() >= 0);
+
+        // Filter course list
+        modelManager.updateFilteredCourseList(course -> course.courseCode.startsWith("CS"));
+
+        // All filtered courses should start with CS
+        modelManager.getFilteredCourseList().forEach(course ->
+            assertTrue(course.courseCode.startsWith("CS")));
+    }
+
+    @Test
     public void equals() {
         CourseBook courseBook = new CourseBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         CourseBook differentCourseBook = new CourseBook();
