@@ -9,9 +9,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import javafx.beans.property.ReadOnlyProperty;
 import org.junit.jupiter.api.Test;
 
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.coursebook.commons.core.GuiSettings;
@@ -88,7 +88,9 @@ public class RemoveCourseCommandTest {
 
         RemoveCourseCommand command = new RemoveCourseCommand(Index.fromOneBased(1), coursesToRemove);
 
-        CommandException exception = assertThrows(CommandException.class, () -> command.execute(modelStub, commandHistory));
+        CommandException exception = assertThrows(
+                CommandException.class, () -> command.execute(modelStub, commandHistory)
+        );
         System.out.println("Actual message: " + exception.getMessage());
         assertTrue(exception.getMessage().contains(RemoveCourseCommand.MESSAGE_NO_MATCHING_COURSES));
     }

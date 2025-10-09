@@ -1,6 +1,8 @@
 package seedu.coursebook.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.coursebook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.coursebook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.coursebook.logic.commands.CommandTestUtil.showPersonAtIndex;

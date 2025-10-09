@@ -1,11 +1,13 @@
 package seedu.coursebook.logic.commands;
 
-import static seedu.coursebook.logic.commands.CommandTestUtil.*;
+import static seedu.coursebook.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.coursebook.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.coursebook.logic.commands.CommandTestUtil.deleteFirstPerson;
 import static seedu.coursebook.testutil.TypicalPersons.getTypicalCourseBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import seedu.coursebook.logic.commands.UndoCommand;
+
 import seedu.coursebook.logic.CommandHistory;
 import seedu.coursebook.model.Model;
 import seedu.coursebook.model.ModelManager;

@@ -18,7 +18,6 @@ import seedu.coursebook.logic.CommandHistory;
 import seedu.coursebook.logic.commands.exceptions.CommandException;
 import seedu.coursebook.model.CourseBook;
 import seedu.coursebook.model.Model;
-import seedu.coursebook.model.course.Course;
 import seedu.coursebook.model.person.NameContainsKeywordsPredicate;
 import seedu.coursebook.model.person.Person;
 import seedu.coursebook.testutil.EditPersonDescriptorBuilder;

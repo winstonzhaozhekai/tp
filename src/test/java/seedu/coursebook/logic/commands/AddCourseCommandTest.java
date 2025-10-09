@@ -8,9 +8,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import javafx.beans.property.ReadOnlyProperty;
 import org.junit.jupiter.api.Test;
 
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.coursebook.commons.core.GuiSettings;

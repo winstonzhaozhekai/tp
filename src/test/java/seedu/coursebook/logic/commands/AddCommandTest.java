@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
-import javafx.beans.property.ReadOnlyProperty;
 import org.junit.jupiter.api.Test;
 
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.coursebook.commons.core.GuiSettings;
 import seedu.coursebook.logic.CommandHistory;
@@ -57,8 +57,9 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(validPerson);
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON,
-                () -> addCommand.execute(modelStub, commandHistory));
+        assertThrows(CommandException.class,
+                AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub, commandHistory)
+        );
     }
 
     @Test
