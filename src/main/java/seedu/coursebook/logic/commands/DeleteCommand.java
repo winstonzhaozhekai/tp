@@ -6,6 +6,7 @@ import java.util.List;
 
 import seedu.coursebook.commons.core.index.Index;
 import seedu.coursebook.commons.util.ToStringBuilder;
+import seedu.coursebook.logic.CommandHistory;
 import seedu.coursebook.logic.Messages;
 import seedu.coursebook.logic.commands.exceptions.CommandException;
 import seedu.coursebook.model.Model;
@@ -32,7 +33,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
@@ -42,22 +43,15 @@ public class DeleteCommand extends Command {
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deletePerson(personToDelete);
+        model.commitCourseBook();
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personToDelete)));
     }
 
     @Override
     public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof DeleteCommand)) {
-            return false;
-        }
-
-        DeleteCommand otherDeleteCommand = (DeleteCommand) other;
-        return targetIndex.equals(otherDeleteCommand.targetIndex);
+        return other == this // short circuit if same object
+                || (other instanceof DeleteCommand // instanceof handles nulls
+                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
     }
 
     @Override

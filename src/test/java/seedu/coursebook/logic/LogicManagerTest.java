@@ -72,14 +72,23 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        assertCommandFailureForExceptionFromStorage(DUMMY_IO_EXCEPTION, String.format(
-                LogicManager.FILE_OPS_ERROR_FORMAT, DUMMY_IO_EXCEPTION.getMessage()));
-    }
+        // Setup LogicManager with JsonCourseBookIoExceptionThrowingStub
+        JsonCourseBookStorage courseBookStorage =
+                new JsonCourseBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionCourseBook.json"));
+        JsonUserPrefsStorage userPrefsStorage =
+                new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
+        StorageManager storage = new StorageManager(courseBookStorage, userPrefsStorage);
+        logic = new LogicManager(model, storage);
 
-    @Test
-    public void execute_storageThrowsAdException_throwsCommandException() {
-        assertCommandFailureForExceptionFromStorage(DUMMY_AD_EXCEPTION, String.format(
-                LogicManager.FILE_OPS_PERMISSION_ERROR_FORMAT, DUMMY_AD_EXCEPTION.getMessage()));
+        // Execute add command
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
+                + ADDRESS_DESC_AMY;
+        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
+        ModelManager expectedModel = new ModelManager();
+        expectedModel.addPerson(expectedPerson);
+        expectedModel.commitCourseBook();
+        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
+        assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
 
     @Test
@@ -171,5 +180,19 @@ public class LogicManagerTest {
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called.
+     */
+    public static class JsonCourseBookIoExceptionThrowingStub extends JsonCourseBookStorage {
+        private JsonCourseBookIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveCourseBook(ReadOnlyCourseBook courseBook, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
     }
 }

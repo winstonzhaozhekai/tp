@@ -9,6 +9,7 @@ import static seedu.coursebook.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.coursebook.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.coursebook.commons.util.ToStringBuilder;
+import seedu.coursebook.logic.CommandHistory;
 import seedu.coursebook.logic.Messages;
 import seedu.coursebook.logic.commands.exceptions.CommandException;
 import seedu.coursebook.model.Model;
@@ -53,7 +54,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
         if (model.hasPerson(toAdd)) {
@@ -61,22 +62,15 @@ public class AddCommand extends Command {
         }
 
         model.addPerson(toAdd);
+        model.commitCourseBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
     }
 
     @Override
     public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof AddCommand)) {
-            return false;
-        }
-
-        AddCommand otherAddCommand = (AddCommand) other;
-        return toAdd.equals(otherAddCommand.toAdd);
+        return other == this // short circuit if same object
+                || (other instanceof AddCommand // instanceof handles nulls
+                && toAdd.equals(((AddCommand) other).toAdd));
     }
 
     @Override
