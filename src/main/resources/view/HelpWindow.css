@@ -1,19 +1,139 @@
-#copyButton, #helpMessage {
+/* Root container */
+.root {
+    -fx-background-color: #2b2b2b;
+}
+
+/* Title styling */
+.help-title {
+    -fx-text-fill: #f0f0f0;
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+}
+
+/* Command table styling */
+.command-table {
+    -fx-background-color: #1d1d1d;
+    -fx-table-cell-border-color: #3c3c3c;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.command-table .table-column {
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 5 10 5 10;
+}
+
+.command-table .table-row-cell {
+    -fx-background-color: #2b2b2b;
+    -fx-text-fill: #e0e0e0;
+    -fx-border-color: #3c3c3c;
+    -fx-border-width: 0 0 1 0;
+}
+
+.command-table .table-row-cell:odd {
+    -fx-background-color: #242424;
+}
+
+.command-table .table-row-cell:hover {
+    -fx-background-color: #3a3a3a;
+}
+
+.command-table .table-row-cell:selected {
+    -fx-background-color: #4a4a4a;
+}
+
+.command-table .column-header {
+    -fx-background-color: #1d1d1d;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-padding: 8 10 8 10;
+    -fx-border-color: #3c3c3c;
+    -fx-border-width: 0 0 2 0;
+}
+
+.command-table .column-header-background {
+    -fx-background-color: #1d1d1d;
+}
+
+.command-table .table-cell {
+    -fx-text-fill: #e0e0e0;
+    -fx-padding: 5 10 5 10;
+    -fx-font-family: "Consolas", monospace;
+    -fx-font-size: 11px;
+}
+
+/* Separator line */
+.separator {
+    -fx-text-fill: #4a4a4a;
+    -fx-font-size: 10px;
+}
+
+/* Info label */
+.info-label {
+    -fx-text-fill: #b0b0b0;
+    -fx-font-size: 12px;
+}
+
+/* Link label */
+.link-label {
+    -fx-text-fill: #6db3f2;
+    -fx-font-size: 12px;
+}
+
+/* Copy button styling */
+#copyButton, .copy-button {
+    -fx-background-color: #3c3c3c;
     -fx-text-fill: white;
+    -fx-font-size: 11px;
+    -fx-padding: 5 15 5 15;
+    -fx-background-radius: 3;
+    -fx-cursor: hand;
 }
 
-#copyButton {
-    -fx-background-color: dimgray;
+#copyButton:hover, .copy-button:hover {
+    -fx-background-color: #4a4a4a;
 }
 
-#copyButton:hover {
-    -fx-background-color: gray;
+#copyButton:pressed, .copy-button:pressed {
+    -fx-background-color: #5a5a5a;
 }
 
-#copyButton:armed {
-    -fx-background-color: darkgray;
+/* Help message styling */
+#helpMessage {
+    -fx-text-fill: #6db3f2;
+    -fx-font-size: 12px;
 }
 
 #helpMessageContainer {
     -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+/* ScrollPane styling */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: #3c3c3c;
+    -fx-border-width: 1;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: #2b2b2b;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: #1d1d1d;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #4a4a4a;
+    -fx-background-radius: 3;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #5a5a5a;
+}
+
+/* VBox and HBox container styling */
+.vbox, .hbox {
+    -fx-background-color: #2b2b2b;
 }
