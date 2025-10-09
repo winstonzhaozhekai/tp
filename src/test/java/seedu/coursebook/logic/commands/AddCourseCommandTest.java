@@ -107,43 +107,35 @@ public class AddCourseCommandTest {
 
         @Override
         public boolean canUndoCourseBook() {
-            throw new AssertionError("This method should not be called.");
+            return false;
         }
 
         @Override
         public boolean canRedoCourseBook() {
-            throw new AssertionError("This method should not be called.");
+            return false;
         }
 
         @Override
-        public void undoCourseBook() {
-            throw new AssertionError("This method should not be called.");
-        }
+        public void undoCourseBook() {}
 
         @Override
-        public void redoCourseBook() {
-            throw new AssertionError("This method should not be called.");
-        }
+        public void redoCourseBook() {}
 
         @Override
-        public void commitCourseBook() {
-            throw new AssertionError("This method should not be called.");
-        }
+        public void commitCourseBook() {}
 
         @Override
         public ReadOnlyProperty<Person> selectedPersonProperty() {
-            throw new AssertionError("This method should not be called.");
+            return null;
         }
 
         @Override
         public Person getSelectedPerson() {
-            throw new AssertionError("This method should not be called.");
+            return null;
         }
 
         @Override
-        public void setSelectedPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
+        public void setSelectedPerson(Person person) {}
     }
 
 
@@ -176,42 +168,35 @@ public class AddCourseCommandTest {
             return null; }
         @Override
         public boolean canUndoCourseBook() {
-            throw new AssertionError("This method should not be called.");
+            return false;
         }
 
         @Override
         public boolean canRedoCourseBook() {
-            throw new AssertionError("This method should not be called.");
+            return false;
         }
 
         @Override
-        public void undoCourseBook() {
-            throw new AssertionError("This method should not be called.");
-        }
+        public void undoCourseBook() {}
 
         @Override
-        public void redoCourseBook() {
-            throw new AssertionError("This method should not be called.");
-        }
+        public void redoCourseBook() {}
 
         @Override
-        public void commitCourseBook() {
-            throw new AssertionError("This method should not be called.");
-        }
+        public void commitCourseBook() {}
 
         @Override
         public ReadOnlyProperty<Person> selectedPersonProperty() {
-            throw new AssertionError("This method should not be called.");
+            return null;
         }
 
         @Override
         public Person getSelectedPerson() {
-            throw new AssertionError("This method should not be called.");
+            return null;
         }
 
         @Override
-        public void setSelectedPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
+        public void setSelectedPerson(Person person) {}
+
     }
 }

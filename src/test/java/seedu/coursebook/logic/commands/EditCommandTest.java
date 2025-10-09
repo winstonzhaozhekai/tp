@@ -74,6 +74,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new CourseBook(model.getCourseBook()), new UserPrefs());
         expectedModel.setPerson(lastPerson, editedPerson);
+        expectedModel.commitCourseBook();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }

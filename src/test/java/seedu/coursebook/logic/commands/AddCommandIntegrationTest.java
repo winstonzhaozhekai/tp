@@ -34,6 +34,7 @@ public class AddCommandIntegrationTest {
 
         Model expectedModel = new ModelManager(model.getCourseBook(), new UserPrefs());
         expectedModel.addPerson(validPerson);
+        expectedModel.commitCourseBook();
 
         assertCommandSuccess(new AddCommand(validPerson), model, commandHistory,
                 String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validPerson)),

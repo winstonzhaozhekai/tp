@@ -122,7 +122,7 @@ public class CourseBook implements ReadOnlyCourseBook {
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return CourseBook.class.getCanonicalName() + "{persons=" + this.getPersonList() + "}";
     }
 
     @Override
