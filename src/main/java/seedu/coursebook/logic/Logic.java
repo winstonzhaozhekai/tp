@@ -1,6 +1,7 @@
 package seedu.coursebook.logic;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
@@ -69,4 +70,12 @@ public interface Logic {
      * @see seedu.coursebook.model.Model#setSelectedPerson(Person)
      */
     void setSelectedPerson(Person person);
+
+    /**
+     * Sorts the currently filtered list of persons using the specified comparator.
+     * The sorting affects the order in which persons are displayed in the UI.
+     *
+     * @param comparator The comparator that defines the sort order.
+     */
+    void sortSelectedPersons(Comparator<Person> comparator);
 }
