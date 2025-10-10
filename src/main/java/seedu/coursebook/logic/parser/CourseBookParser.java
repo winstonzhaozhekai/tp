@@ -9,20 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.coursebook.commons.core.LogsCenter;
-import seedu.coursebook.logic.commands.AddCommand;
-import seedu.coursebook.logic.commands.AddCourseCommand;
-import seedu.coursebook.logic.commands.ClearCommand;
-import seedu.coursebook.logic.commands.Command;
-import seedu.coursebook.logic.commands.DeleteCommand;
-import seedu.coursebook.logic.commands.EditCommand;
-import seedu.coursebook.logic.commands.ExitCommand;
-import seedu.coursebook.logic.commands.FindCommand;
-import seedu.coursebook.logic.commands.HelpCommand;
-import seedu.coursebook.logic.commands.ListByCourseCommand;
-import seedu.coursebook.logic.commands.ListCommand;
-import seedu.coursebook.logic.commands.RemoveCourseCommand;
-import seedu.coursebook.logic.commands.SummaryCommand;
-import seedu.coursebook.logic.commands.UndoCommand;
+import seedu.coursebook.logic.commands.*;
 import seedu.coursebook.logic.parser.exceptions.ParseException;
 
 /**
@@ -101,6 +88,9 @@ public class CourseBookParser {
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
+
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
