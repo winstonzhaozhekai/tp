@@ -1,12 +1,11 @@
 package seedu.coursebook.logic.commands;
 
-import seedu.coursebook.logic.CommandHistory;
-import seedu.coursebook.logic.commands.exceptions.CommandException;
-import seedu.coursebook.model.Model;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.coursebook.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import seedu.coursebook.logic.CommandHistory;
+import seedu.coursebook.logic.commands.exceptions.CommandException;
+import seedu.coursebook.model.Model;
 
 /**
  * Reverts the {@code model}'s book to its previous state.
