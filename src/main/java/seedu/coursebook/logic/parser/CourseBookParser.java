@@ -4,7 +4,6 @@ import static seedu.coursebook.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.coursebook.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.coursebook.logic.parser.CliSyntax.PREFIX_COURSE;
 
-import java.awt.*;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
