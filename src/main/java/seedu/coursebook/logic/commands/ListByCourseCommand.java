@@ -16,7 +16,8 @@ public class ListByCourseCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all persons enrolled in the specified course.\n"
             + "Parameters: c/COURSE_NAME\n"
-            + "Example: " + COMMAND_WORD + " c/CS2103T";
+            + "Example: " + COMMAND_WORD + " c/CS2103T"
+            + "Alias: ls";
 
     private final String course;
 

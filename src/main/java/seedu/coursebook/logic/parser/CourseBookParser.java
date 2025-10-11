@@ -4,6 +4,7 @@ import static seedu.coursebook.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.coursebook.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.coursebook.logic.parser.CliSyntax.PREFIX_COURSE;
 
+import java.awt.*;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -67,15 +68,18 @@ public class CourseBookParser {
             return new EditCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
+        case DeleteCommand.ALIAS_WORD:
             return new DeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
+        case FindCommand.ALIAS_WORD:
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
+        case ListCommand.ALIAS_WORD:
             ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(arguments, PREFIX_COURSE);
             if (argMultimap.getValue(PREFIX_COURSE).isPresent()) {
                 return new ListByCourseCommandParser().parse(arguments);
