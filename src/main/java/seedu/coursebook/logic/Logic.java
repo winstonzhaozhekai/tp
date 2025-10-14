@@ -10,6 +10,7 @@ import seedu.coursebook.logic.commands.CommandResult;
 import seedu.coursebook.logic.commands.exceptions.CommandException;
 import seedu.coursebook.logic.parser.exceptions.ParseException;
 import seedu.coursebook.model.ReadOnlyCourseBook;
+import seedu.coursebook.model.course.Course;
 import seedu.coursebook.model.person.Person;
 
 /**
@@ -34,6 +35,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered list of courses */
+    ObservableList<Course> getFilteredCourseList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.

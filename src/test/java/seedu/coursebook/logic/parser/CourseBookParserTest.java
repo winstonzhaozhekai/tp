@@ -22,6 +22,8 @@ import seedu.coursebook.logic.commands.ExitCommand;
 import seedu.coursebook.logic.commands.FindCommand;
 import seedu.coursebook.logic.commands.HelpCommand;
 import seedu.coursebook.logic.commands.ListCommand;
+import seedu.coursebook.logic.commands.ListCoursesCommand;
+import seedu.coursebook.logic.commands.ViewCourseCommand;
 import seedu.coursebook.logic.parser.exceptions.ParseException;
 import seedu.coursebook.model.person.NameContainsKeywordsPredicate;
 import seedu.coursebook.model.person.Person;
@@ -86,6 +88,19 @@ public class CourseBookParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertThrows(ParseException.class, () -> parser.parseCommand(ListCommand.COMMAND_WORD + " 3"));
+    }
+
+    @Test
+    public void parseCommand_listCourses() throws Exception {
+        assertTrue(parser.parseCommand(ListCoursesCommand.COMMAND_WORD) instanceof ListCoursesCommand);
+        assertTrue(parser.parseCommand(ListCoursesCommand.COMMAND_WORD + " 3") instanceof ListCoursesCommand);
+    }
+
+    @Test
+    public void parseCommand_viewCourse() throws Exception {
+        ViewCourseCommand command = (ViewCourseCommand) parser.parseCommand(
+                ViewCourseCommand.COMMAND_WORD + " c/CS2103T");
+        assertEquals(new ViewCourseCommand("CS2103T"), command);
     }
 
     @Test

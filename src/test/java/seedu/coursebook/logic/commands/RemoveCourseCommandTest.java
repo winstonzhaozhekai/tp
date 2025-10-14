@@ -180,5 +180,11 @@ public class RemoveCourseCommandTest {
         public void sortSelectedPersons(Comparator<Person> comparator) {
             throw new AssertionError("This method should not be called.");
         }
+        public ObservableList<seedu.coursebook.model.course.Course> getFilteredCourseList() {
+            return FXCollections.observableArrayList();
+        }
+
+        @Override
+        public void updateFilteredCourseList(Predicate<seedu.coursebook.model.course.Course> predicate) {}
     }
 }
