@@ -4,16 +4,21 @@ import static java.util.Objects.requireNonNull;
 import static seedu.coursebook.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.coursebook.commons.core.GuiSettings;
 import seedu.coursebook.commons.core.LogsCenter;
+import seedu.coursebook.model.course.Course;
 import seedu.coursebook.model.person.Person;
 import seedu.coursebook.model.person.exceptions.PersonNotFoundException;
 
@@ -27,6 +32,8 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+    private final ObservableList<Course> courseList;
+    private final FilteredList<Course> filteredCourses;
 
     /**
      * Initializes a ModelManager with the given CourseBook and userPrefs.
@@ -40,10 +47,31 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedCourseBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+
+        // Initialize course list
+        courseList = FXCollections.observableArrayList();
+        updateCourseList();
+        filteredCourses = new FilteredList<>(courseList);
+
+        // Update course list whenever person list changes
+        versionedCourseBook.getPersonList().addListener((ListChangeListener<Person>) change -> updateCourseList());
     }
 
     public ModelManager() {
         this(new CourseBook(), new UserPrefs());
+    }
+
+    /**
+     * Updates the course list based on the current persons in the address book.
+     */
+    private void updateCourseList() {
+        Set<Course> uniqueCourses = new HashSet<>();
+        for (Person person : versionedCourseBook.getPersonList()) {
+            uniqueCourses.addAll(person.getCourses());
+        }
+        courseList.setAll(uniqueCourses.stream()
+                .sorted((c1, c2) -> c1.courseCode.compareToIgnoreCase(c2.courseCode))
+                .collect(Collectors.toList()));
     }
 
     //=========== UserPrefs ==================================================================================
@@ -208,6 +236,23 @@ public class ModelManager implements Model {
                 selectedPerson.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
+    }
+
+    //=========== Filtered Course List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Course} backed by the internal list of
+     * courses extracted from all persons
+     */
+    @Override
+    public ObservableList<Course> getFilteredCourseList() {
+        return filteredCourses;
+    }
+
+    @Override
+    public void updateFilteredCourseList(Predicate<Course> predicate) {
+        requireNonNull(predicate);
+        filteredCourses.setPredicate(predicate);
     }
 
     @Override

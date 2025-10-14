@@ -207,6 +207,15 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public ObservableList<seedu.coursebook.model.course.Course> getFilteredCourseList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredCourseList(Predicate<seedu.coursebook.model.course.Course> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
