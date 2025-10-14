@@ -20,6 +20,7 @@ import seedu.coursebook.logic.commands.FindCommand;
 import seedu.coursebook.logic.commands.HelpCommand;
 import seedu.coursebook.logic.commands.ListByCourseCommand;
 import seedu.coursebook.logic.commands.ListCommand;
+import seedu.coursebook.logic.commands.RedoCommand;
 import seedu.coursebook.logic.commands.ListCoursesCommand;
 import seedu.coursebook.logic.commands.RemoveCourseCommand;
 import seedu.coursebook.logic.commands.SummaryCommand;
@@ -104,6 +105,8 @@ public class CourseBookParser {
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
 
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
         case ListCoursesCommand.COMMAND_WORD:
             return new ListCoursesCommand();
 
