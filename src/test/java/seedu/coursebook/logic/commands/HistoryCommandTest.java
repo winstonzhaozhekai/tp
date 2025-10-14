@@ -15,7 +15,7 @@ import seedu.coursebook.model.UserPrefs;
 public class HistoryCommandTest {
 
     public static final String MESSAGE_FAILURE = "No commands in history!";
-    public static final String MESSAGE_SUCCESS = "History (from  latest to earliest)";
+    public static final String MESSAGE_SUCCESS = "History (from latest to earliest)";
 
     private Model model;
     private Model expectedModel;

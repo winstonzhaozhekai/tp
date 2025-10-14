@@ -15,7 +15,7 @@ import seedu.coursebook.model.Model;
 public class HistoryCommand extends Command {
 
     public static final String COMMAND_WORD = "history";
-    public static final String MESSAGE_SUCCESS = "History (from most latest to earliest)";
+    public static final String MESSAGE_SUCCESS = "History (from latest to earliest)";
     public static final String MESSAGE_FAILURE = "No commands in history!";
 
     @Override
