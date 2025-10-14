@@ -15,6 +15,7 @@ import seedu.coursebook.logic.parser.CourseBookParser;
 import seedu.coursebook.logic.parser.exceptions.ParseException;
 import seedu.coursebook.model.Model;
 import seedu.coursebook.model.ReadOnlyCourseBook;
+import seedu.coursebook.model.course.Course;
 import seedu.coursebook.model.person.Person;
 import seedu.coursebook.storage.Storage;
 
@@ -83,6 +84,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    @Override
+    public ObservableList<Course> getFilteredCourseList() {
+        return model.getFilteredCourseList();
     }
 
     @Override

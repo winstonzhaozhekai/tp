@@ -136,6 +136,14 @@ public class AddCourseCommandTest {
 
         @Override
         public void setSelectedPerson(Person person) {}
+
+        @Override
+        public ObservableList<seedu.coursebook.model.course.Course> getFilteredCourseList() {
+            return FXCollections.observableArrayList();
+        }
+
+        @Override
+        public void updateFilteredCourseList(Predicate<seedu.coursebook.model.course.Course> predicate) {}
     }
 
 
@@ -198,5 +206,12 @@ public class AddCourseCommandTest {
         @Override
         public void setSelectedPerson(Person person) {}
 
+        @Override
+        public ObservableList<seedu.coursebook.model.course.Course> getFilteredCourseList() {
+            return FXCollections.observableArrayList();
+        }
+
+        @Override
+        public void updateFilteredCourseList(Predicate<seedu.coursebook.model.course.Course> predicate) {}
     }
 }
