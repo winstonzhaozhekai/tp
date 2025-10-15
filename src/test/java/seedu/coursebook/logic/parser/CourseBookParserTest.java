@@ -21,9 +21,13 @@ import seedu.coursebook.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.coursebook.logic.commands.ExitCommand;
 import seedu.coursebook.logic.commands.FindCommand;
 import seedu.coursebook.logic.commands.HelpCommand;
+import seedu.coursebook.logic.commands.HistoryCommand;
+import seedu.coursebook.logic.commands.HomeCommand;
 import seedu.coursebook.logic.commands.ListCommand;
 import seedu.coursebook.logic.commands.ListCoursesCommand;
+import seedu.coursebook.logic.commands.RedoCommand;
 import seedu.coursebook.logic.commands.SummaryCommand;
+import seedu.coursebook.logic.commands.UndoCommand;
 import seedu.coursebook.logic.commands.ViewCourseCommand;
 import seedu.coursebook.logic.parser.exceptions.ParseException;
 import seedu.coursebook.model.person.NameContainsKeywordsPredicate;
@@ -114,6 +118,28 @@ public class CourseBookParserTest {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 SummaryCommand.MESSAGE_USAGE), ()
                 -> parser.parseCommand(SummaryCommand.COMMAND_WORD + " extra"));
+    }
+
+    @Test
+    public void parseCommand_undo() throws Exception {
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
+    }
+
+
+    @Test
+    public void parseCommand_redo() throws Exception {
+        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
+    }
+
+
+    @Test
+    public void parseCommand_history() throws Exception {
+        assertTrue(parser.parseCommand(HistoryCommand.COMMAND_WORD) instanceof HistoryCommand);
+    }
+
+    @Test
+    public void parseCommand_home() throws Exception {
+        assertTrue(parser.parseCommand(HomeCommand.COMMAND_WORD) instanceof HomeCommand);
     }
 
     @Test
