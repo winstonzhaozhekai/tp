@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 import seedu.coursebook.commons.core.LogsCenter;
 import seedu.coursebook.logic.commands.AddCommand;
 import seedu.coursebook.logic.commands.AddCourseCommand;
+import seedu.coursebook.logic.commands.BirthdayCommand;
 import seedu.coursebook.logic.commands.ClearCommand;
 import seedu.coursebook.logic.commands.Command;
 import seedu.coursebook.logic.commands.DeleteCommand;
@@ -126,6 +127,9 @@ public class CourseBookParser {
 
         case HomeCommand.COMMAND_WORD:
             return new HomeCommand();
+
+        case BirthdayCommand.COMMAND_WORD:
+            return new BirthdayCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);

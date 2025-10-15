@@ -11,6 +11,7 @@ import seedu.coursebook.commons.util.StringUtil;
 import seedu.coursebook.logic.parser.exceptions.ParseException;
 import seedu.coursebook.model.course.Course;
 import seedu.coursebook.model.person.Address;
+import seedu.coursebook.model.person.Birthday;
 import seedu.coursebook.model.person.Email;
 import seedu.coursebook.model.person.Name;
 import seedu.coursebook.model.person.Phone;
@@ -95,6 +96,23 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String} into a {@link Birthday} object after validating its format.
+     * The input string is trimmed and checked against the expected date format.
+     *
+     * @param birthday The string representation of the birthday to parse.
+     * @return A {@link Birthday} object representing the parsed date.
+     * @throws ParseException If the input does not conform to the expected birthday format.
+     */
+    public static Birthday parseBirthday(String birthday) throws ParseException {
+        requireNonNull(birthday);
+        String trimmedBirthday = birthday.trim();
+        if (!Birthday.isValidDate(trimmedBirthday)) {
+            throw new ParseException(Birthday.MESSAGE_CONSTRAINTS);
+        }
+        return new Birthday(trimmedBirthday);
     }
 
     /**

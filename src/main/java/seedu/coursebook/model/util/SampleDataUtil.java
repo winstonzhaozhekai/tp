@@ -8,6 +8,7 @@ import seedu.coursebook.model.CourseBook;
 import seedu.coursebook.model.ReadOnlyCourseBook;
 import seedu.coursebook.model.course.Course;
 import seedu.coursebook.model.person.Address;
+import seedu.coursebook.model.person.Birthday;
 import seedu.coursebook.model.person.Email;
 import seedu.coursebook.model.person.Name;
 import seedu.coursebook.model.person.Person;
@@ -23,23 +24,24 @@ public class SampleDataUtil {
         return new Person[] {
             new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("friends"), getCourseSet("CS2103T", "CS2101")),
+                 getTagSet("friends"), getCourseSet("CS2103T", "CS2101"), new Birthday("20-02-2004")),
             new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-                new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                getTagSet("colleagues", "friends"), getCourseSet("CS2103T", "CS2101")),
+                 new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
+                 getTagSet("colleagues", "friends"), getCourseSet("CS2103T", "CS2101"), new Birthday("15-06-2005")),
             new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                getTagSet("neighbours"), getCourseSet("CS2103T", "CS2101")),
+                  new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
+                  getTagSet("neighbours"), getCourseSet("CS2103T", "CS2101"), new Birthday("03-09-2006")),
             new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                getTagSet("family"), getCourseSet("CS2103T", "CS2101")),
+                  new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
+                  getTagSet("family"), getCourseSet("CS2103T", "CS2101"), new Birthday("28-11-2004")),
             new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-                new Address("Blk 47 Tampines Street 20, #17-35"),
-                getTagSet("classmates"), getCourseSet("CS2103T", "CS2101")),
+                  new Address("Blk 47 Tampines Street 20, #17-35"),
+                  getTagSet("classmates"), getCourseSet("CS2103T", "CS2101"), new Birthday("12-01-2007")),
             new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                new Address("Blk 45 Aljunied Street 85, #11-31"),
-                getTagSet("colleagues"), getCourseSet("CS2103T", "CS2101"))
+                  new Address("Blk 45 Aljunied Street 85, #11-31"),
+                  getTagSet("colleagues"), getCourseSet("CS2103T", "CS2101"), new Birthday("07-07-2005"))
         };
+
     }
 
     public static Set<Course> getCourseSet(String... strings) {

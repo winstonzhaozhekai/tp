@@ -25,6 +25,7 @@ import seedu.coursebook.logic.commands.exceptions.CommandException;
 import seedu.coursebook.model.Model;
 import seedu.coursebook.model.course.Course;
 import seedu.coursebook.model.person.Address;
+import seedu.coursebook.model.person.Birthday;
 import seedu.coursebook.model.person.Email;
 import seedu.coursebook.model.person.Name;
 import seedu.coursebook.model.person.Person;
@@ -109,8 +110,10 @@ public class EditCommand extends Command {
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         Set<Course> updatedCourses = editPersonDescriptor.getCourses().orElse(personToEdit.getCourses());
+        Birthday updatedBirthday = editPersonDescriptor.getBirthday().orElse(personToEdit.getBirthday());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedCourses);
+        return new Person(updatedName, updatedPhone, updatedEmail,
+                updatedAddress, updatedTags, updatedCourses, updatedBirthday);
     }
 
     @Override
@@ -148,6 +151,7 @@ public class EditCommand extends Command {
         private Address address;
         private Set<Tag> tags;
         private Set<Course> courses;
+        private Birthday birthday;
 
         public EditPersonDescriptor() {}
 
@@ -162,13 +166,14 @@ public class EditCommand extends Command {
             setAddress(toCopy.address);
             setTags(toCopy.tags);
             setCourses(toCopy.courses);
+            setBirthday(toCopy.birthday);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, courses);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, courses, birthday);
         }
 
         public void setName(Name name) {
@@ -237,6 +242,14 @@ public class EditCommand extends Command {
             return (courses != null) ? Optional.of(Collections.unmodifiableSet(courses)) : Optional.empty();
         }
 
+        public void setBirthday(Birthday birthday) {
+            this.birthday = birthday;
+        }
+
+        public Optional<Birthday> getBirthday() {
+            return Optional.ofNullable(birthday);
+        }
+
         @Override
         public boolean equals(Object other) {
             if (other == this) {
@@ -254,7 +267,8 @@ public class EditCommand extends Command {
                     && Objects.equals(email, otherEditPersonDescriptor.email)
                     && Objects.equals(address, otherEditPersonDescriptor.address)
                     && Objects.equals(tags, otherEditPersonDescriptor.tags)
-                    && Objects.equals(courses, otherEditPersonDescriptor.courses);
+                    && Objects.equals(courses, otherEditPersonDescriptor.courses)
+                    && Objects.equals(birthday, otherEditPersonDescriptor.birthday);
         }
 
         @Override
@@ -266,6 +280,7 @@ public class EditCommand extends Command {
                     .add("address", address)
                     .add("tags", tags)
                     .add("courses", courses)
+                    .add("birthday", birthday)
                     .toString();
         }
     }
