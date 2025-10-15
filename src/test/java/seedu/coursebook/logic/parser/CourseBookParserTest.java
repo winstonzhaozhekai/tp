@@ -1,7 +1,7 @@
 package seedu.coursebook.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.coursebook.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.coursebook.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.coursebook.testutil.Assert.assertThrows;
