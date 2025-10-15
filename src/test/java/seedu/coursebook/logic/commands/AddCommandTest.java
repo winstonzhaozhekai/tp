@@ -25,6 +25,7 @@ import seedu.coursebook.model.CourseBook;
 import seedu.coursebook.model.Model;
 import seedu.coursebook.model.ReadOnlyCourseBook;
 import seedu.coursebook.model.ReadOnlyUserPrefs;
+import seedu.coursebook.model.course.Course;
 import seedu.coursebook.model.person.Person;
 import seedu.coursebook.testutil.PersonBuilder;
 
@@ -210,12 +211,16 @@ public class AddCommandTest {
 
         @Override
         public void sortSelectedPersons(Comparator<Person> comparator) {
-        public ObservableList<seedu.coursebook.model.course.Course> getFilteredCourseList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredCourseList(Predicate<seedu.coursebook.model.course.Course> predicate) {
+        public void updateFilteredCourseList(Predicate<Course> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Course> getFilteredCourseList() {
             throw new AssertionError("This method should not be called.");
         }
     }
