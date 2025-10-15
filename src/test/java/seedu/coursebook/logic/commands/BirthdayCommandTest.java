@@ -19,6 +19,7 @@ import seedu.coursebook.logic.commands.exceptions.CommandException;
 import seedu.coursebook.model.Model;
 import seedu.coursebook.model.ReadOnlyCourseBook;
 import seedu.coursebook.model.ReadOnlyUserPrefs;
+import seedu.coursebook.model.course.Course;
 import seedu.coursebook.model.person.Birthday;
 import seedu.coursebook.model.person.Person;
 import seedu.coursebook.testutil.PersonBuilder;
@@ -122,6 +123,12 @@ public class BirthdayCommandTest {
         }
         @Override public void sortSelectedPersons(Comparator<Person> comparator) {
             throw new AssertionError("This method should not be called.");
+        }
+        @Override public ObservableList<Course> getFilteredCourseList() {
+            return FXCollections.observableArrayList();
+        }
+        @Override public void updateFilteredCourseList(Predicate<Course> predicate) {
+
         }
     }
 }
