@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.coursebook.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -160,6 +162,23 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Sorted Person List =============================================================
+    @Override
+    public void sortSelectedPersons(Comparator<Person> comparator) {
+        requireNonNull(comparator);
+        List<Person> sortedList = versionedCourseBook.getPersonList()
+                .stream()
+                .sorted(comparator)
+                .toList();
+
+        CourseBook sortedCourseBook = new CourseBook();
+        for (Person person : sortedList) {
+            sortedCourseBook.addPerson(person);
+        }
+
+        setCourseBook(sortedCourseBook);
     }
 
     //============ Undo/Redo =====================================================================================

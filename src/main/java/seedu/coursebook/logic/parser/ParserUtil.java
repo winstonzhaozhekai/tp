@@ -150,4 +150,17 @@ public class ParserUtil {
         }
         return courseSet;
     }
+
+    /**
+     * Parses and validates {@code String order} as either "asc" or "desc".
+     */
+    public static String parseOrder(String order) throws ParseException {
+        requireNonNull(order);
+        String trimmedOrder = order.trim();
+
+        if (!trimmedOrder.equals("asc") && !trimmedOrder.equals("desc")) {
+            throw new ParseException("Invalid sort order. Use only 'asc' or 'desc'.");
+        }
+        return trimmedOrder;
+    }
 }

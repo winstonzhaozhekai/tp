@@ -1,6 +1,7 @@
 package seedu.coursebook.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -129,6 +130,10 @@ public interface Model {
      */
     void setSelectedPerson(Person person);
 
+    /**
+     * Sorts the filtered list of persons using the specified comparator.
+     */
+    void sortSelectedPersons(Comparator<Person> comparator);
     /** Returns an unmodifiable view of the filtered course list */
     ObservableList<Course> getFilteredCourseList();
 

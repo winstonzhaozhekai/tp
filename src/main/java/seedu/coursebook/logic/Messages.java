@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.coursebook.logic.commands.ListByCourseCommand;
+import seedu.coursebook.logic.commands.SortCommand;
 import seedu.coursebook.logic.parser.Prefix;
 import seedu.coursebook.model.person.Person;
 
@@ -21,6 +22,8 @@ public class Messages {
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_SINGLE_COURSE_ONLY =
                 "Only one course can be listed at a time.\n" + ListByCourseCommand.MESSAGE_USAGE;
+    public static final String MESSAGE_SINGLE_ORDER_ONLY =
+                "Sort by only one order at a time.\n" + SortCommand.MESSAGE_USAGE;
 
     /**
      * Returns an error message indicating the duplicate prefixes.
