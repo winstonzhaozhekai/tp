@@ -2,6 +2,7 @@ package seedu.coursebook.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -119,5 +120,10 @@ public class LogicManager implements Logic {
     @Override
     public void setSelectedPerson(Person person) {
         model.setSelectedPerson(person);
+    }
+
+    @Override
+    public void sortSelectedPersons(Comparator<Person> comparator) {
+        model.sortSelectedPersons(comparator);
     }
 }

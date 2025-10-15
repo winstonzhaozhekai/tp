@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -176,6 +177,9 @@ public class RemoveCourseCommandTest {
         public void setSelectedPerson(Person person) {}
 
         @Override
+        public void sortSelectedPersons(Comparator<Person> comparator) {
+            throw new AssertionError("This method should not be called.");
+        }
         public ObservableList<seedu.coursebook.model.course.Course> getFilteredCourseList() {
             return FXCollections.observableArrayList();
         }

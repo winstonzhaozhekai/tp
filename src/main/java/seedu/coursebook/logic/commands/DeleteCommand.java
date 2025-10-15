@@ -21,13 +21,15 @@ import seedu.coursebook.model.person.Person;
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
+    public static final String ALIAS_WORD = "rm";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes a person by index (from the displayed list) or by full name.\n"
             + "Parameters: INDEX (positive integer) | NAME (case-insensitive; trims edges)\n"
             + "Examples: \n"
             + "  " + COMMAND_WORD + " 1\n"
-            + "  " + COMMAND_WORD + " John Doe";
+            + "  " + COMMAND_WORD + " John Doe\n"
+            + "Alias: " + ALIAS_WORD;
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
     public static final String MESSAGE_NO_MATCHING_NAME =

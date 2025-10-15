@@ -105,10 +105,16 @@ public class HelpWindow extends UiPart<Stage> {
                     "listcourses"),
 
             // General Commands
+            new CommandSummary("home", "Go to home page",
+                    "home"),
             new CommandSummary("summary", "Shows summary statistics",
                     "summary"),
             new CommandSummary("undo", "Undoes the last command",
                     "undo"),
+            new CommandSummary("redo", "Redo the last undone command",
+                    "redo"),
+            new CommandSummary("history", "See list of commands executed",
+                    "history"),
             new CommandSummary("clear", "Clears all entries",
                     "clear"),
             new CommandSummary("help", "Shows this help window",

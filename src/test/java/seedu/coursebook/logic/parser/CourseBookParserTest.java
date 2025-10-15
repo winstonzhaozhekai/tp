@@ -22,6 +22,7 @@ import seedu.coursebook.logic.commands.ExitCommand;
 import seedu.coursebook.logic.commands.FindCommand;
 import seedu.coursebook.logic.commands.HelpCommand;
 import seedu.coursebook.logic.commands.HistoryCommand;
+import seedu.coursebook.logic.commands.HomeCommand;
 import seedu.coursebook.logic.commands.ListCommand;
 import seedu.coursebook.logic.commands.ListCoursesCommand;
 import seedu.coursebook.logic.commands.RedoCommand;
@@ -124,6 +125,11 @@ public class CourseBookParserTest {
     public void parseCommand_history() throws Exception {
         assertTrue(parser.parseCommand(HistoryCommand.COMMAND_WORD) instanceof HistoryCommand);
         assertThrows(ParseException.class, () -> parser.parseCommand(HistoryCommand.COMMAND_WORD + " 3"));
+    }
+
+    @Test
+    public void parseCommand_home() throws Exception {
+        assertTrue(parser.parseCommand(HomeCommand.COMMAND_WORD) instanceof HomeCommand);
     }
 
     @Test
