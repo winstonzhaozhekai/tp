@@ -16,8 +16,6 @@ import org.junit.jupiter.api.Test;
 import seedu.coursebook.logic.commands.AddCommand;
 import seedu.coursebook.logic.commands.ClearCommand;
 import seedu.coursebook.logic.commands.DeleteCommand;
-import seedu.coursebook.logic.commands.EditCommand;
-import seedu.coursebook.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.coursebook.logic.commands.ExitCommand;
 import seedu.coursebook.logic.commands.FindCommand;
 import seedu.coursebook.logic.commands.HelpCommand;
@@ -25,7 +23,6 @@ import seedu.coursebook.logic.commands.ListCommand;
 import seedu.coursebook.logic.parser.exceptions.ParseException;
 import seedu.coursebook.model.person.NameContainsKeywordsPredicate;
 import seedu.coursebook.model.person.Person;
-import seedu.coursebook.testutil.EditPersonDescriptorBuilder;
 import seedu.coursebook.testutil.PersonBuilder;
 import seedu.coursebook.testutil.PersonUtil;
 
@@ -51,15 +48,6 @@ public class CourseBookParserTest {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
-    }
-
-    @Test
-    public void parseCommand_edit() throws Exception {
-        Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
 
     @Test

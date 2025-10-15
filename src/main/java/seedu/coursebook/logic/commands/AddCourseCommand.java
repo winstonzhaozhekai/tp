@@ -74,7 +74,8 @@ public class AddCourseCommand extends Command {
                 personToEdit.getEmail(),
                 personToEdit.getAddress(),
                 personToEdit.getTags(),
-                newCourses
+                newCourses,
+                personToEdit.getBirthday()
         );
 
         model.setPerson(personToEdit, editedPerson);
