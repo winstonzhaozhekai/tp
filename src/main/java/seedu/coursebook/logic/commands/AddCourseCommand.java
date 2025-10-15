@@ -13,6 +13,7 @@ import seedu.coursebook.logic.Messages;
 import seedu.coursebook.logic.commands.exceptions.CommandException;
 import seedu.coursebook.model.Model;
 import seedu.coursebook.model.course.Course;
+import seedu.coursebook.model.course.CourseColor;
 import seedu.coursebook.model.person.Person;
 
 /**
@@ -26,9 +27,9 @@ public class AddCourseCommand extends Command {
             + "by the index number used in the displayed person list. "
             + "Existing courses will be preserved.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_COURSE + "COURSE_CODE [" + PREFIX_COURSE + "MORE_COURSES]...\n"
+            + PREFIX_COURSE + "COURSE_CODE[,COLOR] [" + PREFIX_COURSE + "MORE]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_COURSE + "CS2103T "
+            + PREFIX_COURSE + "CS2103T,green "
             + PREFIX_COURSE + "CS2040S";
 
     public static final String MESSAGE_ADD_COURSE_SUCCESS = "Added courses to Person: %1$s";
@@ -61,6 +62,23 @@ public class AddCourseCommand extends Command {
         Person personToEdit = model.getFilteredPersonList().get(index.getZeroBased());
         Set<Course> existingCourses = personToEdit.getCourses();
 
+        // Determine global color consistency and handle conflicts
+        for (Course toAdd : coursesToAdd) {
+            // If any existing person has this course code, discover its color
+            CourseColor existingColor = model.getFilteredCourseList().stream()
+                    .filter(c -> c.courseCode.equalsIgnoreCase(toAdd.courseCode))
+                    .map(c -> c.color)
+                    .findFirst()
+                    .orElse(null);
+            if (existingColor != null && toAdd.color != null && existingColor != toAdd.color) {
+                // Conflict: update globally to new color
+                model.setCourseColor(toAdd.courseCode, toAdd.color);
+            } else if (existingColor == null && toAdd.color == null) {
+                // New course with no color specified: default to GREEN globally
+                model.setCourseColor(toAdd.courseCode, CourseColor.GREEN);
+            }
+        }
+
         Set<Course> newCourses = new HashSet<>(existingCourses);
         newCourses.addAll(coursesToAdd);
 
@@ -74,7 +92,8 @@ public class AddCourseCommand extends Command {
                 personToEdit.getEmail(),
                 personToEdit.getAddress(),
                 personToEdit.getTags(),
-                newCourses
+                newCourses,
+                personToEdit.getBirthday()
         );
 
         model.setPerson(personToEdit, editedPerson);

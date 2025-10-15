@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.coursebook.commons.exceptions.IllegalValueException;
 import seedu.coursebook.model.course.Course;
 import seedu.coursebook.model.person.Address;
+import seedu.coursebook.model.person.Birthday;
 import seedu.coursebook.model.person.Email;
 import seedu.coursebook.model.person.Name;
 import seedu.coursebook.model.person.Person;
@@ -33,6 +34,7 @@ class JsonAdaptedPerson {
     private final String address;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
     private final List<JsonAdaptedCourse> courses = new ArrayList<>();
+    private final String birthday;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -41,11 +43,13 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
             @JsonProperty("tags") List<JsonAdaptedTag> tags,
-            @JsonProperty("courses") List<JsonAdaptedCourse> courses) {
+            @JsonProperty("courses") List<JsonAdaptedCourse> courses,
+            @JsonProperty("birthday") String birthday) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.birthday = birthday;
         if (tags != null) {
             this.tags.addAll(tags);
         }
@@ -62,6 +66,7 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        birthday = source.getBirthday() != null ? source.getBirthday().value : null;
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -122,7 +127,14 @@ class JsonAdaptedPerson {
 
         final Set<Course> modelCourses = new HashSet<>(personCourses);
 
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelCourses);
+        final Birthday modelBirthday;
+        if (birthday == null || !Birthday.isValidDate(birthday)) {
+            modelBirthday = null;
+        } else {
+            modelBirthday = new Birthday(birthday);
+        }
+
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelCourses, modelBirthday);
     }
 
 }

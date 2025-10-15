@@ -94,9 +94,11 @@ public class HelpWindow extends UiPart<Stage> {
 
             // Course Management Commands
             new CommandSummary("addcourse", "Adds a course to a person",
-                    "addcourse INDEX c/COURSE_CODE"),
+                    "addcourse INDEX c/COURSE_CODE[,COLOR]"),
             new CommandSummary("removecourse", "Removes a course from a person",
                     "removecourse INDEX c/COURSE_CODE"),
+            new CommandSummary("editcourse", "Sets the color for a course code globally",
+                    "editcourse c/COURSE_CODE,COLOR"),
             new CommandSummary("viewcourse", "Views details of a course",
                     "viewcourse COURSE_CODE"),
             new CommandSummary("listbycourse", "Lists persons in a course",
@@ -105,10 +107,16 @@ public class HelpWindow extends UiPart<Stage> {
                     "listcourses"),
 
             // General Commands
+            new CommandSummary("home", "Go to home page",
+                    "home"),
             new CommandSummary("summary", "Shows summary statistics",
                     "summary"),
             new CommandSummary("undo", "Undoes the last command",
                     "undo"),
+            new CommandSummary("redo", "Redo the last undone command",
+                    "redo"),
+            new CommandSummary("history", "See list of commands executed",
+                    "history"),
             new CommandSummary("clear", "Clears all entries",
                     "clear"),
             new CommandSummary("help", "Shows this help window",

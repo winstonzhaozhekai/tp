@@ -21,7 +21,6 @@ import seedu.coursebook.model.person.Person;
 import seedu.coursebook.model.person.Phone;
 import seedu.coursebook.model.tag.Tag;
 
-
 /**
  * Parses input arguments and creates a new AddCommand object
  */
@@ -49,7 +48,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Set<Course> courseList = ParserUtil.parseCourses(argMultimap.getAllValues(PREFIX_COURSE));
-        Person person = new Person(name, phone, email, address, tagList, courseList);
+        Person person = new Person(name, phone, email, address, tagList, courseList, null);
 
         return new AddCommand(person);
     }

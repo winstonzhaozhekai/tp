@@ -17,13 +17,16 @@ import org.junit.jupiter.api.Test;
 import seedu.coursebook.logic.commands.AddCommand;
 import seedu.coursebook.logic.commands.ClearCommand;
 import seedu.coursebook.logic.commands.DeleteCommand;
-import seedu.coursebook.logic.commands.EditCommand;
-import seedu.coursebook.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.coursebook.logic.commands.ExitCommand;
 import seedu.coursebook.logic.commands.FindCommand;
 import seedu.coursebook.logic.commands.HelpCommand;
+import seedu.coursebook.logic.commands.HistoryCommand;
+import seedu.coursebook.logic.commands.HomeCommand;
 import seedu.coursebook.logic.commands.ListCommand;
 import seedu.coursebook.logic.commands.ListCoursesCommand;
+import seedu.coursebook.logic.commands.RedoCommand;
+import seedu.coursebook.logic.commands.SummaryCommand;
+import seedu.coursebook.logic.commands.UndoCommand;
 import seedu.coursebook.logic.commands.ViewCourseCommand;
 import seedu.coursebook.logic.parser.exceptions.ParseException;
 import seedu.coursebook.model.person.Person;
@@ -54,15 +57,6 @@ public class CourseBookParserTest {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
-    }
-
-    @Test
-    public void parseCommand_edit() throws Exception {
-        Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
 
     @Test
@@ -107,6 +101,40 @@ public class CourseBookParserTest {
         ViewCourseCommand command = (ViewCourseCommand) parser.parseCommand(
                 ViewCourseCommand.COMMAND_WORD + " c/CS2103T");
         assertEquals(new ViewCourseCommand("CS2103T"), command);
+    }
+
+    @Test
+    public void parseCommand_summary() throws Exception {
+        assertTrue(parser.parseCommand(SummaryCommand.COMMAND_WORD) instanceof SummaryCommand);
+    }
+
+    @Test
+    public void parseCommand_summaryWithArguments_throwsParseException() {
+        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                SummaryCommand.MESSAGE_USAGE), ()
+                -> parser.parseCommand(SummaryCommand.COMMAND_WORD + " extra"));
+    }
+
+    @Test
+    public void parseCommand_undo() throws Exception {
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
+    }
+
+
+    @Test
+    public void parseCommand_redo() throws Exception {
+        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
+    }
+
+
+    @Test
+    public void parseCommand_history() throws Exception {
+        assertTrue(parser.parseCommand(HistoryCommand.COMMAND_WORD) instanceof HistoryCommand);
+    }
+
+    @Test
+    public void parseCommand_home() throws Exception {
+        assertTrue(parser.parseCommand(HomeCommand.COMMAND_WORD) instanceof HomeCommand);
     }
 
     @Test

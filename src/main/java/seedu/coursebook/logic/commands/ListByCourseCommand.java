@@ -49,9 +49,9 @@ public class ListByCourseCommand extends Command {
         int size = model.getFilteredPersonList().size();
 
         if (size == 0) {
-            return new CommandResult("No such course: " + course);
+            return new CommandResult("No such course: " + course, false, false, true, false);
         } else {
-            return new CommandResult("Listed all persons in " + course);
+            return new CommandResult("Listed all persons in " + course, false, false, true, false);
         }
     }
 }

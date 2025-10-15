@@ -37,7 +37,8 @@ public class ListByCourseCommandTest {
 
         String expectedMessage = "Listed all persons in " + courseCode;
 
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        CommandResult expectedResult = new CommandResult(expectedMessage, false, false, true, false);
+        assertCommandSuccess(command, model, commandHistory, expectedResult, expectedModel);
     }
 
     @Test
@@ -51,6 +52,7 @@ public class ListByCourseCommandTest {
 
         String expectedMessage = "No such course: " + courseCode;
 
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        CommandResult expectedResult = new CommandResult(expectedMessage, false, false, true, false);
+        assertCommandSuccess(command, model, commandHistory, expectedResult, expectedModel);
     }
 }
