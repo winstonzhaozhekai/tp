@@ -18,6 +18,7 @@ import seedu.coursebook.logic.commands.EditCommand;
 import seedu.coursebook.logic.commands.ExitCommand;
 import seedu.coursebook.logic.commands.FindCommand;
 import seedu.coursebook.logic.commands.HelpCommand;
+import seedu.coursebook.logic.commands.HistoryCommand;
 import seedu.coursebook.logic.commands.ListByCourseCommand;
 import seedu.coursebook.logic.commands.ListCommand;
 import seedu.coursebook.logic.commands.ListCoursesCommand;
@@ -47,7 +48,7 @@ public class CourseBookParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput) throws ParseException {
+    public static Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -118,6 +119,9 @@ public class CourseBookParser {
 
         case ViewCourseCommand.COMMAND_WORD:
             return new ViewCourseCommandParser().parse(arguments);
+
+        case HistoryCommand.COMMAND_WORD:
+            return new HistoryCommand();
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
