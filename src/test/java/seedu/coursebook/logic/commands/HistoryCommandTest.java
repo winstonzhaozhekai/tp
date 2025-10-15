@@ -15,7 +15,6 @@ import seedu.coursebook.model.UserPrefs;
 public class HistoryCommandTest {
 
     public static final String MESSAGE_FAILURE = "No commands in history!";
-    public static final String MESSAGE_SUCCESS = "History (from latest to earliest)";
 
     private Model model;
     private Model expectedModel;
@@ -38,7 +37,7 @@ public class HistoryCommandTest {
     public void execute_oneHistory() {
         String command0 = "delete " + VALID_NAME_AMY;
         commandHistory.add(command0);
-        String expectedMessage = MESSAGE_SUCCESS + "\n1. delete " + VALID_NAME_AMY;
+        String expectedMessage = HistoryCommand.MESSAGE_SUCCESS + "\n1. delete " + VALID_NAME_AMY;
         assertCommandSuccess(new HistoryCommand(), model, commandHistory, expectedMessage, expectedModel);
     }
 
@@ -48,7 +47,7 @@ public class HistoryCommandTest {
         String command1 = "clear";
         commandHistory.add(command0);
         commandHistory.add(command1);
-        String expectedMessage = MESSAGE_SUCCESS + "\n1. clear\n2. delete " + VALID_NAME_AMY;
+        String expectedMessage = HistoryCommand.MESSAGE_SUCCESS + "\n1. clear\n2. delete " + VALID_NAME_AMY;
         assertCommandSuccess(new HistoryCommand(), model, commandHistory, expectedMessage, expectedModel);
     }
 
