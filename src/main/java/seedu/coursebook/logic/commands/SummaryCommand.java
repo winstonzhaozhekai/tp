@@ -15,6 +15,9 @@ public class SummaryCommand extends Command {
 
     public static final String COMMAND_WORD = "summary";
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Show number of contacts and breakdown by course.\n"
+            + "Example: " + COMMAND_WORD;
+
     public static final String MESSAGE_SUCCESS = "Summary: %d person(s) found\n\nBreakdown by course:\n%s";
 
     @Override
