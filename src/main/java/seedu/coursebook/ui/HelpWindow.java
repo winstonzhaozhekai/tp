@@ -87,8 +87,8 @@ public class HelpWindow extends UiPart<Stage> {
                     "delete INDEX"),
             new CommandSummary("edit", "Edits a person's details",
                     "edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]..."),
-            new CommandSummary("find", "Finds persons by keywords",
-                    "find KEYWORD [MORE_KEYWORDS]..."),
+            new CommandSummary("find", "Finds persons by fields (OR across fields)",
+                    "find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]..."),
             new CommandSummary("list", "Lists all persons",
                     "list"),
 
