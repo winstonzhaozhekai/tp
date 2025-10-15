@@ -97,9 +97,6 @@ public class CourseBookParser {
             }
 
         case SummaryCommand.COMMAND_WORD:
-            if (!arguments.isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SummaryCommand.MESSAGE_USAGE));
-            }
             return new SummaryCommand();
 
         case ExitCommand.COMMAND_WORD:
@@ -152,6 +149,9 @@ public class CourseBookParser {
             return new HistoryCommand();
 
         case HomeCommand.COMMAND_WORD:
+            if (!arguments.isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HomeCommand.MESSAGE_USAGE));
+            }
             return new HomeCommand();
 
         default:

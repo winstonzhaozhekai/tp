@@ -130,6 +130,7 @@ public class CourseBookParserTest {
     @Test
     public void parseCommand_home() throws Exception {
         assertTrue(parser.parseCommand(HomeCommand.COMMAND_WORD) instanceof HomeCommand);
+        assertThrows(ParseException.class, () -> parser.parseCommand(HomeCommand.COMMAND_WORD + " 3"));
     }
 
     @Test
