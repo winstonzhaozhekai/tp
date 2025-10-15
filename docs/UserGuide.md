@@ -155,23 +155,27 @@ Examples:
 - `removecourse 1 c/CS2103T`
 - `removecourse 2 c/CS2101 c/CS2040S`
 
-### Locating persons by name: `find`
+### Finding persons by fields: `find`
 
-Finds persons whose names contain any of the given keywords.
+Finds persons by matching ANY of the provided fields (OR across fields). Within each field, a person matches if ANY of that field’s keywords match.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find [n/NAME_KEYWORDS] [p/PHONE_KEYWORDS] [e/EMAIL_KEYWORDS] [a/ADDRESS_KEYWORDS] [t/TAG]…`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+Notes:
+- The search is case-insensitive.
+- Parameters can be in any order.
+- OR across fields: a person is included if any provided field matches.
+- Within a field, ANY of the provided keywords may match.
+- Name and address keywords match whole words. Phone and email keywords match substrings.
+- Tags match by equality (case-insensitive). A person matches if they have ANY of the provided tags.
+- Backwards-compatible: if no prefixes are used, tokens are treated as name keywords (whole-word match).
 
 Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+- `find n/Alice n/Bob`
+- `find p/9123 e/example.com`
+- `find t/friend t/colleague`
+- `find n/Alice t/friend` (matches if name has Alice OR has tag friend)
+- `find alex david` (no prefixes → name-only search, whole-word OR)
 
 ### Deleting a person : `delete`
 
@@ -243,6 +247,6 @@ Action | Format, Examples
 **AddCourse** | `addcourse INDEX c/COURSE_CODE[,COLOR] [c/COURSE_CODE[,COLOR]]...`<br> e.g., `addcourse 1 c/CS2103T,blue`
 **EditCourseColor** | `editcourse c/COURSE_CODE,COLOR`<br> e.g., `editcourse c/CS2101,green`
 **RemoveCourse** | `removecourse INDEX c/COURSE_CODE [c/COURSE_CODE]...`<br> e.g., `removecourse 1 c/CS2103T c/CS2101`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Find** | `find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…`<br> e.g., `find n/James t/colleague`
 **List** | `list`
 **Help** | `help`

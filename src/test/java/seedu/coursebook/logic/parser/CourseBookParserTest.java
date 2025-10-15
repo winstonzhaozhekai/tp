@@ -8,6 +8,7 @@ import static seedu.coursebook.testutil.Assert.assertThrows;
 import static seedu.coursebook.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,8 +29,9 @@ import seedu.coursebook.logic.commands.SummaryCommand;
 import seedu.coursebook.logic.commands.UndoCommand;
 import seedu.coursebook.logic.commands.ViewCourseCommand;
 import seedu.coursebook.logic.parser.exceptions.ParseException;
-import seedu.coursebook.model.person.NameContainsKeywordsPredicate;
 import seedu.coursebook.model.person.Person;
+import seedu.coursebook.model.person.PersonContainsKeywordsPredicate;
+import seedu.coursebook.testutil.EditPersonDescriptorBuilder;
 import seedu.coursebook.testutil.PersonBuilder;
 import seedu.coursebook.testutil.PersonUtil;
 
@@ -68,7 +70,12 @@ public class CourseBookParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        assertEquals(new FindCommand(new PersonContainsKeywordsPredicate(
+                keywords,
+                Collections.emptyList(),
+                Collections.emptyList(),
+                Collections.emptyList(),
+                Collections.emptyList())), command);
     }
 
     @Test
