@@ -95,6 +95,10 @@ public class CourseBookParser {
             }
 
         case SummaryCommand.COMMAND_WORD:
+            if (!arguments.trim().isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        SummaryCommand.MESSAGE_USAGE));
+            }
             return new SummaryCommand();
 
         case ExitCommand.COMMAND_WORD:
