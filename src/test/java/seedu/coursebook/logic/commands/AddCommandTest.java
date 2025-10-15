@@ -26,6 +26,7 @@ import seedu.coursebook.model.Model;
 import seedu.coursebook.model.ReadOnlyCourseBook;
 import seedu.coursebook.model.ReadOnlyUserPrefs;
 import seedu.coursebook.model.course.Course;
+import seedu.coursebook.model.course.CourseColor;
 import seedu.coursebook.model.person.Person;
 import seedu.coursebook.testutil.PersonBuilder;
 
@@ -221,6 +222,11 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<Course> getFilteredCourseList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCourseColor(String courseCode, CourseColor color) {
             throw new AssertionError("This method should not be called.");
         }
     }

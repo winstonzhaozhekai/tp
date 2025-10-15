@@ -15,6 +15,7 @@ import seedu.coursebook.logic.commands.ClearCommand;
 import seedu.coursebook.logic.commands.Command;
 import seedu.coursebook.logic.commands.DeleteCommand;
 import seedu.coursebook.logic.commands.EditCommand;
+import seedu.coursebook.logic.commands.EditCourseColorCommand;
 import seedu.coursebook.logic.commands.ExitCommand;
 import seedu.coursebook.logic.commands.FindCommand;
 import seedu.coursebook.logic.commands.HelpCommand;
@@ -102,6 +103,8 @@ public class CourseBookParser {
 
         case AddCourseCommand.COMMAND_WORD:
             return new AddCourseCommandParser().parse(arguments);
+        case EditCourseColorCommand.COMMAND_WORD:
+            return new EditCourseColorCommandParser().parse(arguments);
 
         case RemoveCourseCommand.COMMAND_WORD:
             return new RemoveCourseCommandParser().parse(arguments);

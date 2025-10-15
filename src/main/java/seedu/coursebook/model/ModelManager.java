@@ -21,6 +21,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.coursebook.commons.core.GuiSettings;
 import seedu.coursebook.commons.core.LogsCenter;
 import seedu.coursebook.model.course.Course;
+import seedu.coursebook.model.course.CourseColor;
 import seedu.coursebook.model.person.Person;
 import seedu.coursebook.model.person.exceptions.PersonNotFoundException;
 
@@ -206,6 +207,30 @@ public class ModelManager implements Model {
     @Override
     public void commitCourseBook() {
         versionedCourseBook.commit();
+    }
+
+    @Override
+    public void setCourseColor(String courseCode, CourseColor color) {
+        if (courseCode == null || color == null) {
+            return;
+        }
+        List<Person> updated = versionedCourseBook.getPersonList().stream().map(person -> {
+            Set<Course> updatedCourses = person.getCourses().stream().map(c -> {
+                if (c.courseCode.equalsIgnoreCase(courseCode)) {
+                    return new Course(c.courseCode, color);
+                }
+                return c;
+            }).collect(Collectors.toCollection(HashSet::new));
+            return new Person(person.getName(), person.getPhone(), person.getEmail(), person.getAddress(),
+                    person.getTags(), updatedCourses);
+        }).collect(Collectors.toList());
+
+        CourseBook newBook = new CourseBook();
+        for (Person p : updated) {
+            newBook.addPerson(p);
+        }
+        setCourseBook(newBook);
+        commitCourseBook();
     }
 
     //=========== Selected person ===========================================================================

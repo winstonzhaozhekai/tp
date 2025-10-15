@@ -13,6 +13,8 @@ import seedu.coursebook.logic.CommandHistory;
 import seedu.coursebook.logic.Messages;
 import seedu.coursebook.logic.commands.exceptions.CommandException;
 import seedu.coursebook.model.Model;
+import seedu.coursebook.model.course.Course;
+import seedu.coursebook.model.course.CourseColor;
 import seedu.coursebook.model.person.Person;
 
 
@@ -37,7 +39,7 @@ public class AddCommand extends Command {
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney "
-            + PREFIX_COURSE + "CS2103T "
+            + PREFIX_COURSE + "CS2103T,green "
             + PREFIX_COURSE + "CS2101";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
@@ -59,6 +61,20 @@ public class AddCommand extends Command {
 
         if (model.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
+
+        // Enforce global course color consistency and conflict handling
+        for (Course course : toAdd.getCourses()) {
+            CourseColor existingColor = model.getFilteredCourseList().stream()
+                    .filter(c -> c.courseCode.equalsIgnoreCase(course.courseCode))
+                    .map(c -> c.color)
+                    .findFirst()
+                    .orElse(null);
+            if (existingColor != null && course.color != null && existingColor != course.color) {
+                model.setCourseColor(course.courseCode, course.color);
+            } else if (existingColor == null && course.color == null) {
+                model.setCourseColor(course.courseCode, CourseColor.GREEN);
+            }
         }
 
         model.addPerson(toAdd);

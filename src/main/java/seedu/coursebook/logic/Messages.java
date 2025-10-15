@@ -24,6 +24,7 @@ public class Messages {
                 "Only one course can be listed at a time.\n" + ListByCourseCommand.MESSAGE_USAGE;
     public static final String MESSAGE_SINGLE_ORDER_ONLY =
                 "Sort by only one order at a time.\n" + SortCommand.MESSAGE_USAGE;
+    public static final String MESSAGE_INVALID_PREFIX = "Invalid prefix! \n%1$s";
 
     /**
      * Returns an error message indicating the duplicate prefixes.

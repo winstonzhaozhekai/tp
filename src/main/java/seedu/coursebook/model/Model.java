@@ -8,6 +8,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.coursebook.commons.core.GuiSettings;
 import seedu.coursebook.model.course.Course;
+import seedu.coursebook.model.course.CourseColor;
 import seedu.coursebook.model.person.Person;
 
 /**
@@ -142,5 +143,10 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredCourseList(Predicate<Course> predicate);
+
+    /**
+     * Sets the color for a given course code globally across all persons.
+     */
+    void setCourseColor(String courseCode, CourseColor color);
 
 }

@@ -13,6 +13,7 @@ public class Course {
     public static final String VALIDATION_REGEX = "[\\p{Alnum}-]+";
 
     public final String courseCode;
+    public final CourseColor color;
 
     /**
      * Constructs a {@code Course}.
@@ -23,6 +24,18 @@ public class Course {
         requireNonNull(courseCode);
         checkArgument(isValidCourseCode(courseCode), MESSAGE_CONSTRAINTS);
         this.courseCode = courseCode;
+        this.color = CourseColor.GREEN; // default for legacy construction
+    }
+
+    /**
+     * Constructs a {@code Course} with explicit color.
+     * If color is null, defaults to GREEN.
+     */
+    public Course(String courseCode, CourseColor color) {
+        requireNonNull(courseCode);
+        checkArgument(isValidCourseCode(courseCode), MESSAGE_CONSTRAINTS);
+        this.courseCode = courseCode;
+        this.color = (color == null) ? CourseColor.GREEN : color;
     }
 
     /**

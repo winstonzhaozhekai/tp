@@ -24,12 +24,19 @@ public class AddCourseCommandParser implements Parser<AddCourseCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_COURSE);
 
-        // index is taken from the preamble
+        // index is taken from the preamble and must be the ONLY token there
         if (argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCourseCommand.MESSAGE_USAGE));
         }
 
-        Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        String preamble = argMultimap.getPreamble().trim();
+        String[] preambleParts = preamble.split("\\s+");
+        if (preambleParts.length != 1) {
+            // Extra tokens detected in preamble → treat as invalid format rather than index error
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCourseCommand.MESSAGE_USAGE));
+        }
+
+        Index index = ParserUtil.parseIndex(preambleParts[0]);
 
         // must have at least one c/
         if (argMultimap.getAllValues(PREFIX_COURSE).isEmpty()) {

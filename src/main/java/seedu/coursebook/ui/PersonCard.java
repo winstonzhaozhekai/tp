@@ -62,6 +62,8 @@ public class PersonCard extends UiPart<Region> {
                 .forEach(course -> {
                     Label courseLabel = new Label(course.courseCode);
                     courseLabel.getStyleClass().add("course-label");
+                    String hex = course.color == null ? "#388e3c" : course.color.getHex();
+                    courseLabel.setStyle("-fx-background-color: " + hex + "; -fx-text-fill: white;");
                     courses.getChildren().add(courseLabel);
                 });
     }

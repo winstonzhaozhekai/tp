@@ -23,6 +23,7 @@ import seedu.coursebook.model.Model;
 import seedu.coursebook.model.ReadOnlyCourseBook;
 import seedu.coursebook.model.ReadOnlyUserPrefs;
 import seedu.coursebook.model.course.Course;
+import seedu.coursebook.model.course.CourseColor;
 import seedu.coursebook.model.person.Person;
 import seedu.coursebook.testutil.PersonBuilder;
 
@@ -186,5 +187,8 @@ public class RemoveCourseCommandTest {
 
         @Override
         public void updateFilteredCourseList(Predicate<seedu.coursebook.model.course.Course> predicate) {}
+
+        @Override
+        public void setCourseColor(String courseCode, CourseColor color) { }
     }
 }
