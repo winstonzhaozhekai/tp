@@ -16,6 +16,7 @@ import seedu.coursebook.logic.commands.ClearCommand;
 import seedu.coursebook.logic.commands.Command;
 import seedu.coursebook.logic.commands.DeleteCommand;
 import seedu.coursebook.logic.commands.EditCommand;
+import seedu.coursebook.logic.commands.EditCourseColorCommand;
 import seedu.coursebook.logic.commands.ExitCommand;
 import seedu.coursebook.logic.commands.FindCommand;
 import seedu.coursebook.logic.commands.HelpCommand;
@@ -78,6 +79,9 @@ public class CourseBookParser {
             return new DeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
+            if (!arguments.isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClearCommand.MESSAGE_USAGE));
+            }
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
@@ -96,21 +100,36 @@ public class CourseBookParser {
             }
 
         case SummaryCommand.COMMAND_WORD:
+            if (!arguments.trim().isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        SummaryCommand.MESSAGE_USAGE));
+            }
             return new SummaryCommand();
 
         case ExitCommand.COMMAND_WORD:
+            if (!arguments.isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExitCommand.MESSAGE_USAGE));
+            }
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
+            if (!arguments.isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            }
             return new HelpCommand();
 
         case AddCourseCommand.COMMAND_WORD:
             return new AddCourseCommandParser().parse(arguments);
+        case EditCourseColorCommand.COMMAND_WORD:
+            return new EditCourseColorCommandParser().parse(arguments);
 
         case RemoveCourseCommand.COMMAND_WORD:
             return new RemoveCourseCommandParser().parse(arguments);
 
         case UndoCommand.COMMAND_WORD:
+            if (!arguments.isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UndoCommand.MESSAGE_USAGE));
+            }
             return new UndoCommand();
 
         case SortCommand.COMMAND_WORD:
@@ -124,18 +143,32 @@ public class CourseBookParser {
             return new SortBirthdayCommand();
 
         case RedoCommand.COMMAND_WORD:
+            if (!arguments.isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RedoCommand.MESSAGE_USAGE));
+            }
             return new RedoCommand();
 
         case ListCoursesCommand.COMMAND_WORD:
+            if (!arguments.isEmpty()) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCoursesCommand.MESSAGE_USAGE)
+                );
+            }
             return new ListCoursesCommand();
 
         case ViewCourseCommand.COMMAND_WORD:
             return new ViewCourseCommandParser().parse(arguments);
 
         case HistoryCommand.COMMAND_WORD:
+            if (!arguments.isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HistoryCommand.MESSAGE_USAGE));
+            }
             return new HistoryCommand();
 
         case HomeCommand.COMMAND_WORD:
+            if (!arguments.isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HomeCommand.MESSAGE_USAGE));
+            }
             return new HomeCommand();
 
         case BirthdayCommand.COMMAND_WORD:

@@ -77,7 +77,7 @@ Format: `help`
 
 Adds a person to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]… [c/COURSE]…​`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]… [c/COURSE_CODE[,COLOR]]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A person can have any number of tags (including 0)
@@ -86,7 +86,7 @@ A person can have any number of tags (including 0)
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-* `add n/Alice p/94351253 e/alice@example.com a/123, Jurong West Ave 6, #08-111 c/CS2103T c/CS2101`
+* `add n/Alice p/94351253 e/alice@example.com a/123, Jurong West Ave 6, #08-111 c/CS2103T,yellow c/CS2101`
 
 ### Listing all persons : `list`
 
@@ -119,15 +119,27 @@ Examples:
 
 Adds one or more courses to the specified person without replacing existing courses.
 
-Format: `addcourse INDEX c/COURSE_CODE [c/COURSE_CODE]...`
+Format: `addcourse INDEX c/COURSE_CODE[,COLOR] [c/COURSE_CODE[,COLOR]]...`
 
 - INDEX refers to the index in the currently displayed list (must be a positive integer).
 - At least one `c/COURSE_CODE` must be provided.
 - Duplicate courses (already assigned) will be rejected.
+- Color behavior:
+  - If a course code already exists anywhere and you supply a different COLOR, the color for that course code is updated globally to the new COLOR.
+  - If a new course code is added without COLOR, it defaults to GREEN.
 
 Examples:
-- `addcourse 1 c/CS2103T`
-- `addcourse 2 c/CS2101 c/CS2040S`
+- `addcourse 1 c/CS2103T,yellow`
+- `addcourse 2 c/CS2101 c/CS2040S,blue`
+
+### Editing course color globally: `editcourse`
+
+Sets the color for a course code globally across all persons.
+
+Format: `editcourse c/COURSE_CODE,COLOR`
+
+Examples:
+- `editcourse c/CS2103T,red`
 
 ### Removing courses from a person: `removecourse`
 
@@ -143,23 +155,27 @@ Examples:
 - `removecourse 1 c/CS2103T`
 - `removecourse 2 c/CS2101 c/CS2040S`
 
-### Locating persons by name: `find`
+### Finding persons by fields: `find`
 
-Finds persons whose names contain any of the given keywords.
+Finds persons by matching ANY of the provided fields (OR across fields). Within each field, a person matches if ANY of that field’s keywords match.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find [n/NAME_KEYWORDS] [p/PHONE_KEYWORDS] [e/EMAIL_KEYWORDS] [a/ADDRESS_KEYWORDS] [t/TAG]…`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+Notes:
+- The search is case-insensitive.
+- Parameters can be in any order.
+- OR across fields: a person is included if any provided field matches.
+- Within a field, ANY of the provided keywords may match.
+- Name and address keywords match whole words. Phone and email keywords match substrings.
+- Tags match by equality (case-insensitive). A person matches if they have ANY of the provided tags.
+- Backwards-compatible: if no prefixes are used, tokens are treated as name keywords (whole-word match).
 
 Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+- `find n/Alice n/Bob`
+- `find p/9123 e/example.com`
+- `find t/friend t/colleague`
+- `find n/Alice t/friend` (matches if name has Alice OR has tag friend)
+- `find alex david` (no prefixes → name-only search, whole-word OR)
 
 ### Deleting a person : `delete`
 
@@ -224,12 +240,13 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]… [c/COURSE]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]… [c/COURSE_CODE[,COLOR]]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 c/CS2103T,yellow`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]… [c/COURSE]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**AddCourse** | `addcourse INDEX c/COURSE_CODE [c/COURSE_CODE]...`<br> e.g., `addcourse 1 c/CS2103T`
+**AddCourse** | `addcourse INDEX c/COURSE_CODE[,COLOR] [c/COURSE_CODE[,COLOR]]...`<br> e.g., `addcourse 1 c/CS2103T,blue`
+**EditCourseColor** | `editcourse c/COURSE_CODE,COLOR`<br> e.g., `editcourse c/CS2101,green`
 **RemoveCourse** | `removecourse INDEX c/COURSE_CODE [c/COURSE_CODE]...`<br> e.g., `removecourse 1 c/CS2103T c/CS2101`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Find** | `find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…`<br> e.g., `find n/James t/colleague`
 **List** | `list`
 **Help** | `help`

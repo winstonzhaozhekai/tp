@@ -12,6 +12,9 @@ public class ListCoursesCommand extends Command {
 
     public static final String COMMAND_WORD = "listcourses";
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all courses.\n"
+            + "Example: " + COMMAND_WORD;
+
     public static final String MESSAGE_SUCCESS = "Listed all courses";
 
     /**

@@ -6,26 +6,30 @@ import seedu.coursebook.commons.util.ToStringBuilder;
 import seedu.coursebook.logic.CommandHistory;
 import seedu.coursebook.logic.Messages;
 import seedu.coursebook.model.Model;
-import seedu.coursebook.model.person.NameContainsKeywordsPredicate;
+import seedu.coursebook.model.person.PersonContainsKeywordsPredicate;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
- * Keyword matching is case insensitive.
+ * Finds and lists all persons whose fields match the given keywords.
+ * Supports field prefixes and OR-across-fields matching.
  */
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
     public static final String ALIAS_WORD = "f";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds persons by matching any provided field and "
+            + "displays them as a list with index numbers.\n"
+            + "Parameters: [n/NAME_KEYWORDS] [p/PHONE_KEYWORDS] [e/EMAIL_KEYWORDS] [a/ADDRESS_KEYWORDS] "
+            + "[t/TAG]...\n"
+            + "- OR across fields: a person matches if ANY provided field matches.\n"
+            + "- Within a field, ANY keyword may match.\n"
+            + "- Without prefixes, input is treated as name keywords (backwards-compatible).\n"
             + "Alias: f\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "Examples: find n/Alice t/friend | find p/9123 e/example.com | find alex bob";
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final PersonContainsKeywordsPredicate predicate;
 
-    public FindCommand(NameContainsKeywordsPredicate predicate) {
+    public FindCommand(PersonContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
