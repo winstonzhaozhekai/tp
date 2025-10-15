@@ -117,6 +117,10 @@ public class CourseBookParser {
             return new SortCommandParser().parse(arguments);
 
         case SortBirthdayCommand.COMMAND_WORD:
+            if (!arguments.trim().isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        SortBirthdayCommand.MESSAGE_USAGE));
+            }
             return new SortBirthdayCommand();
 
         case RedoCommand.COMMAND_WORD:
