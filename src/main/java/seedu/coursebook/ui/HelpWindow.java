@@ -94,9 +94,11 @@ public class HelpWindow extends UiPart<Stage> {
 
             // Course Management Commands
             new CommandSummary("addcourse", "Adds a course to a person",
-                    "addcourse INDEX c/COURSE_CODE"),
+                    "addcourse INDEX c/COURSE_CODE[,COLOR]"),
             new CommandSummary("removecourse", "Removes a course from a person",
                     "removecourse INDEX c/COURSE_CODE"),
+            new CommandSummary("editcourse", "Sets the color for a course code globally",
+                    "editcourse c/COURSE_CODE,COLOR"),
             new CommandSummary("viewcourse", "Views details of a course",
                     "viewcourse COURSE_CODE"),
             new CommandSummary("listbycourse", "Lists persons in a course",

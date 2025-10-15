@@ -10,6 +10,7 @@ import seedu.coursebook.commons.core.index.Index;
 import seedu.coursebook.commons.util.StringUtil;
 import seedu.coursebook.logic.parser.exceptions.ParseException;
 import seedu.coursebook.model.course.Course;
+import seedu.coursebook.model.course.CourseColor;
 import seedu.coursebook.model.person.Address;
 import seedu.coursebook.model.person.Birthday;
 import seedu.coursebook.model.person.Email;
@@ -163,8 +164,29 @@ public class ParserUtil {
     public static Set<Course> parseCourses(Collection<String> courses) throws ParseException {
         requireNonNull(courses);
         final Set<Course> courseSet = new HashSet<>();
-        for (String courseName : courses) {
-            courseSet.add(parseCourse(courseName));
+        for (String token : courses) {
+            if (token == null) {
+                continue;
+            }
+            String trimmed = token.trim();
+            if (trimmed.isEmpty()) {
+                continue;
+            }
+            String[] parts = trimmed.split(",", 2);
+            String code = parts[0].trim();
+            if (!Course.isValidCourseCode(code)) {
+                throw new ParseException(Course.MESSAGE_CONSTRAINTS);
+            }
+            CourseColor color = null;
+            if (parts.length == 2) {
+                String colorName = parts[1].trim();
+                try {
+                    color = CourseColor.fromName(colorName);
+                } catch (IllegalArgumentException ex) {
+                    throw new ParseException("Invalid course color: " + colorName);
+                }
+            }
+            courseSet.add(new Course(code, color));
         }
         return courseSet;
     }

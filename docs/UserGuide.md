@@ -77,7 +77,7 @@ Format: `help`
 
 Adds a person to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]… [c/COURSE]…​`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]… [c/COURSE_CODE[,COLOR]]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A person can have any number of tags (including 0)
@@ -86,7 +86,7 @@ A person can have any number of tags (including 0)
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-* `add n/Alice p/94351253 e/alice@example.com a/123, Jurong West Ave 6, #08-111 c/CS2103T c/CS2101`
+* `add n/Alice p/94351253 e/alice@example.com a/123, Jurong West Ave 6, #08-111 c/CS2103T,yellow c/CS2101`
 
 ### Listing all persons : `list`
 
@@ -119,15 +119,27 @@ Examples:
 
 Adds one or more courses to the specified person without replacing existing courses.
 
-Format: `addcourse INDEX c/COURSE_CODE [c/COURSE_CODE]...`
+Format: `addcourse INDEX c/COURSE_CODE[,COLOR] [c/COURSE_CODE[,COLOR]]...`
 
 - INDEX refers to the index in the currently displayed list (must be a positive integer).
 - At least one `c/COURSE_CODE` must be provided.
 - Duplicate courses (already assigned) will be rejected.
+- Color behavior:
+  - If a course code already exists anywhere and you supply a different COLOR, the color for that course code is updated globally to the new COLOR.
+  - If a new course code is added without COLOR, it defaults to GREEN.
 
 Examples:
-- `addcourse 1 c/CS2103T`
-- `addcourse 2 c/CS2101 c/CS2040S`
+- `addcourse 1 c/CS2103T,yellow`
+- `addcourse 2 c/CS2101 c/CS2040S,blue`
+
+### Editing course color globally: `editcourse`
+
+Sets the color for a course code globally across all persons.
+
+Format: `editcourse c/COURSE_CODE,COLOR`
+
+Examples:
+- `editcourse c/CS2103T,red`
 
 ### Removing courses from a person: `removecourse`
 
@@ -224,11 +236,12 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]… [c/COURSE]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]… [c/COURSE_CODE[,COLOR]]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 c/CS2103T,yellow`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]… [c/COURSE]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**AddCourse** | `addcourse INDEX c/COURSE_CODE [c/COURSE_CODE]...`<br> e.g., `addcourse 1 c/CS2103T`
+**AddCourse** | `addcourse INDEX c/COURSE_CODE[,COLOR] [c/COURSE_CODE[,COLOR]]...`<br> e.g., `addcourse 1 c/CS2103T,blue`
+**EditCourseColor** | `editcourse c/COURSE_CODE,COLOR`<br> e.g., `editcourse c/CS2101,green`
 **RemoveCourse** | `removecourse INDEX c/COURSE_CODE [c/COURSE_CODE]...`<br> e.g., `removecourse 1 c/CS2103T c/CS2101`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
