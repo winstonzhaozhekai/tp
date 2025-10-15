@@ -23,6 +23,7 @@ import seedu.coursebook.logic.commands.FindCommand;
 import seedu.coursebook.logic.commands.HelpCommand;
 import seedu.coursebook.logic.commands.ListCommand;
 import seedu.coursebook.logic.commands.ListCoursesCommand;
+import seedu.coursebook.logic.commands.SummaryCommand;
 import seedu.coursebook.logic.commands.ViewCourseCommand;
 import seedu.coursebook.logic.parser.exceptions.ParseException;
 import seedu.coursebook.model.person.NameContainsKeywordsPredicate;
@@ -101,6 +102,18 @@ public class CourseBookParserTest {
         ViewCourseCommand command = (ViewCourseCommand) parser.parseCommand(
                 ViewCourseCommand.COMMAND_WORD + " c/CS2103T");
         assertEquals(new ViewCourseCommand("CS2103T"), command);
+    }
+
+    @Test
+    public void parseCommand_summary() throws Exception {
+        assertTrue(parser.parseCommand(SummaryCommand.COMMAND_WORD) instanceof SummaryCommand);
+    }
+
+    @Test
+    public void parseCommand_summaryWithArguments_throwsParseException() {
+        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                SummaryCommand.MESSAGE_USAGE), ()
+                -> parser.parseCommand(SummaryCommand.COMMAND_WORD + " extra"));
     }
 
     @Test
