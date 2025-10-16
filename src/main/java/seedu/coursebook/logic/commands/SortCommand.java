@@ -12,7 +12,7 @@ import seedu.coursebook.model.person.Person;
  * Sorts the contact list by name in ascending or descending order.
  */
 public class SortCommand extends Command {
-    public static final String COMMAND_WORD = "sort";
+    public static final String COMMAND_WORD = "sortn";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts the contact list by name.\n"
             + "Parameters: /by [asc|desc]\n"
@@ -48,7 +48,7 @@ public class SortCommand extends Command {
 
         model.sortSelectedPersons(comparator);
 
-        return new CommandResult("Sorted contacts by name in " + order + "ending order.");
+        return new CommandResult("Sorted contacts by name in " + order + "ending order.", false, false, true, false);
     }
 
     @Override

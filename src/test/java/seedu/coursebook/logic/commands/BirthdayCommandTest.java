@@ -130,7 +130,8 @@ public class BirthdayCommandTest {
         @Override public void updateFilteredCourseList(Predicate<Course> predicate) {
 
         }
-        @Override public void setCourseColor(String courseCode, seedu.coursebook.model.course.CourseColor color) {
+        @Override
+        public void setCourseColor(String courseCode, seedu.coursebook.model.course.CourseColor color) {
 
         }
     }

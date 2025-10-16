@@ -28,6 +28,7 @@ import seedu.coursebook.logic.commands.ListCommand;
 import seedu.coursebook.logic.commands.ListCoursesCommand;
 import seedu.coursebook.logic.commands.RedoCommand;
 import seedu.coursebook.logic.commands.RemoveCourseCommand;
+import seedu.coursebook.logic.commands.SortBirthdayCommand;
 import seedu.coursebook.logic.commands.SortCommand;
 import seedu.coursebook.logic.commands.SummaryCommand;
 import seedu.coursebook.logic.commands.UndoCommand;
@@ -135,6 +136,14 @@ public class CourseBookParser {
 
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
+
+        case SortBirthdayCommand.COMMAND_WORD:
+            if (!arguments.trim().isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        SortBirthdayCommand.MESSAGE_USAGE));
+            }
+            return new SortBirthdayCommand();
+
         case RedoCommand.COMMAND_WORD:
             if (!arguments.isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RedoCommand.MESSAGE_USAGE));
