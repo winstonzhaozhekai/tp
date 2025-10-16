@@ -50,6 +50,13 @@ public class Birthday {
         }
     }
 
+    /**
+     * Returns the given date in dd-MM-yyyy format.
+     */
+    public LocalDate getDate() {
+        return LocalDate.parse(value, FORMATTER);
+    }
+
     @Override
     public String toString() {
         return value;
