@@ -32,6 +32,7 @@ public class PersonBuilder {
     private Birthday birthday;
     private Set<Tag> tags;
     private Set<Course> courses;
+    private boolean isFavourite;
 
     /**
      * Constructs a {@code PersonBuilder} with default values.
@@ -46,6 +47,7 @@ public class PersonBuilder {
         tags = new HashSet<>();
         courses = new HashSet<>();
         birthday = null;
+        isFavourite = false;
     }
 
     /**
@@ -61,6 +63,7 @@ public class PersonBuilder {
         birthday = personToCopy.getBirthday();
         tags = new HashSet<>(personToCopy.getTags());
         courses = new HashSet<>(personToCopy.getCourses());
+        isFavourite = personToCopy.isFavourite();
     }
 
     /**
@@ -143,11 +146,22 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code isFavourite} flag of the {@code Person} being built.
+     *
+     * @param isFavourite The favourite status to set.
+     * @return This builder instance.
+     */
+    public PersonBuilder withFavourite(boolean isFavourite) {
+        this.isFavourite = isFavourite;
+        return this;
+    }
+
+    /**
      * Builds and returns a {@code Person} object with the current builder values.
      *
      * @return A new {@code Person} instance.
      */
     public Person build() {
-        return new Person(name, phone, email, address, tags, courses, birthday);
+        return new Person(name, phone, email, address, tags, courses, birthday, isFavourite);
     }
 }

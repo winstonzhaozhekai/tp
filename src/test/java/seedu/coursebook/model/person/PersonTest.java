@@ -93,13 +93,18 @@ public class PersonTest {
         // different courses -> returns false
         editedAlice = new PersonBuilder(ALICE).withCourses(VALID_COURSE_CS2106).build();
         assertFalse(ALICE.equals(editedAlice));
+
+        // different favourite status -> returns false
+        editedAlice = new PersonBuilder(ALICE).withFavourite(true).build();
+        assertFalse(ALICE.equals(editedAlice));
     }
 
     @Test
     public void toStringMethod() {
         String expected = Person.class.getCanonicalName() + "{name=" + ALICE.getName() + ", phone=" + ALICE.getPhone()
                 + ", email=" + ALICE.getEmail() + ", address=" + ALICE.getAddress() + ", tags=" + ALICE.getTags()
-                + ", courses=" + ALICE.getCourses() + ", birthday=" + ALICE.getBirthday() + "}";
+                + ", courses=" + ALICE.getCourses() + ", birthday=" + ALICE.getBirthday()
+                + ", isFavourite=" + ALICE.isFavourite() + "}";
         assertEquals(expected, ALICE.toString());
     }
 }

@@ -41,6 +41,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label birthday;
     @FXML
+    private Label favouriteIcon;
+    @FXML
     private FlowPane tags;
     @FXML
     private FlowPane courses;
@@ -57,6 +59,17 @@ public class PersonCard extends UiPart<Region> {
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         birthday.setText(person.getBirthday() != null ? person.getBirthday().value : "No birthday");
+
+        // Set favourite icon
+        if (person.isFavourite()) {
+            favouriteIcon.setText("★");
+            favouriteIcon.setVisible(true);
+            favouriteIcon.setManaged(true);
+        } else {
+            favouriteIcon.setVisible(false);
+            favouriteIcon.setManaged(false);
+        }
+
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

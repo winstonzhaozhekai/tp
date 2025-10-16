@@ -18,6 +18,7 @@ import seedu.coursebook.logic.commands.DeleteCommand;
 import seedu.coursebook.logic.commands.EditCommand;
 import seedu.coursebook.logic.commands.EditCourseColorCommand;
 import seedu.coursebook.logic.commands.ExitCommand;
+import seedu.coursebook.logic.commands.FavouriteCommand;
 import seedu.coursebook.logic.commands.FindCommand;
 import seedu.coursebook.logic.commands.HelpCommand;
 import seedu.coursebook.logic.commands.HistoryCommand;
@@ -31,6 +32,7 @@ import seedu.coursebook.logic.commands.SortBirthdayCommand;
 import seedu.coursebook.logic.commands.SortCommand;
 import seedu.coursebook.logic.commands.SummaryCommand;
 import seedu.coursebook.logic.commands.UndoCommand;
+import seedu.coursebook.logic.commands.UnfavouriteCommand;
 import seedu.coursebook.logic.commands.ViewCourseCommand;
 import seedu.coursebook.logic.commands.ViewPersonCommand;
 import seedu.coursebook.logic.parser.exceptions.ParseException;
@@ -177,6 +179,11 @@ public class CourseBookParser {
 
         case ViewPersonCommand.COMMAND_WORD:
             return new ViewPersonCommandParser().parse(arguments);
+        case FavouriteCommand.COMMAND_WORD:
+            return new FavouriteCommandParser().parse(arguments);
+
+        case UnfavouriteCommand.COMMAND_WORD:
+            return new UnfavouriteCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
