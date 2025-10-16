@@ -80,7 +80,8 @@ public class BirthdayCommand extends Command {
         model.setPerson(personToEdit, editedPerson);
         model.commitCourseBook();
         return new CommandResult(
-                String.format(MESSAGE_ADD_BIRTHDAY_SUCCESS + birthday, Messages.format(editedPerson))
+                String.format(MESSAGE_ADD_BIRTHDAY_SUCCESS + birthday, Messages.format(editedPerson)),
+                false, false, true, false
         );
     }
 
