@@ -28,7 +28,9 @@ import seedu.coursebook.logic.commands.RedoCommand;
 import seedu.coursebook.logic.commands.SummaryCommand;
 import seedu.coursebook.logic.commands.UndoCommand;
 import seedu.coursebook.logic.commands.ViewCourseCommand;
+import seedu.coursebook.logic.commands.ViewPersonCommand;
 import seedu.coursebook.logic.parser.exceptions.ParseException;
+import seedu.coursebook.model.person.Name;
 import seedu.coursebook.model.person.Person;
 import seedu.coursebook.model.person.PersonContainsKeywordsPredicate;
 import seedu.coursebook.testutil.PersonBuilder;
@@ -100,6 +102,20 @@ public class CourseBookParserTest {
         ViewCourseCommand command = (ViewCourseCommand) parser.parseCommand(
                 ViewCourseCommand.COMMAND_WORD + " c/CS2103T");
         assertEquals(new ViewCourseCommand("CS2103T"), command);
+    }
+
+    @Test
+    public void parseCommand_viewPerson() throws Exception {
+        ViewPersonCommand command = (ViewPersonCommand) parser.parseCommand(
+                ViewPersonCommand.COMMAND_WORD + " 1");
+        assertEquals(new ViewPersonCommand(INDEX_FIRST_PERSON), command);
+    }
+
+    @Test
+    public void parseCommand_viewPersonByName() throws Exception {
+        ViewPersonCommand command = (ViewPersonCommand) parser.parseCommand(
+                ViewPersonCommand.COMMAND_WORD + " Alice Pauline");
+        assertEquals(new ViewPersonCommand(new Name("Alice Pauline")), command);
     }
 
     @Test

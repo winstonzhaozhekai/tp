@@ -34,6 +34,7 @@ import seedu.coursebook.logic.commands.SummaryCommand;
 import seedu.coursebook.logic.commands.UndoCommand;
 import seedu.coursebook.logic.commands.UnfavouriteCommand;
 import seedu.coursebook.logic.commands.ViewCourseCommand;
+import seedu.coursebook.logic.commands.ViewPersonCommand;
 import seedu.coursebook.logic.parser.exceptions.ParseException;
 
 /**
@@ -176,6 +177,8 @@ public class CourseBookParser {
         case BirthdayCommand.COMMAND_WORD:
             return new BirthdayCommandParser().parse(arguments);
 
+        case ViewPersonCommand.COMMAND_WORD:
+            return new ViewPersonCommandParser().parse(arguments);
         case FavouriteCommand.COMMAND_WORD:
             return new FavouriteCommandParser().parse(arguments);
 

@@ -35,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private CourseListPanel courseListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private PersonDetailWindow personDetailWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -67,6 +68,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        personDetailWindow = new PersonDetailWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -167,6 +169,18 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Shows the person detail window for the specified person.
+     */
+    public void handleShowPersonDetail(seedu.coursebook.model.person.Person person) {
+        personDetailWindow.setPerson(person);
+        if (!personDetailWindow.isShowing()) {
+            personDetailWindow.show();
+        } else {
+            personDetailWindow.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -180,6 +194,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        personDetailWindow.hide();
         primaryStage.hide();
     }
 
@@ -212,6 +227,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowCourses()) {
                 showCoursesView();
+            }
+
+            if (commandResult.isShowPersonDetail()) {
+                handleShowPersonDetail(commandResult.getPersonToShow());
             }
 
             return commandResult;

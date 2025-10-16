@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
 import seedu.coursebook.commons.util.ToStringBuilder;
+import seedu.coursebook.model.person.Person;
 
 /**
  * Represents the result of a command execution.
@@ -25,16 +26,32 @@ public class CommandResult {
     /** The UI should show courses view. */
     private final boolean showCourses;
 
+    /** The UI should show person detail popup. */
+    private final boolean showPersonDetail;
+
+    /** The person to show in detail popup. */
+    private final Person personToShow;
+
     /**
      * Constructs a {@code CommandResult} with all the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
                         boolean showPersons, boolean showCourses) {
+        this(feedbackToUser, showHelp, exit, showPersons, showCourses, false, null);
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with all the specified fields including person detail.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
+                        boolean showPersons, boolean showCourses, boolean showPersonDetail, Person personToShow) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.showPersons = showPersons;
         this.showCourses = showCourses;
+        this.showPersonDetail = showPersonDetail;
+        this.personToShow = personToShow;
     }
 
     /**
@@ -72,6 +89,14 @@ public class CommandResult {
         return showCourses;
     }
 
+    public boolean isShowPersonDetail() {
+        return showPersonDetail;
+    }
+
+    public Person getPersonToShow() {
+        return personToShow;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -88,12 +113,14 @@ public class CommandResult {
                 && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit
                 && showPersons == otherCommandResult.showPersons
-                && showCourses == otherCommandResult.showCourses;
+                && showCourses == otherCommandResult.showCourses
+                && showPersonDetail == otherCommandResult.showPersonDetail
+                && Objects.equals(personToShow, otherCommandResult.personToShow);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, showPersons, showCourses);
+        return Objects.hash(feedbackToUser, showHelp, exit, showPersons, showCourses, showPersonDetail, personToShow);
     }
 
     @Override
@@ -104,6 +131,8 @@ public class CommandResult {
                 .add("exit", exit)
                 .add("showPersons", showPersons)
                 .add("showCourses", showCourses)
+                .add("showPersonDetail", showPersonDetail)
+                .add("personToShow", personToShow)
                 .toString();
     }
 
