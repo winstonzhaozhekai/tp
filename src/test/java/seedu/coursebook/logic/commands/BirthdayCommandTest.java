@@ -20,7 +20,6 @@ import seedu.coursebook.model.Model;
 import seedu.coursebook.model.ReadOnlyCourseBook;
 import seedu.coursebook.model.ReadOnlyUserPrefs;
 import seedu.coursebook.model.course.Course;
-import seedu.coursebook.model.course.CourseColor;
 import seedu.coursebook.model.person.Birthday;
 import seedu.coursebook.model.person.Person;
 import seedu.coursebook.testutil.PersonBuilder;
