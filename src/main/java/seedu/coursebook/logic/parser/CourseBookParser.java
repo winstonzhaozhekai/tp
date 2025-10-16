@@ -31,6 +31,7 @@ import seedu.coursebook.logic.commands.SortCommand;
 import seedu.coursebook.logic.commands.SummaryCommand;
 import seedu.coursebook.logic.commands.UndoCommand;
 import seedu.coursebook.logic.commands.ViewCourseCommand;
+import seedu.coursebook.logic.commands.ViewPersonCommand;
 import seedu.coursebook.logic.parser.exceptions.ParseException;
 
 /**
@@ -164,6 +165,9 @@ public class CourseBookParser {
 
         case BirthdayCommand.COMMAND_WORD:
             return new BirthdayCommandParser().parse(arguments);
+
+        case ViewPersonCommand.COMMAND_WORD:
+            return new ViewPersonCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
