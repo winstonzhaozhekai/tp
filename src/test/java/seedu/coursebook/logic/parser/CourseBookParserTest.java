@@ -31,7 +31,6 @@ import seedu.coursebook.logic.commands.ViewCourseCommand;
 import seedu.coursebook.logic.parser.exceptions.ParseException;
 import seedu.coursebook.model.person.Person;
 import seedu.coursebook.model.person.PersonContainsKeywordsPredicate;
-import seedu.coursebook.testutil.EditPersonDescriptorBuilder;
 import seedu.coursebook.testutil.PersonBuilder;
 import seedu.coursebook.testutil.PersonUtil;
 
