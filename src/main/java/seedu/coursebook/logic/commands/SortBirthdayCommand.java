@@ -57,7 +57,7 @@ public class SortBirthdayCommand extends Command {
 
         model.sortSelectedPersons(comparator);
 
-        return new CommandResult("Sorted contacts by upcoming birthday.");
+        return new CommandResult("Sorted contacts by upcoming birthday.", false, false, true, false);
     }
 
     /**

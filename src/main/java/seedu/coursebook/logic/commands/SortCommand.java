@@ -48,7 +48,7 @@ public class SortCommand extends Command {
 
         model.sortSelectedPersons(comparator);
 
-        return new CommandResult("Sorted contacts by name in " + order + "ending order.");
+        return new CommandResult("Sorted contacts by name in " + order + "ending order.", false, false, true, false);
     }
 
     @Override
