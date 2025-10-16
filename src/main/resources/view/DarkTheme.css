@@ -377,3 +377,10 @@
   -fx-scale-x: 1.05;
   -fx-scale-y: 1.05;
 }
+
+.favourite-star {
+  -fx-text-fill: #ffd700; /* Gold color */
+  -fx-font-size: 14pt;
+  -fx-font-weight: bold;
+  -fx-padding: 0 5 0 0;
+}
