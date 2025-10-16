@@ -23,7 +23,7 @@ public class FindCommand extends Command {
             + "[t/TAG]...\n"
             + "- OR across fields: a person matches if ANY provided field matches.\n"
             + "- Within a field, ANY keyword may match.\n"
-            + "- Without prefixes, input is treated as name keywords (backwards-compatible).\n"
+            + "- If no prefixes are present, input will be treated as a name \n"
             + "Alias: f\n"
             + "Examples: find n/Alice t/friend | find p/9123 e/example.com | find alex bob";
 
