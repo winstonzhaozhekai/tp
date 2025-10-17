@@ -28,7 +28,7 @@ public class Name {
     public Name(String name) {
         requireNonNull(name);
         checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
-        fullName = name;
+        fullName = capitalizeWords(name);
     }
 
     /**
@@ -36,6 +36,32 @@ public class Name {
      */
     public static boolean isValidName(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Capitalizes the first letter of each word in the name.
+     * Preserves the original spacing structure.
+     *
+     * @param name The name to capitalize.
+     * @return The capitalized name.
+     */
+    private static String capitalizeWords(String name) {
+        String[] words = name.split(" ", -1); // -1 to preserve trailing empty strings
+        StringBuilder capitalized = new StringBuilder();
+
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() > 0) {
+                capitalized.append(Character.toUpperCase(words[i].charAt(0)));
+                if (words[i].length() > 1) {
+                    capitalized.append(words[i].substring(1).toLowerCase());
+                }
+            }
+            if (i < words.length - 1) {
+                capitalized.append(" ");
+            }
+        }
+
+        return capitalized.toString();
     }
 
 

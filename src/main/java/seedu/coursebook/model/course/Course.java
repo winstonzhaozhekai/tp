@@ -23,7 +23,7 @@ public class Course {
     public Course(String courseCode) {
         requireNonNull(courseCode);
         checkArgument(isValidCourseCode(courseCode), MESSAGE_CONSTRAINTS);
-        this.courseCode = courseCode;
+        this.courseCode = courseCode.toUpperCase();
         this.color = CourseColor.GREEN; // default for legacy construction
     }
 
@@ -34,7 +34,7 @@ public class Course {
     public Course(String courseCode, CourseColor color) {
         requireNonNull(courseCode);
         checkArgument(isValidCourseCode(courseCode), MESSAGE_CONSTRAINTS);
-        this.courseCode = courseCode;
+        this.courseCode = courseCode.toUpperCase();
         this.color = (color == null) ? CourseColor.GREEN : color;
     }
 

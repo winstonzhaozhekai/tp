@@ -1,5 +1,6 @@
 package seedu.coursebook.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.coursebook.testutil.Assert.assertThrows;
@@ -56,5 +57,32 @@ public class NameTest {
 
         // different values -> returns false
         assertFalse(name.equals(new Name("Other Valid Name")));
+    }
+
+    @Test
+    public void constructor_capitalizesNames() {
+        // lowercase name -> capitalized
+        assertEquals("John Doe", new Name("john doe").fullName);
+
+        // uppercase name -> capitalized
+        assertEquals("John Doe", new Name("JOHN DOE").fullName);
+
+        // mixed case name -> capitalized
+        assertEquals("John Doe", new Name("jOhN dOe").fullName);
+
+        // single word lowercase -> capitalized
+        assertEquals("Alice", new Name("alice").fullName);
+
+        // single word uppercase -> capitalized
+        assertEquals("Alice", new Name("ALICE").fullName);
+
+        // already capitalized -> remains capitalized
+        assertEquals("Emma Watson", new Name("Emma Watson").fullName);
+
+        // multiple words -> all capitalized
+        assertEquals("Mary Jane Watson", new Name("mary jane watson").fullName);
+
+        // single letter name -> capitalized
+        assertEquals("A", new Name("a").fullName);
     }
 }
