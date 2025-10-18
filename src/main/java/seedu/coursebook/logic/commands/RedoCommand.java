@@ -30,6 +30,15 @@ public class RedoCommand extends Command {
 
         model.redoCourseBook();
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+        if (model.hasThemeChangedDuringRedo()) {
+            ThemeCommand.Theme restoredTheme = model.getCurrentTheme();
+            return CommandResult.forThemeChange(
+                    MESSAGE_SUCCESS,
+                    restoredTheme.getThemeCssFile(),
+                    restoredTheme.getExtensionsFile()
+            );
+        }
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

@@ -190,5 +190,17 @@ public class RemoveCourseCommandTest {
 
         @Override
         public void setCourseColor(String courseCode, CourseColor color) { }
+
+        @Override
+        public CommandResult setCurrentTheme(ThemeCommand.Theme theme) { return null; }
+
+        @Override
+        public ThemeCommand.Theme getCurrentTheme() { return null; }
+
+        @Override
+        public boolean hasThemeChangedDuringRedo() { return false; }
+
+        @Override
+        public boolean hasThemeChangedDuringUndo() { return false; }
     }
 }

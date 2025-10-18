@@ -134,5 +134,17 @@ public class BirthdayCommandTest {
         public void setCourseColor(String courseCode, seedu.coursebook.model.course.CourseColor color) {
 
         }
+
+        @Override
+        public CommandResult setCurrentTheme(ThemeCommand.Theme theme) { return null; }
+
+        @Override
+        public ThemeCommand.Theme getCurrentTheme() { return null; }
+
+        @Override
+        public boolean hasThemeChangedDuringRedo() { return false; }
+
+        @Override
+        public boolean hasThemeChangedDuringUndo() { return false; }
     }
 }

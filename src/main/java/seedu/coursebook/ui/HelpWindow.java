@@ -107,6 +107,8 @@ public class HelpWindow extends UiPart<Stage> {
                     "listcourses"),
 
             // General Commands
+            new CommandSummary("theme", "Change theme to dark/blue/love/tree",
+                    "theme blue"),
             new CommandSummary("home", "Go to home page",
                     "home"),
             new CommandSummary("summary", "Shows summary statistics",

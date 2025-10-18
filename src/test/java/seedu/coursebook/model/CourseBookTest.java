@@ -20,6 +20,7 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.coursebook.logic.commands.ThemeCommand;
 import seedu.coursebook.model.person.Person;
 import seedu.coursebook.model.person.exceptions.DuplicatePersonException;
 import seedu.coursebook.testutil.PersonBuilder;
@@ -133,6 +134,11 @@ public class CourseBookTest {
 
         @Override
         public void removeListener(InvalidationListener listener) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ThemeCommand.Theme getCurrentTheme() {
             throw new AssertionError("This method should not be called.");
         }
     }

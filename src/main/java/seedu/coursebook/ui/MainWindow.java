@@ -2,6 +2,7 @@ package seedu.coursebook.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -24,6 +25,9 @@ import seedu.coursebook.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String DARK_THEME_CSS = "view/DarkTheme.css";
+    private static final String EXTENSIONS_CSS = "view/Extensions.css";
+
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -36,6 +40,9 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private PersonDetailWindow personDetailWindow;
+    private String currentTheme = DARK_THEME_CSS; // Track current theme
+    private String currentExtensions = EXTENSIONS_CSS;
+
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -67,8 +74,43 @@ public class MainWindow extends UiPart<Stage> {
 
         setAccelerators();
 
+        // Initialize stylesheets programmatically
+        ObservableList<String> stylesheets = primaryStage.getScene().getStylesheets();
+        stylesheets.add(DARK_THEME_CSS);
+        stylesheets.add(EXTENSIONS_CSS);
+
+        currentTheme = DARK_THEME_CSS;
+        currentExtensions = EXTENSIONS_CSS;
+
         helpWindow = new HelpWindow();
         personDetailWindow = new PersonDetailWindow();
+    }
+
+    /**
+     * Switches the application theme to the specified CSS file.
+     */
+    public void switchTheme(String cssFileName, String extensionsName) {
+        String newThemePath = "view/" + cssFileName;
+        String newExtensionsPath = "view/" + extensionsName;
+
+        // Update the main scene stylesheets
+        ObservableList<String> stylesheets = primaryStage.getScene().getStylesheets();
+
+        // Remove the old theme (but keep Extensions.css)
+        stylesheets.remove(currentTheme);
+        stylesheets.remove(currentExtensions);
+
+        // Add the new theme at the beginning
+        stylesheets.add(0, newThemePath);
+        stylesheets.add(1, newExtensionsPath);
+
+        // Update current theme tracker
+        currentTheme = newThemePath;
+        currentExtensions = newExtensionsPath;
+
+        UiManager.setAlertTheme(cssFileName, extensionsName);
+
+        logger.info("Theme switched to: " + cssFileName + "\nExtensions switched to: " + extensionsName);
     }
 
     public Stage getPrimaryStage() {
@@ -233,6 +275,10 @@ public class MainWindow extends UiPart<Stage> {
                 handleShowPersonDetail(commandResult.getPersonToShow());
             }
 
+            if (commandResult.isThemeChange()) {
+                switchTheme(commandResult.getThemeCssFile(), commandResult.getExtensionsFile());
+            }
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("An error occurred while executing command: " + commandText);
@@ -240,4 +286,6 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
+
 }

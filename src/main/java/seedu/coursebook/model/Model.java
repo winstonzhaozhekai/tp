@@ -7,6 +7,8 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.coursebook.commons.core.GuiSettings;
+import seedu.coursebook.logic.commands.CommandResult;
+import seedu.coursebook.logic.commands.ThemeCommand;
 import seedu.coursebook.model.course.Course;
 import seedu.coursebook.model.course.CourseColor;
 import seedu.coursebook.model.person.Person;
@@ -18,6 +20,8 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
+    boolean hasThemeChangedDuringUndo();
+    boolean hasThemeChangedDuringRedo();
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -149,4 +153,13 @@ public interface Model {
      */
     void setCourseColor(String courseCode, CourseColor color);
 
+    /**
+     * retrieve the theme color
+     */
+    ThemeCommand.Theme getCurrentTheme();
+
+    /**
+     * Sets the theme color
+     */
+    CommandResult setCurrentTheme(ThemeCommand.Theme theme);
 }

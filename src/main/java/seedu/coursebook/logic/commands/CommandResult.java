@@ -32,19 +32,43 @@ public class CommandResult {
     /** The person to show in detail popup. */
     private final Person personToShow;
 
+    /** The CSS theme file to switch to (null if no theme change). */
+    private final String themeCssFile;
+
+    /** The CSS extensions file to switch to (null if no theme change). */
+    private final String extensionsFile;
+
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
+     * and other fields set to their default value.
+     */
+    public CommandResult(String feedbackToUser) {
+        this(feedbackToUser, false, false, false, false);
+    }
+
     /**
      * Constructs a {@code CommandResult} with all the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
                         boolean showPersons, boolean showCourses) {
-        this(feedbackToUser, showHelp, exit, showPersons, showCourses, false, null);
+        this(feedbackToUser, showHelp, exit, showPersons, showCourses, false, null, null, null);
     }
 
     /**
      * Constructs a {@code CommandResult} with all the specified fields including person detail.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
-                        boolean showPersons, boolean showCourses, boolean showPersonDetail, Person personToShow) {
+                         boolean showPersons, boolean showCourses, boolean showPersonDetail,
+                         Person personToShow) {
+        this(feedbackToUser, showHelp, exit, showPersons, showCourses, showPersonDetail, personToShow, null, null);
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with all the specified fields including person detail.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
+                        boolean showPersons, boolean showCourses, boolean showPersonDetail,
+                         Person personToShow, String themeCssFile, String extensionsFile) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
@@ -52,6 +76,8 @@ public class CommandResult {
         this.showCourses = showCourses;
         this.showPersonDetail = showPersonDetail;
         this.personToShow = personToShow;
+        this.themeCssFile = themeCssFile;
+        this.extensionsFile = extensionsFile;
     }
 
     /**
@@ -62,11 +88,10 @@ public class CommandResult {
     }
 
     /**
-     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
-     * and other fields set to their default value.
+     * Constructs a {@code CommandResult} for a theme change.
      */
-    public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false);
+    public static CommandResult forThemeChange(String feedbackToUser, String themeCssFile, String extensionsFile) {
+        return new CommandResult(feedbackToUser, false, false, false, false, false, null, themeCssFile, extensionsFile);
     }
 
     public String getFeedbackToUser() {
@@ -97,6 +122,18 @@ public class CommandResult {
         return personToShow;
     }
 
+    public boolean isThemeChange() {
+        return themeCssFile != null;
+    }
+
+    public String getThemeCssFile() {
+        return themeCssFile;
+    }
+
+    public String getExtensionsFile() {
+        return extensionsFile;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -115,7 +152,8 @@ public class CommandResult {
                 && showPersons == otherCommandResult.showPersons
                 && showCourses == otherCommandResult.showCourses
                 && showPersonDetail == otherCommandResult.showPersonDetail
-                && Objects.equals(personToShow, otherCommandResult.personToShow);
+                && Objects.equals(personToShow, otherCommandResult.personToShow)
+                && Objects.equals(themeCssFile, otherCommandResult.themeCssFile);
     }
 
     @Override
@@ -133,6 +171,8 @@ public class CommandResult {
                 .add("showCourses", showCourses)
                 .add("showPersonDetail", showPersonDetail)
                 .add("personToShow", personToShow)
+                .add("themeCssFile", themeCssFile)
+                .add("ExtensionsFile", extensionsFile)
                 .toString();
     }
 

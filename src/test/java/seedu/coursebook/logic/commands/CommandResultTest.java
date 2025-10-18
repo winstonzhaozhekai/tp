@@ -59,7 +59,9 @@ public class CommandResultTest {
                 + commandResult.getFeedbackToUser() + ", showHelp=" + commandResult.isShowHelp()
                 + ", exit=" + commandResult.isExit() + ", showPersons=" + commandResult.isShowPersons()
                 + ", showCourses=" + commandResult.isShowCourses() + ", showPersonDetail="
-                + commandResult.isShowPersonDetail() + ", personToShow=" + commandResult.getPersonToShow() + "}";
+                + commandResult.isShowPersonDetail() + ", personToShow=" + commandResult.getPersonToShow()
+                + ", themeCssFile=" + commandResult.getThemeCssFile() + ", extensionsFile="
+                + commandResult.getExtensionsFile() + "}";
         assertEquals(expected, commandResult.toString());
     }
 }

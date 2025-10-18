@@ -2,6 +2,7 @@ package seedu.coursebook.model;
 
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
+import seedu.coursebook.logic.commands.ThemeCommand;
 import seedu.coursebook.model.person.Person;
 
 /**
@@ -14,5 +15,10 @@ public interface ReadOnlyCourseBook extends Observable {
      * This list will not contain any duplicate persons.
      */
     ObservableList<Person> getPersonList();
+
+    /**
+     * Returns the current theme of the course book.
+     */
+    ThemeCommand.Theme getCurrentTheme();
 
 }

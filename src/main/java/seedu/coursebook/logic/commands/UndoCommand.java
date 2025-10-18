@@ -29,6 +29,17 @@ public class UndoCommand extends Command {
 
         model.undoCourseBook();
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+        // Check if theme changed during undo
+        if (model.hasThemeChangedDuringUndo()) {
+            ThemeCommand.Theme restoredTheme = model.getCurrentTheme();
+            return CommandResult.forThemeChange(
+                    MESSAGE_SUCCESS,
+                    restoredTheme.getThemeCssFile(),
+                    restoredTheme.getExtensionsFile()
+            );
+        }
+
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
