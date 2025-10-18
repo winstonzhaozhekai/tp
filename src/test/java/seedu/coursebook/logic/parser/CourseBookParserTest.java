@@ -14,21 +14,7 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.coursebook.logic.commands.AddCommand;
-import seedu.coursebook.logic.commands.ClearCommand;
-import seedu.coursebook.logic.commands.DeleteCommand;
-import seedu.coursebook.logic.commands.ExitCommand;
-import seedu.coursebook.logic.commands.FindCommand;
-import seedu.coursebook.logic.commands.HelpCommand;
-import seedu.coursebook.logic.commands.HistoryCommand;
-import seedu.coursebook.logic.commands.HomeCommand;
-import seedu.coursebook.logic.commands.ListCommand;
-import seedu.coursebook.logic.commands.ListCoursesCommand;
-import seedu.coursebook.logic.commands.RedoCommand;
-import seedu.coursebook.logic.commands.SummaryCommand;
-import seedu.coursebook.logic.commands.UndoCommand;
-import seedu.coursebook.logic.commands.ViewCourseCommand;
-import seedu.coursebook.logic.commands.ViewPersonCommand;
+import seedu.coursebook.logic.commands.*;
 import seedu.coursebook.logic.parser.exceptions.ParseException;
 import seedu.coursebook.model.person.Name;
 import seedu.coursebook.model.person.Person;
@@ -154,6 +140,13 @@ public class CourseBookParserTest {
     public void parseCommand_home() throws Exception {
         assertTrue(parser.parseCommand(HomeCommand.COMMAND_WORD) instanceof HomeCommand);
         assertThrows(ParseException.class, () -> parser.parseCommand(HomeCommand.COMMAND_WORD + " 3"));
+    }
+
+    @Test
+    public void parseCommand_theme() throws Exception {
+        ThemeCommand command = (ThemeCommand) parser.parseCommand(
+                ThemeCommand.COMMAND_WORD + " blue");
+        assertEquals(new ThemeCommand(ThemeCommand.Theme.BLUE), command);
     }
 
     @Test
