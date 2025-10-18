@@ -384,3 +384,33 @@
   -fx-font-weight: bold;
   -fx-padding: 0 5 0 0;
 }
+
+/* Copy button styling */
+#copyButton, .copy-button {
+    -fx-background-color: derive(#291E20, 20%);
+    -fx-text-fill: white;
+    -fx-font-size: 11px;
+    -fx-padding: 5 15 5 15;
+    -fx-background-radius: 3;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-insets: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 2);
+}
+
+#copyButton:hover, .copy-button:hover {
+    -fx-background-color: #4a4a4a;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 6, 0, 0, 3);
+}
+
+#copyButton:pressed, .copy-button:pressed {
+    -fx-background-color: #5a5a5a;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 2, 0, 0, 1);
+    -fx-translate-y: 1;
+}
+
+#copyButton:focused, .copy-button:focused {
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+}
