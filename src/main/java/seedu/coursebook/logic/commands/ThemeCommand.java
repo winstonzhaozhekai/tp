@@ -32,7 +32,7 @@ public class ThemeCommand extends Command {
         DARK("dark", "DarkTheme.css", "Extensions.css"),
         BLUE("blue", "BlueTheme.css", "BlueExtensions.css"),
         LOVE("love", "LoveTheme.css", "LoveExtensions.css"),
-        GOLD("tree", "TreeTheme.css", "TreeExtensions.css");
+        TREE("tree", "TreeTheme.css", "TreeExtensions.css");
 
         private final String name;
         private final String cssFile;
