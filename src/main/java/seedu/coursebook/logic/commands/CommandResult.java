@@ -172,7 +172,7 @@ public class CommandResult {
                 .add("showPersonDetail", showPersonDetail)
                 .add("personToShow", personToShow)
                 .add("themeCssFile", themeCssFile)
-                .add("ExtensionsFile", extensionsFile)
+                .add("extensionsFile", extensionsFile)
                 .toString();
     }
 

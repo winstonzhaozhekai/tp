@@ -78,10 +78,10 @@ public class ThemeCommandTest {
     public void execute_differentThemes_success() throws Exception {
         // Test changing to each theme
         ThemeCommand.Theme[] themes = {
-                ThemeCommand.Theme.DARK,
-                ThemeCommand.Theme.BLUE,
-                ThemeCommand.Theme.LOVE,
-                ThemeCommand.Theme.TREE
+            ThemeCommand.Theme.DARK,
+            ThemeCommand.Theme.BLUE,
+            ThemeCommand.Theme.LOVE,
+            ThemeCommand.Theme.TREE
         };
 
         for (ThemeCommand.Theme targetTheme : themes) {

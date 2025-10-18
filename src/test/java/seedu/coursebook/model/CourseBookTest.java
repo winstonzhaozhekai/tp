@@ -89,7 +89,8 @@ public class CourseBookTest {
 
     @Test
     public void toStringMethod() {
-        String expected = CourseBook.class.getCanonicalName() + "{persons=" + courseBook.getPersonList() + "}";
+        String expected = CourseBook.class.getCanonicalName() + "{persons=" + courseBook.getPersonList()
+                + ",theme=DARK}";
         assertEquals(expected, courseBook.toString());
     }
 
