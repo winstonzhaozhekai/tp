@@ -24,15 +24,17 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
 
-        // Try parse as index first
+        if (trimmed.equals("0")) {
+            throw new ParseException(seedu.coursebook.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
         try {
             Index index = ParserUtil.parseIndex(trimmed);
             return new DeleteCommand(index);
         } catch (ParseException ignored) {
-            // Fall through to parse as name
+            // do nothing
         }
 
-        // Parse as name
         if (!Name.isValidName(trimmed)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
