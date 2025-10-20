@@ -188,7 +188,7 @@ public class CourseBookParser {
 
         case FavCommand.COMMAND_WORD:
             if (!arguments.isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FavCommand.MESSAGE_USAGE));
             }
             return new FavCommand();
 

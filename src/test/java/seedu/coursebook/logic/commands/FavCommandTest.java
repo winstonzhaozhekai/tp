@@ -42,7 +42,7 @@ public class FavCommandTest {
         FavCommand favCommand = new FavCommand();
         CommandResult result = favCommand.execute(model, commandHistory);
 
-        assertEquals("Listed all favourite contacts.", result.getFeedbackToUser().trim());
+        assertEquals(FavCommand.MESSAGE_LISTED_FAVOURITES, result.getFeedbackToUser().trim());
         assertEquals(expectedModel.getFilteredPersonList(), model.getFilteredPersonList());
     }
 
@@ -59,7 +59,7 @@ public class FavCommandTest {
         FavCommand favCommand = new FavCommand();
         CommandResult result = favCommand.execute(model, commandHistory);
 
-        assertEquals("No favourte contacts yet.", result.getFeedbackToUser());
+        assertEquals(FavCommand.MESSAGE_NO_FAVOURITES, result.getFeedbackToUser());
         assertEquals(expectedModel.getFilteredPersonList(), model.getFilteredPersonList());
     }
 }

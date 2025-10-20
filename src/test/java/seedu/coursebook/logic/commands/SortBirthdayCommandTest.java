@@ -27,9 +27,9 @@ public class SortBirthdayCommandTest {
         model = new ModelManager(new CourseBook(), new UserPrefs());
         history = new CommandHistory();
 
-        model.addPerson(new PersonBuilder().withName("Alice").withBirthday("20-10-2025").build());
-        model.addPerson(new PersonBuilder().withName("Bob").withBirthday("18-10-2025").build());
-        model.addPerson(new PersonBuilder().withName("Charlie").withBirthday("25-12-2025").build());
+        model.addPerson(new PersonBuilder().withName("Alice").withBirthday("02-06-2025").build());
+        model.addPerson(new PersonBuilder().withName("Bob").withBirthday("01-06-2025").build());
+        model.addPerson(new PersonBuilder().withName("Charlie").withBirthday("03-06-2025").build());
     }
 
     @Test
@@ -38,9 +38,9 @@ public class SortBirthdayCommandTest {
         command.execute(model, history);
 
         List<Person> expectedOrder = Arrays.asList(
-                new PersonBuilder().withName("Bob").withBirthday("18-10-2025").build(),
-                new PersonBuilder().withName("Alice").withBirthday("20-10-2025").build(),
-                new PersonBuilder().withName("Charlie").withBirthday("25-12-2025").build()
+                new PersonBuilder().withName("Bob").withBirthday("01-06-2025").build(),
+                new PersonBuilder().withName("Alice").withBirthday("02-06-2025").build(),
+                new PersonBuilder().withName("Charlie").withBirthday("03-06-2025").build()
         );
 
         assertEquals(expectedOrder.toString(), model.getFilteredPersonList().toString());

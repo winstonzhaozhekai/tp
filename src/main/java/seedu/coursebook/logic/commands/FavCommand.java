@@ -33,6 +33,10 @@ public class FavCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all favourite contacts.\n"
             + "Example: " + COMMAND_WORD;
 
+    public static final String MESSAGE_NO_FAVOURITES = "No favourite contacts yet.";
+    public static final String MESSAGE_LISTED_FAVOURITES = "Listed all favourite contacts.";
+
+
 
     /**
      * Constructs a new {@code FavCommand}.
@@ -58,12 +62,9 @@ public class FavCommand extends Command {
         Predicate<Person> personsInFavs = person ->
                 person.isFavourite();
         model.updateFilteredPersonList(personsInFavs);
-        int size = model.getFilteredPersonList().size();
+        boolean hasFavourites = !model.getFilteredPersonList().isEmpty();
+        String message = hasFavourites ? MESSAGE_LISTED_FAVOURITES : MESSAGE_NO_FAVOURITES;
 
-        if (size == 0) {
-            return new CommandResult("No favourte contacts yet.", false, false, true, false);
-        } else {
-            return new CommandResult("Listed all favourite contacts.", false, false, true, false);
-        }
+        return new CommandResult(message, false, false, true, false);
     }
 }
