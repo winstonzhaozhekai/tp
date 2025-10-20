@@ -24,7 +24,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
 
-        if (trimmed.equals("0")) {
+        if (trimmed.matches("0+|-\\d+")) {
             throw new ParseException(seedu.coursebook.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
@@ -32,7 +32,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             Index index = ParserUtil.parseIndex(trimmed);
             return new DeleteCommand(index);
         } catch (ParseException ignored) {
-            // do nothing
+            // Input is not a valid index; attempt to parse as a name instead
         }
 
         if (!Name.isValidName(trimmed)) {
@@ -40,5 +40,4 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         }
         return new DeleteCommand(new Name(trimmed));
     }
-
 }
