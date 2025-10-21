@@ -10,6 +10,9 @@ import static seedu.coursebook.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.coursebook.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.coursebook.testutil.TypicalPersons.getTypicalCourseBook;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.coursebook.commons.core.index.Index;
@@ -18,6 +21,7 @@ import seedu.coursebook.logic.Messages;
 import seedu.coursebook.model.Model;
 import seedu.coursebook.model.ModelManager;
 import seedu.coursebook.model.UserPrefs;
+import seedu.coursebook.model.person.Name;
 import seedu.coursebook.model.person.Person;
 
 /**
@@ -50,7 +54,7 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, commandHistory, DeleteCommand.MESSAGE_NO_VALID_TARGETS);
     }
 
     @Test
@@ -81,7 +85,7 @@ public class DeleteCommandTest {
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, commandHistory, DeleteCommand.MESSAGE_NO_VALID_TARGETS);
     }
 
     @Test
@@ -110,8 +114,129 @@ public class DeleteCommandTest {
     public void toStringMethod() {
         Index targetIndex = Index.fromOneBased(1);
         DeleteCommand deleteCommand = new DeleteCommand(targetIndex);
-        String expected = DeleteCommand.class.getCanonicalName() + "{targetIndex=" + targetIndex + "}";
+        String expected = DeleteCommand.class.getCanonicalName() + "{targetIndices=[" + targetIndex + "]}";
         assertEquals(expected, deleteCommand.toString());
+    }
+
+    @Test
+    public void execute_multipleValidIndices_success() {
+        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person secondPerson = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        List<Index> indices = Arrays.asList(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON);
+        DeleteCommand deleteCommand = new DeleteCommand(indices);
+
+        ModelManager expectedModel = new ModelManager(model.getCourseBook(), new UserPrefs());
+        expectedModel.deletePerson(firstPerson);
+        expectedModel.deletePerson(secondPerson);
+        expectedModel.commitCourseBook();
+
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSONS_SUCCESS, 2,
+                Messages.format(firstPerson) + "\n" + Messages.format(secondPerson));
+
+        assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_multipleIndicesWithInvalid_partialSuccess() {
+        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Index invalidIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        List<Index> indices = Arrays.asList(INDEX_FIRST_PERSON, invalidIndex);
+        DeleteCommand deleteCommand = new DeleteCommand(indices);
+
+        ModelManager expectedModel = new ModelManager(model.getCourseBook(), new UserPrefs());
+        expectedModel.deletePerson(firstPerson);
+        expectedModel.commitCourseBook();
+
+        CommandResult result;
+        try {
+            result = deleteCommand.execute(model, commandHistory);
+            assertTrue(result.getFeedbackToUser().contains("Deleted 1 person(s)"));
+            assertTrue(result.getFeedbackToUser().contains("Warnings"));
+            assertTrue(result.getFeedbackToUser().contains("Index " + invalidIndex.getOneBased() + " is invalid"));
+        } catch (Exception e) {
+            throw new AssertionError("Execution of command should not fail.", e);
+        }
+    }
+
+    @Test
+    public void execute_allInvalidIndices_throwsCommandException() {
+        Index invalidIndex1 = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        Index invalidIndex2 = Index.fromOneBased(model.getFilteredPersonList().size() + 2);
+        List<Index> indices = Arrays.asList(invalidIndex1, invalidIndex2);
+        DeleteCommand deleteCommand = new DeleteCommand(indices);
+
+        assertCommandFailure(deleteCommand, model, commandHistory, DeleteCommand.MESSAGE_NO_VALID_TARGETS);
+    }
+
+    @Test
+    public void execute_multipleValidNames_success() {
+        Model freshModel = new ModelManager(getTypicalCourseBook(), new UserPrefs());
+        CommandHistory freshHistory = new CommandHistory();
+
+        // Assuming typical course book has "Alice Pauline" and "Benson Meier"
+        List<Name> names = Arrays.asList(new Name("Alice Pauline"), new Name("Benson Meier"));
+        DeleteCommand deleteCommand = new DeleteCommand(names, true);
+
+        Person alice = freshModel.getFilteredPersonList().stream()
+                .filter(p -> p.getName().fullName.equals("Alice Pauline"))
+                .findFirst()
+                .orElse(null);
+        Person benson = freshModel.getFilteredPersonList().stream()
+                .filter(p -> p.getName().fullName.equals("Benson Meier"))
+                .findFirst()
+                .orElse(null);
+
+        if (alice != null && benson != null) {
+            CommandResult result;
+            try {
+                result = deleteCommand.execute(freshModel, freshHistory);
+                assertTrue(result.getFeedbackToUser().contains("Deleted 2 person(s)"));
+            } catch (Exception e) {
+                throw new AssertionError("Execution of command should not fail.", e);
+            }
+        }
+    }
+
+    @Test
+    public void execute_namesWithInvalid_partialSuccess() {
+        Model freshModel = new ModelManager(getTypicalCourseBook(), new UserPrefs());
+        CommandHistory freshHistory = new CommandHistory();
+
+        List<Name> names = Arrays.asList(new Name("Alice Pauline"), new Name("Nonexistent Person"));
+        DeleteCommand deleteCommand = new DeleteCommand(names, true);
+
+        CommandResult result;
+        try {
+            result = deleteCommand.execute(freshModel, freshHistory);
+            String feedback = result.getFeedbackToUser();
+            assertTrue(feedback.contains("Deleted 1 person"),
+                    "Expected 'Deleted 1 person' but got: " + feedback);
+            assertTrue(feedback.contains("Warning"),
+                    "Expected 'Warning' but got: " + feedback);
+            assertTrue(feedback.contains("No contact found with name"),
+                    "Expected name warning but got: " + feedback);
+        } catch (Exception e) {
+            throw new AssertionError("Execution of command should not fail.", e);
+        }
+    }
+
+    @Test
+    public void execute_allInvalidNames_throwsCommandException() {
+        Model freshModel = new ModelManager(getTypicalCourseBook(), new UserPrefs());
+        CommandHistory freshHistory = new CommandHistory();
+
+        List<Name> names = Arrays.asList(new Name("Nonexistent Person1"), new Name("Nonexistent Person2"));
+        DeleteCommand deleteCommand = new DeleteCommand(names, true);
+
+        try {
+            deleteCommand.execute(freshModel, freshHistory);
+            throw new AssertionError("Expected CommandException to be thrown");
+        } catch (Exception e) {
+            assertTrue(e.getMessage().contains(DeleteCommand.MESSAGE_NO_VALID_TARGETS),
+                    "Expected base error but got: " + e.getMessage());
+            assertTrue(e.getMessage().contains("No contact found with name"),
+                    "Expected warning details but got: " + e.getMessage());
+        }
     }
 
     /**

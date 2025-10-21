@@ -167,6 +167,7 @@ Notes:
 - OR across fields: a person is included if any provided field matches.
 - Within a field, ANY of the provided keywords may match.
 - All fields (name, phone, email, address, tags) use partial/substring matching (e.g., 'Ali' matches 'Alice', 'fri' matches 'friend' tag).
+- if no prefixes are used, tokens are treated as name keywords .
 - Backwards-compatible: if no prefixes are used, tokens are treated as name keywords (partial match).
 
 Examples:
@@ -179,17 +180,32 @@ Examples:
 
 ### Deleting a person : `delete`
 
-Deletes the specified person from the address book.
+Deletes one or more persons from the address book. You can delete by index or by name.
 
-Format: `delete INDEX`
+**Format for deleting by indices:**
+`delete INDEX [INDEX]...`
 
-* Deletes the person at the specified `INDEX`.
+**Format for deleting by names:**
+`delete NAME[, NAME]...`
+
+* Deletes person(s) at the specified `INDEX` or with the specified `NAME`.
 * The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* Indices **must be positive integers** 1, 2, 3, …​ and are space-separated.
+* Names are comma-separated and case-insensitive.
+* **You cannot mix indices and names in the same command.**
+* If some targets are invalid (e.g., index out of range or name not found), the valid ones will still be deleted, and you will receive a warning about the invalid ones.
+* If a name matches multiple contacts, that name will be skipped with a warning. Use indices instead for such cases.
 
-Examples:
+**Examples:**
+* `delete 1` - Deletes the 1st person in the displayed list.
+* `delete 1 2 3` - Deletes the 1st, 2nd, and 3rd persons in the displayed list.
+* `delete John Doe` - Deletes the person named "John Doe".
+* `delete John Doe, Jane Smith` - Deletes persons named "John Doe" and "Jane Smith".
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+
+**Partial Success Example:**
+* If you run `delete 1 99` and index 99 doesn't exist, person at index 1 will still be deleted, and you'll get a warning that index 99 is invalid.
 
 ### Clearing all entries : `clear`
 

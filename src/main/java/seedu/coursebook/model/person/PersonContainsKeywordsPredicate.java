@@ -15,6 +15,8 @@ import seedu.coursebook.model.tag.Tag;
  * - OR across fields: person matches if any provided field matches
  * - Within a field, ANY keyword may match
  * - Matching rules:
+ *   - name, address, tags: case-insensitive substring (partial) match
+ *   - phone, email: case-insensitive substring match
  *   - All fields: case-insensitive partial/substring match
  */
 public class PersonContainsKeywordsPredicate implements Predicate<Person> {
