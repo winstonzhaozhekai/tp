@@ -189,7 +189,7 @@ public class CourseBookParser {
 
         case ThemeCommand.COMMAND_WORD:
             return new ThemeCommandParser().parse(arguments);
-            
+
         case FavCommand.COMMAND_WORD:
             if (!arguments.isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FavCommand.MESSAGE_USAGE));
