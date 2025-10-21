@@ -168,6 +168,7 @@ Notes:
 - Within a field, ANY of the provided keywords may match.
 - All fields (name, phone, email, address, tags) use partial/substring matching (e.g., 'Ali' matches 'Alice', 'fri' matches 'friend' tag).
 - if no prefixes are used, tokens are treated as name keywords .
+- Backwards-compatible: if no prefixes are used, tokens are treated as name keywords (partial match).
 
 Examples:
 - `find n/Alice n/Bob` (finds persons with names containing "Alice" or "Bob")
