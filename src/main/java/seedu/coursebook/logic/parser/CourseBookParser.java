@@ -18,6 +18,7 @@ import seedu.coursebook.logic.commands.DeleteCommand;
 import seedu.coursebook.logic.commands.EditCommand;
 import seedu.coursebook.logic.commands.EditCourseColorCommand;
 import seedu.coursebook.logic.commands.ExitCommand;
+import seedu.coursebook.logic.commands.FavCommand;
 import seedu.coursebook.logic.commands.FavouriteCommand;
 import seedu.coursebook.logic.commands.FindCommand;
 import seedu.coursebook.logic.commands.HelpCommand;
@@ -188,6 +189,12 @@ public class CourseBookParser {
 
         case ThemeCommand.COMMAND_WORD:
             return new ThemeCommandParser().parse(arguments);
+
+        case FavCommand.COMMAND_WORD:
+            if (!arguments.isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FavCommand.MESSAGE_USAGE));
+            }
+            return new FavCommand();
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
