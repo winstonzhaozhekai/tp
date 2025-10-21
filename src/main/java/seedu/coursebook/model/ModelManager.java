@@ -2,6 +2,7 @@ package seedu.coursebook.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.coursebook.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.coursebook.logic.commands.ThemeCommand.MESSAGE_SUCCESS;
 
 import java.nio.file.Path;
 import java.util.Comparator;
@@ -20,6 +21,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.coursebook.commons.core.GuiSettings;
 import seedu.coursebook.commons.core.LogsCenter;
+import seedu.coursebook.logic.commands.CommandResult;
+import seedu.coursebook.logic.commands.ThemeCommand;
 import seedu.coursebook.model.course.Course;
 import seedu.coursebook.model.course.CourseColor;
 import seedu.coursebook.model.person.Person;
@@ -37,7 +40,8 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
     private final ObservableList<Course> courseList;
     private final FilteredList<Course> filteredCourses;
-
+    private boolean themeChangedDuringUndo = false;
+    private boolean themeChangedDuringRedo = false;
     /**
      * Initializes a ModelManager with the given CourseBook and userPrefs.
      */
@@ -196,12 +200,28 @@ public class ModelManager implements Model {
 
     @Override
     public void undoCourseBook() {
+        ThemeCommand.Theme oldTheme = getCurrentTheme();
         versionedCourseBook.undo();
+        ThemeCommand.Theme newTheme = getCurrentTheme();
+        themeChangedDuringUndo = !oldTheme.equals(newTheme);
+    }
+
+    @Override
+    public boolean hasThemeChangedDuringUndo() {
+        return themeChangedDuringUndo;
     }
 
     @Override
     public void redoCourseBook() {
+        ThemeCommand.Theme oldTheme = getCurrentTheme();
         versionedCourseBook.redo();
+        ThemeCommand.Theme newTheme = getCurrentTheme();
+        themeChangedDuringRedo = !oldTheme.equals(newTheme);
+    }
+
+    @Override
+    public boolean hasThemeChangedDuringRedo() {
+        return themeChangedDuringRedo;
     }
 
     @Override
@@ -231,6 +251,22 @@ public class ModelManager implements Model {
         }
         setCourseBook(newBook);
         commitCourseBook();
+    }
+
+    @Override
+    public ThemeCommand.Theme getCurrentTheme() {
+        return versionedCourseBook.getCurrentTheme();
+    }
+
+    @Override
+    public CommandResult setCurrentTheme(ThemeCommand.Theme targetTheme) {
+        versionedCourseBook.setCurrentTheme(targetTheme);
+
+        return CommandResult.forThemeChange(
+                String.format(MESSAGE_SUCCESS, targetTheme.getName()),
+                targetTheme.getThemeCssFile(),
+                targetTheme.getExtensionsFile()
+        );
     }
 
     //=========== Selected person ===========================================================================

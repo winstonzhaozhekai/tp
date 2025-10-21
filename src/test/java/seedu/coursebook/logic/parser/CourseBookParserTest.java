@@ -26,6 +26,7 @@ import seedu.coursebook.logic.commands.ListCommand;
 import seedu.coursebook.logic.commands.ListCoursesCommand;
 import seedu.coursebook.logic.commands.RedoCommand;
 import seedu.coursebook.logic.commands.SummaryCommand;
+import seedu.coursebook.logic.commands.ThemeCommand;
 import seedu.coursebook.logic.commands.UndoCommand;
 import seedu.coursebook.logic.commands.ViewCourseCommand;
 import seedu.coursebook.logic.commands.ViewPersonCommand;
@@ -154,6 +155,13 @@ public class CourseBookParserTest {
     public void parseCommand_home() throws Exception {
         assertTrue(parser.parseCommand(HomeCommand.COMMAND_WORD) instanceof HomeCommand);
         assertThrows(ParseException.class, () -> parser.parseCommand(HomeCommand.COMMAND_WORD + " 3"));
+    }
+
+    @Test
+    public void parseCommand_theme() throws Exception {
+        ThemeCommand command = (ThemeCommand) parser.parseCommand(
+                ThemeCommand.COMMAND_WORD + " blue");
+        assertEquals(new ThemeCommand(ThemeCommand.Theme.BLUE), command);
     }
 
     @Test

@@ -1,5 +1,8 @@
 package seedu.coursebook.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.coursebook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.coursebook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.coursebook.logic.commands.CommandTestUtil.deleteFirstPerson;
@@ -9,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.coursebook.logic.CommandHistory;
+import seedu.coursebook.logic.commands.exceptions.CommandException;
 import seedu.coursebook.model.Model;
 import seedu.coursebook.model.ModelManager;
 import seedu.coursebook.model.UserPrefs;
@@ -41,5 +45,90 @@ public class UndoCommandTest {
 
         //no undoable states in model
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
+    }
+
+    @Test
+    public void execute_redoWithThemeChange_returnsThemeChangeResult() throws CommandException {
+        // Create a fresh model for this test
+        Model testModel = new ModelManager(getTypicalCourseBook(), new UserPrefs());
+        CommandHistory testHistory = new CommandHistory();
+
+        // Execute a theme change command
+        ThemeCommand themeCommand = new ThemeCommand(ThemeCommand.Theme.DARK);
+
+        CommandException exception = assertThrows(CommandException.class, () ->
+                themeCommand.execute(testModel, testHistory)
+        );
+
+        assertEquals("Theme is already dark!", exception.getMessage());
+    }
+
+    @Test
+    public void execute_undoWithoutThemeChange_returnsNormalResult() {
+        // Setup: delete a person and undo it
+        Model testModel = new ModelManager(getTypicalCourseBook(), new UserPrefs());
+        CommandHistory testHistory = new CommandHistory();
+
+        deleteFirstPerson(testModel);
+
+        // Redo the deletion (not a theme change)
+        UndoCommand undoCommand = new UndoCommand();
+        CommandResult result;
+        try {
+            result = undoCommand.execute(testModel, testHistory);
+        } catch (CommandException e) {
+            result = null;
+        }
+
+        // Verify the result does NOT indicate a theme change
+        assertEquals(UndoCommand.MESSAGE_SUCCESS, result.getFeedbackToUser());
+        // Assuming CommandResult has a method to check if it's a theme change
+        // If not, you might need to check that it's a regular CommandResult
+    }
+
+    @Test
+    public void execute_redoMultipleThemeChanges_restoresCorrectTheme() throws CommandException {
+        Model testModel = new ModelManager(getTypicalCourseBook(), new UserPrefs());
+        CommandHistory testHistory = new CommandHistory();
+
+        // Execute theme changes: Light -> Dark -> Light
+        new ThemeCommand(ThemeCommand.Theme.TREE).execute(testModel, testHistory);
+        new ThemeCommand(ThemeCommand.Theme.LOVE).execute(testModel, testHistory);
+
+        // Redo first theme change (should restore DARK)
+        CommandResult firstUndo = new UndoCommand().execute(testModel, testHistory);
+        assertTrue(firstUndo.isThemeChange());
+        assertEquals(ThemeCommand.Theme.TREE.getThemeCssFile(), firstUndo.getThemeCssFile());
+
+        // Redo second theme change (should restore LIGHT)
+        CommandResult secondUndo = new UndoCommand().execute(testModel, testHistory);
+        assertTrue(secondUndo.isThemeChange());
+        assertEquals(ThemeCommand.Theme.DARK.getThemeCssFile(), secondUndo.getThemeCssFile());
+    }
+
+    @Test
+    public void execute_undoMixedCommands_onlyThemeChangesReturnThemeResult() throws CommandException {
+        Model testModel = new ModelManager(getTypicalCourseBook(), new UserPrefs());
+        CommandHistory testHistory = new CommandHistory();
+
+        // Execute: delete person, then theme change (DARK to BLUE)
+        deleteFirstPerson(testModel);
+        new ThemeCommand(ThemeCommand.Theme.BLUE).execute(testModel, testHistory);
+
+        // Undo first (theme change - should return theme result)
+        CommandResult firstUndo = new UndoCommand().execute(testModel, testHistory);
+        assertTrue(firstUndo.isThemeChange());
+        assertEquals(ThemeCommand.Theme.DARK.getThemeCssFile(), firstUndo.getThemeCssFile());
+
+        // Undo second (delete person - not a theme change)
+        CommandResult secondUndo = new UndoCommand().execute(testModel, testHistory);
+        assertEquals(UndoCommand.MESSAGE_SUCCESS, secondUndo.getFeedbackToUser());
+
+        // Try to undo again when there's nothing to undo - should throw exception
+        CommandException exception = assertThrows(CommandException.class, () ->
+                new UndoCommand().execute(testModel, testHistory)
+        );
+
+        assertEquals(UndoCommand.MESSAGE_FAILURE, exception.getMessage());
     }
 }

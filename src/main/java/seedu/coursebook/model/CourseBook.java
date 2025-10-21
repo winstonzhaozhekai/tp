@@ -7,6 +7,7 @@ import java.util.List;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.coursebook.commons.util.InvalidationListenerManager;
+import seedu.coursebook.logic.commands.ThemeCommand;
 import seedu.coursebook.model.person.Person;
 import seedu.coursebook.model.person.UniquePersonList;
 
@@ -18,7 +19,7 @@ public class CourseBook implements ReadOnlyCourseBook {
 
     private final UniquePersonList persons;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
-
+    private ThemeCommand.Theme currentTheme;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -29,6 +30,7 @@ public class CourseBook implements ReadOnlyCourseBook {
      */
     {
         persons = new UniquePersonList();
+        currentTheme = ThemeCommand.Theme.DARK;
     }
 
     public CourseBook() {}
@@ -59,8 +61,21 @@ public class CourseBook implements ReadOnlyCourseBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        if (newData instanceof CourseBook) {
+            this.currentTheme = ((CourseBook) newData).getCurrentTheme();
+            indicateModified();
+        }
     }
 
+    public void setCurrentTheme(ThemeCommand.Theme theme) {
+        this.currentTheme = theme;
+        indicateModified();
+    }
+
+    @Override
+    public ThemeCommand.Theme getCurrentTheme() {
+        return currentTheme;
+    }
     //// person-level operations
 
     /**
@@ -122,7 +137,8 @@ public class CourseBook implements ReadOnlyCourseBook {
 
     @Override
     public String toString() {
-        return CourseBook.class.getCanonicalName() + "{persons=" + this.getPersonList() + "}";
+        return CourseBook.class.getCanonicalName() + "{persons=" + this.getPersonList()
+                + ",theme=" + this.currentTheme + "}";
     }
 
     @Override
@@ -134,7 +150,8 @@ public class CourseBook implements ReadOnlyCourseBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof CourseBook // instanceof handles nulls
-                && persons.equals(((CourseBook) other).persons));
+                && persons.equals(((CourseBook) other).persons)
+                && currentTheme == ((CourseBook) other).currentTheme);
     }
 
 

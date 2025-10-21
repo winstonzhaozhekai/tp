@@ -32,6 +32,7 @@ import seedu.coursebook.logic.commands.RemoveCourseCommand;
 import seedu.coursebook.logic.commands.SortBirthdayCommand;
 import seedu.coursebook.logic.commands.SortCommand;
 import seedu.coursebook.logic.commands.SummaryCommand;
+import seedu.coursebook.logic.commands.ThemeCommand;
 import seedu.coursebook.logic.commands.UndoCommand;
 import seedu.coursebook.logic.commands.UnfavouriteCommand;
 import seedu.coursebook.logic.commands.ViewCourseCommand;
@@ -185,6 +186,9 @@ public class CourseBookParser {
 
         case UnfavouriteCommand.COMMAND_WORD:
             return new UnfavouriteCommandParser().parse(arguments);
+
+        case ThemeCommand.COMMAND_WORD:
+            return new ThemeCommandParser().parse(arguments);
 
         case FavCommand.COMMAND_WORD:
             if (!arguments.isEmpty()) {

@@ -229,6 +229,28 @@ public class AddCommandTest {
         public void setCourseColor(String courseCode, CourseColor color) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public CommandResult setCurrentTheme(ThemeCommand.Theme theme) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ThemeCommand.Theme getCurrentTheme() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasThemeChangedDuringRedo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasThemeChangedDuringUndo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
     }
 
     /**
