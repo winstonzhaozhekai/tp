@@ -22,7 +22,8 @@ public class FindCommand extends Command {
             + "Parameters: [n/NAME_KEYWORDS] [p/PHONE_KEYWORDS] [e/EMAIL_KEYWORDS] [a/ADDRESS_KEYWORDS] "
             + "[t/TAG]...\n"
             + "- OR across fields: a person matches if ANY provided field matches.\n"
-            + "- Within a field, ANY keyword may match.\n"
+            + "- Within a field, ANY keyword may match using partial/substring matching.\n"
+            + "- All fields support case-insensitive partial matching (e.g., 'Ali' matches 'Alice').\n"
             + "- If no prefixes are present, input will be treated as a name \n"
             + "Alias: f\n"
             + "Examples: find n/Alice t/friend | find p/9123 e/example.com | find alex bob";

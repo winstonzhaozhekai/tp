@@ -88,6 +88,59 @@ public class FindCommandTest {
     }
 
     @Test
+    public void execute_partialNameMatch_personsFound() {
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
+        // "Ali" should partially match "Alice Pauline"
+        PersonContainsKeywordsPredicate predicate = preparePredicate("Ali");
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
+
+        CommandResult expectedCommandResult = new CommandResult(
+                expectedMessage, false, false, true, false
+        );
+
+        assertCommandSuccess(command, model, commandHistory, expectedCommandResult, expectedModel);
+        assertEquals(Arrays.asList(TypicalPersons.ALICE), model.getFilteredPersonList());
+    }
+
+    @Test
+    public void execute_partialTagMatch_personsFound() {
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
+        // "fri" should partially match "friends" tag (Alice, Benson, Daniel have "friends" tag)
+        PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(
+                Collections.emptyList(), Collections.emptyList(), Collections.emptyList(),
+                Collections.emptyList(), Arrays.asList("fri"));
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
+
+        CommandResult expectedCommandResult = new CommandResult(
+                expectedMessage, false, false, true, false
+        );
+
+        assertCommandSuccess(command, model, commandHistory, expectedCommandResult, expectedModel);
+        assertEquals(Arrays.asList(TypicalPersons.ALICE, TypicalPersons.BENSON, TypicalPersons.DANIEL),
+                model.getFilteredPersonList());
+    }
+
+    @Test
+    public void execute_partialAddressMatch_personsFound() {
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
+        // "tokyo" should partially match "little tokyo" (Fiona's address)
+        PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(
+                Collections.emptyList(), Collections.emptyList(), Collections.emptyList(),
+                Arrays.asList("tokyo"), Collections.emptyList());
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
+
+        CommandResult expectedCommandResult = new CommandResult(
+                expectedMessage, false, false, true, false
+        );
+
+        assertCommandSuccess(command, model, commandHistory, expectedCommandResult, expectedModel);
+        assertEquals(Arrays.asList(TypicalPersons.FIONA), model.getFilteredPersonList());
+    }
+
+    @Test
     public void toStringMethod() {
         PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(
                 Arrays.asList("keyword"), Collections.emptyList(), Collections.emptyList(),

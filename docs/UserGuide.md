@@ -166,16 +166,16 @@ Notes:
 - Parameters can be in any order.
 - OR across fields: a person is included if any provided field matches.
 - Within a field, ANY of the provided keywords may match.
-- Name and address keywords match whole words. Phone and email keywords match substrings.
-- Tags match by equality (case-insensitive). A person matches if they have ANY of the provided tags.
-- Backwards-compatible: if no prefixes are used, tokens are treated as name keywords (whole-word match).
+- All fields (name, phone, email, address, tags) use partial/substring matching (e.g., 'Ali' matches 'Alice', 'fri' matches 'friend' tag).
+- Backwards-compatible: if no prefixes are used, tokens are treated as name keywords (partial match).
 
 Examples:
-- `find n/Alice n/Bob`
-- `find p/9123 e/example.com`
-- `find t/friend t/colleague`
-- `find n/Alice t/friend` (matches if name has Alice OR has tag friend)
-- `find alex david` (no prefixes → name-only search, whole-word OR)
+- `find n/Alice n/Bob` (finds persons with names containing "Alice" or "Bob")
+- `find n/Ali` (finds "Alice", "Alicia", etc. - partial match)
+- `find p/9123 e/example.com` (finds phone containing "9123" OR email containing "example.com")
+- `find t/fri` (finds persons with tags containing "fri" like "friend")
+- `find n/Alice t/friend` (matches if name contains "Alice" OR has tag containing "friend")
+- `find alex david` (no prefixes → name-only search, partial match)
 
 ### Deleting a person : `delete`
 

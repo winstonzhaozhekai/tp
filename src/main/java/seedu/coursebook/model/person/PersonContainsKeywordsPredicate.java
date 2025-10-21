@@ -7,7 +7,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import seedu.coursebook.commons.util.StringUtil;
 import seedu.coursebook.commons.util.ToStringBuilder;
 import seedu.coursebook.model.tag.Tag;
 
@@ -16,9 +15,7 @@ import seedu.coursebook.model.tag.Tag;
  * - OR across fields: person matches if any provided field matches
  * - Within a field, ANY keyword may match
  * - Matching rules:
- *   - name, address: case-insensitive word match (whole word)
- *   - phone, email: case-insensitive substring match
- *   - tags: case-insensitive equality on tag name; ANY tag matches
+ *   - All fields: case-insensitive partial/substring match
  */
 public class PersonContainsKeywordsPredicate implements Predicate<Person> {
 
@@ -48,21 +45,13 @@ public class PersonContainsKeywordsPredicate implements Predicate<Person> {
     public boolean test(Person person) {
         Objects.requireNonNull(person);
 
-        boolean nameMatches = matchesWordList(person.getName().fullName, nameKeywords);
-        boolean addressMatches = matchesWordList(person.getAddress().value, addressKeywords);
+        boolean nameMatches = containsAnyIgnoreCase(person.getName().fullName, nameKeywords);
+        boolean addressMatches = containsAnyIgnoreCase(person.getAddress().value, addressKeywords);
         boolean phoneMatches = containsAnyIgnoreCase(person.getPhone().value, phoneKeywords);
         boolean emailMatches = containsAnyIgnoreCase(person.getEmail().value, emailKeywords);
         boolean tagMatches = containsAnyTagIgnoreCase(person.getTags(), tagKeywords);
 
         return nameMatches || addressMatches || phoneMatches || emailMatches || tagMatches;
-    }
-
-    private static boolean matchesWordList(String text, List<String> keywords) {
-        return Optional.ofNullable(keywords)
-                .map(list -> list.stream()
-                        .filter(kw -> kw != null && !kw.isBlank())
-                        .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(text, keyword)))
-                .orElse(false);
     }
 
     private static boolean containsAnyIgnoreCase(String text, List<String> keywords) {
@@ -91,7 +80,7 @@ public class PersonContainsKeywordsPredicate implements Predicate<Person> {
                 .orElseGet(java.util.stream.Stream::empty)
                 .filter(kw -> kw != null && !kw.isBlank())
                 .anyMatch(keyword -> tags.stream()
-                        .anyMatch(tag -> tag.tagName.equalsIgnoreCase(keyword)));
+                        .anyMatch(tag -> containsIgnoreCase(tag.tagName, keyword)));
     }
 
     @Override
