@@ -238,15 +238,17 @@ Deletes one or more persons from the address book. You can delete by index or by
 - Indices **must be positive integers** 1, 2, 3, …​ and are space-separated.
 - Names are comma-separated and case-insensitive.
 - **You cannot mix indices and names in the same command.**
-- If some targets are invalid (e.g., index out of range or name not found), the valid ones will still be deleted, and you will receive a warning about the invalid ones.
+- **Before deletion, a confirmation dialog will appear showing the list of contacts to be deleted. You must confirm the deletion by clicking "OK" in the dialog.**
+- If you click "Cancel" in the confirmation dialog, the deletion will be aborted and no contacts will be removed.
+- If some targets are invalid (e.g., index out of range or name not found), the valid ones will still be shown in the confirmation dialog, and you will receive a warning about the invalid ones.
 - If a name matches multiple contacts, that name will be skipped with a warning. Use indices instead for such cases.
 
 **Examples:**
 
-- `delete 1` - Deletes the 1st person in the displayed list.
-- `delete 1 2 3` - Deletes the 1st, 2nd, and 3rd persons in the displayed list.
-- `delete John Doe` - Deletes the person named "John Doe".
-- `delete John Doe, Jane Smith` - Deletes persons named "John Doe" and "Jane Smith".
+- `delete 1` - Shows a confirmation dialog for the 1st person in the displayed list.
+- `delete 1 2 3` - Shows a confirmation dialog for the 1st, 2nd, and 3rd persons in the displayed list.
+- `delete John Doe` - Shows a confirmation dialog for the person named "John Doe".
+- `delete John Doe, Jane Smith` - Shows a confirmation dialog for persons named "John Doe" and "Jane Smith".
 - `list` followed by `delete 2` deletes the 2nd person in the address book.
 - `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
