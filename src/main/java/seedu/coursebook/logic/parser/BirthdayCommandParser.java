@@ -1,8 +1,10 @@
 package seedu.coursebook.logic.parser;
 
 import static seedu.coursebook.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.coursebook.logic.Messages.MESSAGE_SINGLE_BDAY_ONLY;
 import static seedu.coursebook.logic.parser.CliSyntax.PREFIX_BDAY;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 import seedu.coursebook.commons.core.index.Index;
@@ -36,6 +38,9 @@ public class BirthdayCommandParser implements Parser<BirthdayCommand> {
         if (argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BirthdayCommand.MESSAGE_USAGE));
         }
+        if (argMultimap.getAllValues(PREFIX_BDAY).size() > 1) {
+            throw new ParseException(String.format(MESSAGE_SINGLE_BDAY_ONLY, BirthdayCommand.MESSAGE_USAGE));
+        }
 
         Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
 
@@ -44,6 +49,14 @@ public class BirthdayCommandParser implements Parser<BirthdayCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BirthdayCommand.MESSAGE_USAGE));
         }
         Birthday birthday = ParserUtil.parseBirthday(birthdayOpt.get());
+
+        if (birthday.getDate().isAfter(LocalDate.now())) {
+            throw new ParseException("Birthday cannot be in the future.");
+        }
+
+        if (birthday.getDate().isBefore(LocalDate.of(1900, 01, 01))) {
+            throw new ParseException("The date entered is too far in the past.");
+        }
 
         return new BirthdayCommand(index, birthday);
     }
