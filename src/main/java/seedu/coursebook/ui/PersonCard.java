@@ -58,10 +58,7 @@ public class PersonCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
-        // Address, email, and birthday fields hidden from normal UI view
-        // address.setText(person.getAddress().value);
-        // email.setText(person.getEmail().value);
-        // birthday.setText(person.getBirthday() != null ? person.getBirthday().value : "No birthday");
+        birthday.setText(person.getBirthday() != null ? person.getBirthday().value : "No birthday");
 
         // Set favourite icon
         if (person.isFavourite()) {
