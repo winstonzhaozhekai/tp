@@ -22,17 +22,12 @@ checkstyle {
 
 test {
     useJUnitPlatform()
-    jvmArgs '-ea'
     finalizedBy jacocoTestReport
-}
-
-application {
-    applicationDefaultJvmArgs = ['-ea']
+    enableAssertions = true
 }
 
 run {
-    enbaleassertions = true
-    jvmArgs += "-ea"
+    enableAssertions = true
 }
 
 task coverage(type: JacocoReport) {
