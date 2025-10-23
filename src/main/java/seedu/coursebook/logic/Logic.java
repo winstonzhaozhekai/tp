@@ -6,6 +6,7 @@ import java.util.Comparator;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.coursebook.commons.core.GuiSettings;
+import seedu.coursebook.logic.commands.Command;
 import seedu.coursebook.logic.commands.CommandResult;
 import seedu.coursebook.logic.commands.exceptions.CommandException;
 import seedu.coursebook.logic.parser.exceptions.ParseException;
@@ -25,6 +26,14 @@ public interface Logic {
      * @throws ParseException If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
+
+    /**
+     * Executes the given command and returns the result.
+     * @param command The command to execute.
+     * @return the result of the command execution.
+     * @throws CommandException If an error occurs during command execution.
+     */
+    CommandResult executeCommand(Command command) throws CommandException;
 
     /**
      * Returns the CourseBook.

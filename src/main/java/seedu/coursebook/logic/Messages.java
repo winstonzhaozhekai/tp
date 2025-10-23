@@ -4,6 +4,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import seedu.coursebook.logic.commands.BirthdayCommand;
 import seedu.coursebook.logic.commands.ListByCourseCommand;
 import seedu.coursebook.logic.commands.SortCommand;
 import seedu.coursebook.logic.parser.Prefix;
@@ -17,15 +18,15 @@ public class Messages {
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
-    public static final String MESSAGE_INVALID_EXECUTE_INDEX = "The index provided is invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_SINGLE_COURSE_ONLY =
                 "Only one course can be listed at a time.\n" + ListByCourseCommand.MESSAGE_USAGE;
+    public static final String MESSAGE_SINGLE_BDAY_ONLY =
+            "Only one birthday can be added to a person.\n" + BirthdayCommand.MESSAGE_USAGE;
     public static final String MESSAGE_SINGLE_ORDER_ONLY =
                 "Sort by only one order at a time.\n" + SortCommand.MESSAGE_USAGE;
-    public static final String MESSAGE_INVALID_PREFIX = "Invalid prefix! \n%1$s";
 
     /**
      * Returns an error message indicating the duplicate prefixes.

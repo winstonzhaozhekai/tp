@@ -78,6 +78,25 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public CommandResult executeCommand(Command command) throws CommandException {
+        logger.info("----------------[INTERNAL COMMAND EXECUTION]");
+        courseBookModified = false;
+
+        CommandResult commandResult = command.execute(model, history);
+
+        if (courseBookModified) {
+            logger.info("Course book modified, saving to file.");
+            try {
+                storage.saveCourseBook(model.getCourseBook());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
+        }
+
+        return commandResult;
+    }
+
+    @Override
     public ReadOnlyCourseBook getCourseBook() {
         return model.getCourseBook();
     }

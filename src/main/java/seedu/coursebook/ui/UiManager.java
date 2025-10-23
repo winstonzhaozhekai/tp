@@ -1,10 +1,12 @@
 package seedu.coursebook.ui;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import seedu.coursebook.MainApp;
@@ -81,6 +83,33 @@ public class UiManager implements Ui {
         alert.setContentText(contentText);
         alert.getDialogPane().setId(ALERT_DIALOG_PANE_FIELD_ID);
         alert.showAndWait();
+    }
+
+    /**
+     * Shows a confirmation dialog and returns true if the user confirms, false otherwise.
+     */
+    boolean showConfirmationDialogAndWait(String title, String headerText, String contentText) {
+        return showConfirmationDialogAndWait(mainWindow.getPrimaryStage(), title, headerText, contentText);
+    }
+
+    /**
+     * Shows a confirmation dialog on {@code owner} with the given parameters.
+     * This method only returns after the user has closed the confirmation dialog.
+     * @return true if user clicked OK/Yes, false otherwise
+     */
+    private static boolean showConfirmationDialogAndWait(Stage owner, String title, String headerText,
+                                                        String contentText) {
+        final Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.getDialogPane().getStylesheets().add(currentAlertTheme);
+        alert.getDialogPane().getStylesheets().add(currentAlertExtensions);
+        alert.initOwner(owner);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(contentText);
+        alert.getDialogPane().setId(ALERT_DIALOG_PANE_FIELD_ID);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.isPresent() && result.get() == ButtonType.OK;
     }
 
     /**

@@ -2,6 +2,7 @@ package seedu.coursebook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
 import java.util.Objects;
 
 import seedu.coursebook.commons.util.ToStringBuilder;
@@ -38,6 +39,15 @@ public class CommandResult {
     /** The CSS extensions file to switch to (null if no theme change). */
     private final String extensionsFile;
 
+    /** The command requires confirmation before executing. */
+    private final boolean requiresConfirmation;
+
+    /** The confirmation message to display. */
+    private final String confirmationMessage;
+
+    /** The list of persons to delete (for confirmation dialog). */
+    private final List<Person> personsToDelete;
+
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
      * and other fields set to their default value.
@@ -51,7 +61,7 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
                         boolean showPersons, boolean showCourses) {
-        this(feedbackToUser, showHelp, exit, showPersons, showCourses, false, null, null, null);
+        this(feedbackToUser, showHelp, exit, showPersons, showCourses, false, null, null, null, false, null, null);
     }
 
     /**
@@ -60,7 +70,8 @@ public class CommandResult {
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
                          boolean showPersons, boolean showCourses, boolean showPersonDetail,
                          Person personToShow) {
-        this(feedbackToUser, showHelp, exit, showPersons, showCourses, showPersonDetail, personToShow, null, null);
+        this(feedbackToUser, showHelp, exit, showPersons, showCourses, showPersonDetail, personToShow, null, null,
+                false, null, null);
     }
 
     /**
@@ -69,6 +80,18 @@ public class CommandResult {
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
                         boolean showPersons, boolean showCourses, boolean showPersonDetail,
                          Person personToShow, String themeCssFile, String extensionsFile) {
+        this(feedbackToUser, showHelp, exit, showPersons, showCourses, showPersonDetail, personToShow,
+                themeCssFile, extensionsFile, false, null, null);
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with all the specified fields including confirmation.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
+                        boolean showPersons, boolean showCourses, boolean showPersonDetail,
+                        Person personToShow, String themeCssFile, String extensionsFile,
+                        boolean requiresConfirmation, String confirmationMessage,
+                        List<Person> personsToDelete) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
@@ -78,6 +101,9 @@ public class CommandResult {
         this.personToShow = personToShow;
         this.themeCssFile = themeCssFile;
         this.extensionsFile = extensionsFile;
+        this.requiresConfirmation = requiresConfirmation;
+        this.confirmationMessage = confirmationMessage;
+        this.personsToDelete = personsToDelete;
     }
 
     /**
@@ -91,7 +117,16 @@ public class CommandResult {
      * Constructs a {@code CommandResult} for a theme change.
      */
     public static CommandResult forThemeChange(String feedbackToUser, String themeCssFile, String extensionsFile) {
-        return new CommandResult(feedbackToUser, false, false, false, false, false, null, themeCssFile, extensionsFile);
+        return new CommandResult(feedbackToUser, false, false, false, false, false, null, themeCssFile, extensionsFile,
+                false, null, null);
+    }
+
+    /**
+     * Constructs a {@code CommandResult} for a delete confirmation.
+     */
+    public static CommandResult forDeleteConfirmation(String confirmationMessage, List<Person> personsToDelete) {
+        return new CommandResult("", false, false, false, false, false, null, null, null,
+                true, confirmationMessage, personsToDelete);
     }
 
     public String getFeedbackToUser() {
@@ -134,6 +169,18 @@ public class CommandResult {
         return extensionsFile;
     }
 
+    public boolean requiresConfirmation() {
+        return requiresConfirmation;
+    }
+
+    public String getConfirmationMessage() {
+        return confirmationMessage;
+    }
+
+    public List<Person> getPersonsToDelete() {
+        return personsToDelete;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -153,12 +200,16 @@ public class CommandResult {
                 && showCourses == otherCommandResult.showCourses
                 && showPersonDetail == otherCommandResult.showPersonDetail
                 && Objects.equals(personToShow, otherCommandResult.personToShow)
-                && Objects.equals(themeCssFile, otherCommandResult.themeCssFile);
+                && Objects.equals(themeCssFile, otherCommandResult.themeCssFile)
+                && requiresConfirmation == otherCommandResult.requiresConfirmation
+                && Objects.equals(confirmationMessage, otherCommandResult.confirmationMessage)
+                && Objects.equals(personsToDelete, otherCommandResult.personsToDelete);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, showPersons, showCourses, showPersonDetail, personToShow);
+        return Objects.hash(feedbackToUser, showHelp, exit, showPersons, showCourses, showPersonDetail,
+                personToShow, requiresConfirmation, confirmationMessage, personsToDelete);
     }
 
     @Override
@@ -173,6 +224,9 @@ public class CommandResult {
                 .add("personToShow", personToShow)
                 .add("themeCssFile", themeCssFile)
                 .add("extensionsFile", extensionsFile)
+                .add("requiresConfirmation", requiresConfirmation)
+                .add("confirmationMessage", confirmationMessage)
+                .add("personsToDelete", personsToDelete)
                 .toString();
     }
 

@@ -1,10 +1,13 @@
 package seedu.coursebook.ui;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -15,6 +18,7 @@ import seedu.coursebook.commons.core.GuiSettings;
 import seedu.coursebook.commons.core.LogsCenter;
 import seedu.coursebook.logic.Logic;
 import seedu.coursebook.logic.commands.CommandResult;
+import seedu.coursebook.logic.commands.ConfirmDeleteCommand;
 import seedu.coursebook.logic.commands.exceptions.CommandException;
 import seedu.coursebook.logic.parser.exceptions.ParseException;
 
@@ -266,6 +270,13 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
+
+            // Handle confirmation-required commands (e.g., delete)
+            if (commandResult.requiresConfirmation()) {
+                handleDeleteConfirmation(commandResult);
+                return commandResult;
+            }
+
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
@@ -298,6 +309,52 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    /**
+     * Handles delete confirmation by showing a confirmation dialog.
+     * If user confirms, executes the actual deletion.
+     */
+    private void handleDeleteConfirmation(CommandResult commandResult) {
+        boolean confirmed = showConfirmationDialog(
+                "Delete Confirmation",
+                "Confirm Deletion",
+                commandResult.getConfirmationMessage()
+        );
+
+        if (confirmed) {
+            try {
+                ConfirmDeleteCommand confirmCommand = new ConfirmDeleteCommand(commandResult.getPersonsToDelete());
+                CommandResult deleteResult = logic.executeCommand(confirmCommand);
+                logger.info("Deletion confirmed and executed: " + deleteResult.getFeedbackToUser());
+                resultDisplay.setFeedbackToUser(deleteResult.getFeedbackToUser());
+            } catch (CommandException e) {
+                logger.warning("Error during confirmed deletion: " + e.getMessage());
+                resultDisplay.setFeedbackToUser(e.getMessage());
+            }
+        } else {
+            logger.info("Deletion cancelled by user");
+            resultDisplay.setFeedbackToUser("Delete operation cancelled.");
+        }
+    }
+
+    /**
+     * Shows a confirmation dialog and returns the user's choice.
+     * @return true if user clicked OK, false otherwise
+     */
+    private boolean showConfirmationDialog(String title, String headerText, String contentText) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initOwner(primaryStage);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(contentText);
+
+        // Apply current theme to dialog
+        alert.getDialogPane().getStylesheets().add(currentTheme);
+        alert.getDialogPane().getStylesheets().add(currentExtensions);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.isPresent() && result.get() == ButtonType.OK;
     }
 
 

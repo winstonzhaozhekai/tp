@@ -113,13 +113,9 @@ public class DeleteCommand extends Command {
             throw new CommandException(MESSAGE_NO_VALID_TARGETS);
         }
 
-        // Delete all valid persons
-        for (Person person : personsToDelete) {
-            model.deletePerson(person);
-        }
-        model.commitCourseBook();
-
-        return formatResult(personsToDelete, warnings);
+        // Return confirmation request instead of deleting immediately
+        String confirmationMessage = formatConfirmationMessage(personsToDelete, warnings);
+        return CommandResult.forDeleteConfirmation(confirmationMessage, personsToDelete);
     }
 
     /**
@@ -151,35 +147,38 @@ public class DeleteCommand extends Command {
             throw new CommandException(MESSAGE_NO_VALID_TARGETS + "\n" + String.join("\n", warnings));
         }
 
-        // Delete all valid persons
-        for (Person person : personsToDelete) {
-            model.deletePerson(person);
-        }
-        model.commitCourseBook();
-
-        return formatResult(personsToDelete, warnings);
+        // Return confirmation request instead of deleting immediately
+        String confirmationMessage = formatConfirmationMessage(personsToDelete, warnings);
+        return CommandResult.forDeleteConfirmation(confirmationMessage, personsToDelete);
     }
 
     /**
-     * Formats the result message based on the number of deleted persons and warnings.
+     * Formats the confirmation message based on the number of persons to delete and warnings.
      */
-    private CommandResult formatResult(List<Person> deletedPersons, List<String> warnings) {
-        String deletedList = deletedPersons.stream()
+    private String formatConfirmationMessage(List<Person> personsToDelete, List<String> warnings) {
+        String personList = personsToDelete.stream()
                 .map(Messages::format)
                 .collect(Collectors.joining("\n"));
 
-        if (deletedPersons.size() == 1 && warnings.isEmpty()) {
-            return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedList));
-        } else if (warnings.isEmpty()) {
-            return new CommandResult(String.format(MESSAGE_DELETE_PERSONS_SUCCESS,
-                    deletedPersons.size(), deletedList));
+        StringBuilder message = new StringBuilder();
+        if (personsToDelete.size() == 1) {
+            message.append("Are you sure you want to delete this contact?\n\n");
         } else {
+            message.append("Are you sure you want to delete these ")
+                    .append(personsToDelete.size())
+                    .append(" contacts?\n\n");
+        }
+        message.append(personList);
+
+        if (!warnings.isEmpty()) {
+            message.append("\n\nWarnings:\n");
             String warningText = warnings.stream()
                     .map(w -> "- " + w)
                     .collect(Collectors.joining("\n"));
-            return new CommandResult(String.format(MESSAGE_DELETE_PARTIAL_SUCCESS,
-                    deletedPersons.size(), deletedList, warningText));
+            message.append(warningText);
         }
+
+        return message.toString();
     }
 
     private static String normalizeName(String name) {

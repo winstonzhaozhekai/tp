@@ -32,10 +32,7 @@
       <FlowPane fx:id="tags" />
       <FlowPane fx:id="courses" />
       <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-      <!-- Address, email, and birthday fields hidden from normal UI view -->
-      <!-- <Label fx:id="address" styleClass="cell_small_label" text="\$address" /> -->
-      <!-- <Label fx:id="email" styleClass="cell_small_label" text="\$email" /> -->
-      <!-- <Label fx:id="birthday" styleClass="cell_small_label" text="\$birthday"/> -->
+      <Label fx:id="birthday" styleClass="cell_small_label" text="\$birthday"/>
     </VBox>
 
       <!-- User Guide Link Section -->

@@ -61,7 +61,10 @@ public class CommandResultTest {
                 + ", showCourses=" + commandResult.isShowCourses() + ", showPersonDetail="
                 + commandResult.isShowPersonDetail() + ", personToShow=" + commandResult.getPersonToShow()
                 + ", themeCssFile=" + commandResult.getThemeCssFile() + ", extensionsFile="
-                + commandResult.getExtensionsFile() + "}";
+                + commandResult.getExtensionsFile() + ", requiresConfirmation="
+                + commandResult.requiresConfirmation() + ", confirmationMessage="
+                + commandResult.getConfirmationMessage() + ", personsToDelete="
+                + commandResult.getPersonsToDelete() + "}";
         assertEquals(expected, commandResult.toString());
     }
 }

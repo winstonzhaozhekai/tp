@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.coursebook.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.coursebook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.coursebook.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.coursebook.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.coursebook.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
@@ -17,7 +16,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.coursebook.commons.core.index.Index;
 import seedu.coursebook.logic.CommandHistory;
-import seedu.coursebook.logic.Messages;
 import seedu.coursebook.model.Model;
 import seedu.coursebook.model.ModelManager;
 import seedu.coursebook.model.UserPrefs;
@@ -35,18 +33,19 @@ public class DeleteCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_validIndexUnfilteredList_success() {
+    public void execute_validIndexUnfilteredList_requestsConfirmation() {
         Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS,
-                Messages.format(personToDelete));
-
-        ModelManager expectedModel = new ModelManager(model.getCourseBook(), new UserPrefs());
-        expectedModel.deletePerson(personToDelete);
-        expectedModel.commitCourseBook();
-
-        assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
+        try {
+            CommandResult result = deleteCommand.execute(model, commandHistory);
+            assertTrue(result.requiresConfirmation());
+            assertEquals(1, result.getPersonsToDelete().size());
+            assertTrue(result.getPersonsToDelete().contains(personToDelete));
+            assertTrue(result.getConfirmationMessage().contains("Are you sure"));
+        } catch (Exception e) {
+            throw new AssertionError("Execution of command should not fail.", e);
+        }
     }
 
     @Test
@@ -58,21 +57,20 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_validIndexFilteredList_success() {
+    public void execute_validIndexFilteredList_requestsConfirmation() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS,
-                Messages.format(personToDelete));
-
-        Model expectedModel = new ModelManager(model.getCourseBook(), new UserPrefs());
-        expectedModel.deletePerson(personToDelete);
-        expectedModel.commitCourseBook();
-        showNoPerson(expectedModel);
-
-        assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
+        try {
+            CommandResult result = deleteCommand.execute(model, commandHistory);
+            assertTrue(result.requiresConfirmation());
+            assertEquals(1, result.getPersonsToDelete().size());
+            assertTrue(result.getPersonsToDelete().contains(personToDelete));
+        } catch (Exception e) {
+            throw new AssertionError("Execution of command should not fail.", e);
+        }
     }
 
     @Test
@@ -119,40 +117,39 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_multipleValidIndices_success() {
+    public void execute_multipleValidIndices_requestsConfirmation() {
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person secondPerson = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
         List<Index> indices = Arrays.asList(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON);
         DeleteCommand deleteCommand = new DeleteCommand(indices);
 
-        ModelManager expectedModel = new ModelManager(model.getCourseBook(), new UserPrefs());
-        expectedModel.deletePerson(firstPerson);
-        expectedModel.deletePerson(secondPerson);
-        expectedModel.commitCourseBook();
-
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSONS_SUCCESS, 2,
-                Messages.format(firstPerson) + "\n" + Messages.format(secondPerson));
-
-        assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
+        try {
+            CommandResult result = deleteCommand.execute(model, commandHistory);
+            assertTrue(result.requiresConfirmation());
+            assertEquals(2, result.getPersonsToDelete().size());
+            assertTrue(result.getPersonsToDelete().contains(firstPerson));
+            assertTrue(result.getPersonsToDelete().contains(secondPerson));
+            assertTrue(result.getConfirmationMessage().contains("2 contacts"));
+        } catch (Exception e) {
+            throw new AssertionError("Execution of command should not fail.", e);
+        }
     }
 
     @Test
-    public void execute_multipleIndicesWithInvalid_partialSuccess() {
+    public void execute_multipleIndicesWithInvalid_requestsConfirmationWithWarning() {
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Index invalidIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         List<Index> indices = Arrays.asList(INDEX_FIRST_PERSON, invalidIndex);
         DeleteCommand deleteCommand = new DeleteCommand(indices);
 
-        ModelManager expectedModel = new ModelManager(model.getCourseBook(), new UserPrefs());
-        expectedModel.deletePerson(firstPerson);
-        expectedModel.commitCourseBook();
-
         CommandResult result;
         try {
             result = deleteCommand.execute(model, commandHistory);
-            assertTrue(result.getFeedbackToUser().contains("Deleted 1 person(s)"));
-            assertTrue(result.getFeedbackToUser().contains("Warnings"));
-            assertTrue(result.getFeedbackToUser().contains("Index " + invalidIndex.getOneBased() + " is invalid"));
+            assertTrue(result.requiresConfirmation());
+            assertEquals(1, result.getPersonsToDelete().size());
+            assertTrue(result.getPersonsToDelete().contains(firstPerson));
+            assertTrue(result.getConfirmationMessage().contains("Warnings"));
+            assertTrue(result.getConfirmationMessage().contains("Index " + invalidIndex.getOneBased() + " is invalid"));
         } catch (Exception e) {
             throw new AssertionError("Execution of command should not fail.", e);
         }
@@ -169,7 +166,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_multipleValidNames_success() {
+    public void execute_multipleValidNames_requestsConfirmation() {
         Model freshModel = new ModelManager(getTypicalCourseBook(), new UserPrefs());
         CommandHistory freshHistory = new CommandHistory();
 
@@ -190,7 +187,8 @@ public class DeleteCommandTest {
             CommandResult result;
             try {
                 result = deleteCommand.execute(freshModel, freshHistory);
-                assertTrue(result.getFeedbackToUser().contains("Deleted 2 person(s)"));
+                assertTrue(result.requiresConfirmation());
+                assertEquals(2, result.getPersonsToDelete().size());
             } catch (Exception e) {
                 throw new AssertionError("Execution of command should not fail.", e);
             }
@@ -198,7 +196,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_namesWithInvalid_partialSuccess() {
+    public void execute_namesWithInvalid_requestsConfirmationWithWarning() {
         Model freshModel = new ModelManager(getTypicalCourseBook(), new UserPrefs());
         CommandHistory freshHistory = new CommandHistory();
 
@@ -208,13 +206,13 @@ public class DeleteCommandTest {
         CommandResult result;
         try {
             result = deleteCommand.execute(freshModel, freshHistory);
-            String feedback = result.getFeedbackToUser();
-            assertTrue(feedback.contains("Deleted 1 person"),
-                    "Expected 'Deleted 1 person' but got: " + feedback);
-            assertTrue(feedback.contains("Warning"),
-                    "Expected 'Warning' but got: " + feedback);
-            assertTrue(feedback.contains("No contact found with name"),
-                    "Expected name warning but got: " + feedback);
+            assertTrue(result.requiresConfirmation());
+            assertEquals(1, result.getPersonsToDelete().size());
+            String message = result.getConfirmationMessage();
+            assertTrue(message.contains("Warning"),
+                    "Expected 'Warning' but got: " + message);
+            assertTrue(message.contains("No contact found with name"),
+                    "Expected name warning but got: " + message);
         } catch (Exception e) {
             throw new AssertionError("Execution of command should not fail.", e);
         }
