@@ -189,18 +189,27 @@ public class RemoveCourseCommandTest {
         public void updateFilteredCourseList(Predicate<seedu.coursebook.model.course.Course> predicate) {}
 
         @Override
-        public void setCourseColor(String courseCode, CourseColor color) { }
+        public void setCourseColor(String courseCode, CourseColor color) {
+        }
 
         @Override
-        public CommandResult setCurrentTheme(ThemeCommand.Theme theme) { return null; }
+        public CommandResult setCurrentTheme(ThemeCommand.Theme theme) {
+            return null;
+        }
 
         @Override
-        public ThemeCommand.Theme getCurrentTheme() { return null; }
+        public ThemeCommand.Theme getCurrentTheme() {
+            return null;
+        }
 
         @Override
-        public boolean hasThemeChangedDuringRedo() { return false; }
+        public boolean hasThemeChangedDuringRedo() {
+            return false;
+        }
 
         @Override
-        public boolean hasThemeChangedDuringUndo() { return false; }
+        public boolean hasThemeChangedDuringUndo() {
+            return false;
+        }
     }
 }

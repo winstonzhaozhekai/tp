@@ -207,8 +207,21 @@ public class MainWindow extends UiPart<Stage> {
         if (!helpWindow.isShowing()) {
             helpWindow.show();
         } else {
-            helpWindow.focus();
+            bringHelpWindowToFront();
         }
+    }
+
+    /**
+     * Brings the help window to the front and restores it if minimized.
+     */
+    private void bringHelpWindowToFront() {
+        Stage helpStage = helpWindow.getRoot();
+        if (helpStage.isIconified()) {
+            helpStage.setIconified(false);
+        }
+        helpStage.show();
+        helpStage.toFront();
+        helpWindow.focus();
     }
 
     /**

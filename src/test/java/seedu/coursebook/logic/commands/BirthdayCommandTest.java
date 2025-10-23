@@ -136,15 +136,23 @@ public class BirthdayCommandTest {
         }
 
         @Override
-        public CommandResult setCurrentTheme(ThemeCommand.Theme theme) { return null; }
+        public CommandResult setCurrentTheme(ThemeCommand.Theme theme) {
+            return null;
+        }
 
         @Override
-        public ThemeCommand.Theme getCurrentTheme() { return null; }
+        public ThemeCommand.Theme getCurrentTheme() {
+            return null;
+        }
 
         @Override
-        public boolean hasThemeChangedDuringRedo() { return false; }
+        public boolean hasThemeChangedDuringRedo() {
+            return false;
+        }
 
         @Override
-        public boolean hasThemeChangedDuringUndo() { return false; }
+        public boolean hasThemeChangedDuringUndo() {
+            return false;
+        }
     }
 }
