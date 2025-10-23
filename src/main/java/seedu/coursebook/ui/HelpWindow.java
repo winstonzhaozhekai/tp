@@ -2,6 +2,7 @@ package seedu.coursebook.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -220,5 +221,20 @@ public class HelpWindow extends UiPart<Stage> {
         final ClipboardContent url = new ClipboardContent();
         url.putString(USERGUIDE_URL);
         clipboard.setContent(url);
+    }
+
+    /**
+     * Updates the theme of the help window.
+     * @param themeCssFile the CSS file name for the theme (e.g., "DarkTheme.css")
+     * @param extensionsFile the CSS file name for extensions (e.g., "Extensions.css")
+     */
+    public void updateTheme(String themeCssFile, String extensionsFile) {
+        String themePath = "view/" + themeCssFile;
+        String extensionsPath = "view/" + extensionsFile;
+
+        ObservableList<String> stylesheets = getRoot().getScene().getStylesheets();
+        stylesheets.clear();
+        stylesheets.add(themePath);
+        stylesheets.add(extensionsPath);
     }
 }

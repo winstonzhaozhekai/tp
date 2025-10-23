@@ -3,6 +3,7 @@ package seedu.coursebook.ui;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -143,5 +144,20 @@ public class PersonDetailWindow extends UiPart<Stage> {
      */
     public void focus() {
         getRoot().requestFocus();
+    }
+
+    /**
+     * Updates the theme of the person detail window.
+     * @param themeCssFile the CSS file name for the theme (e.g., "DarkTheme.css")
+     * @param extensionsFile the CSS file name for extensions (e.g., "Extensions.css")
+     */
+    public void updateTheme(String themeCssFile, String extensionsFile) {
+        String themePath = "view/" + themeCssFile;
+        String extensionsPath = "view/" + extensionsFile;
+
+        ObservableList<String> stylesheets = getRoot().getScene().getStylesheets();
+        stylesheets.clear();
+        stylesheets.add(themePath);
+        stylesheets.add(extensionsPath);
     }
 }

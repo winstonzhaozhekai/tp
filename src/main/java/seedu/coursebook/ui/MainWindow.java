@@ -87,7 +87,10 @@ public class MainWindow extends UiPart<Stage> {
         currentExtensions = EXTENSIONS_CSS;
 
         helpWindow = new HelpWindow();
+        helpWindow.updateTheme("DarkTheme.css", "Extensions.css");
+
         personDetailWindow = new PersonDetailWindow();
+        personDetailWindow.updateTheme("DarkTheme.css", "Extensions.css");
     }
 
     /**
@@ -111,6 +114,10 @@ public class MainWindow extends UiPart<Stage> {
         // Update current theme tracker
         currentTheme = newThemePath;
         currentExtensions = newExtensionsPath;
+
+        // Update help window and person detail window themes
+        helpWindow.updateTheme(cssFileName, extensionsName);
+        personDetailWindow.updateTheme(cssFileName, extensionsName);
 
         UiManager.setAlertTheme(cssFileName, extensionsName);
 
