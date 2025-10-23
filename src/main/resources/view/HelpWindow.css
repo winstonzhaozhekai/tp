@@ -43,7 +43,6 @@
 }
 
 .command-table .column-header {
-    -fx-background-color: #1d1d1d;
     -fx-text-fill: #ffffff;
     -fx-font-weight: bold;
     -fx-font-size: 12px;
