@@ -1,0 +1,46 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":CourseBookParser" as CourseBookParser LOGIC_COLOR
+participant "u:RedoCommand" as RedoCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+[-> LogicManager : execute(redo)
+activate LogicManager
+
+LogicManager -> CourseBookParser : parseCommand(redo)
+activate CourseBookParser
+
+create RedoCommand
+CourseBookParser -> RedoCommand
+activate RedoCommand
+
+RedoCommand --> CourseBookParser
+deactivate RedoCommand
+
+CourseBookParser --> LogicManager : u
+deactivate CourseBookParser
+
+LogicManager -> RedoCommand : execute()
+activate RedoCommand
+
+RedoCommand -> Model : redoCourseBook()
+activate Model
+
+Model --> RedoCommand
+deactivate Model
+
+RedoCommand --> LogicManager : result
+deactivate RedoCommand
+RedoCommand -[hidden]-> LogicManager : result
+destroy RedoCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

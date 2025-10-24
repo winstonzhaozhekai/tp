@@ -17,6 +17,13 @@ VersionedCourseBook -> VersionedCourseBook :resetData(ReadOnlyCourseBook)
 VersionedCourseBook --> Model :
 deactivate VersionedCourseBook
 
+Model -> VersionedCourseBook : redo()
+activate VersionedCourseBook
+
+VersionedCourseBook -> VersionedCourseBook :resetData(ReadOnlyCourseBook)
+VersionedCourseBook --> Model :
+deactivate VersionedCourseBook
+
 [<-- Model
 deactivate Model
 
