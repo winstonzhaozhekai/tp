@@ -88,11 +88,21 @@ Examples:
 - `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 - `add n/Alice p/94351253 e/alice@example.com a/123, Jurong West Ave 6, #08-111 c/CS2103T,yellow c/CS2101`
 
-### Listing all persons : `list`
+### Listing all persons : `list|ls`
 
 Shows a list of all persons in the address book.
 
-Format: `list`
+Format: `list|ls`
+
+### Listing all persons in a course: `list|ls c/COURSE_CODE`
+
+Shows a list of all persons in the particular course.
+
+- The course code is case-insensitive.
+- If the course has no persons enrolled, an empty list is shown.
+- If the course does not exist, an empty list is shown along with an error message.
+
+Format: `list|ls c/COURSE_CODE` 
 
 ### Editing a person : `edit`
 
@@ -167,30 +177,33 @@ Format: `bday INDEX b/BIRTHDAY`
 
 - INDEX refers to the index in the currently displayed list (must be a positive integer).
 - BIRTHDAY should be in DD-MM-YYYY format.
+- Birthday must not be a future date.
+- Birthday cannot be before 01-01-1900.
 - If the person already has a birthday, it will be updated to the new one.
+- If the person already has a birthday and the new birthday is the same as the existing one, the command will fail with an error message.
 
 Examples:
 
 - `bday 1 b/20-02-2007`
 - `bday 2 b/15-12-1995`
 
-### Managing favourites: `fav` and `unfav`
+### Managing favourites: `favourite` and `unfavourite`
 
 Marks a person as favourite or removes them from favourites.
 
 **Adding to favourites:**
-Format: `fav INDEX`
+Format: `favourite INDEX`
 
 **Removing from favourites:**
-Format: `unfav INDEX`
+Format: `unfavourite INDEX`
 
 - INDEX refers to the index in the currently displayed list (must be a positive integer).
 - Favourite persons are marked with a star (★) in the person list.
 
 Examples:
 
-- `fav 1` - Marks the 1st person as favourite
-- `unfav 2` - Removes the 2nd person from favourites
+- `favourite 1` - Marks the 1st person as favourite
+- `unfavourite 2` - Removes the 2nd person from favourites
 
 ### Listing favourite persons: `favs`
 
@@ -198,11 +211,11 @@ Shows a list of all persons marked as favourites.
 
 Format: `favs`
 
-### Finding persons by fields: `find`
+### Finding persons by fields: `find|f`
 
 Finds persons by matching ANY of the provided fields (OR across fields). Within each field, a person matches if ANY of that field’s keywords match.
 
-Format: `find [n/NAME_KEYWORDS] [p/PHONE_KEYWORDS] [e/EMAIL_KEYWORDS] [a/ADDRESS_KEYWORDS] [t/TAG]…`
+Format: `find|f [n/NAME_KEYWORDS] [p/PHONE_KEYWORDS] [e/EMAIL_KEYWORDS] [a/ADDRESS_KEYWORDS] [t/TAG]…`
 
 Notes:
 
@@ -228,10 +241,10 @@ Examples:
 Deletes one or more persons from the address book. You can delete by index or by name.
 
 **Format for deleting by indices:**
-`delete INDEX [INDEX]...`
+`delete|rm INDEX [INDEX]...`
 
 **Format for deleting by names:**
-`delete NAME[, NAME]...`
+`delete|rm NAME[, NAME]...`
 
 - Deletes person(s) at the specified `INDEX` or with the specified `NAME`.
 - The index refers to the index number shown in the displayed person list.
@@ -326,7 +339,7 @@ Format: `sortn by/ [asc|desc]`
 
 - `asc` sorts in ascending order (A-Z)
 - `desc` sorts in descending order (Z-A)
-- If no order is specified, defaults to ascending
+- If no order is specified, an error message is thrown specifying incorrect format.
 
 **Sorting by birthday:**
 Format: `sortb`
@@ -350,7 +363,7 @@ Format: `viewperson INDEX` or `viewperson NAME`
 - NAME is the full name of the person (case-insensitive)
 - If multiple persons have the same name, use index instead
 
-Examples:
+Examples:R
 
 - `viewperson 1` - Shows details of the 1st person
 - `viewperson John Doe` - Shows details of John Doe
@@ -393,9 +406,9 @@ If your changes to the data file makes its format invalid, CourseBook will disca
 Furthermore, certain edits can cause the CourseBook to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
-### Archiving data files `[coming in v2.0]`
+### Copy phone number to clipboard
 
-_Details coming soon ..._
+There is a button at the right of the person's row to copy their phone number to clipboard. 
 
 ---
 
@@ -416,14 +429,14 @@ _Details coming soon ..._
 ## Command summary
 
 | Action              | Format, Examples                                                                                                                                                                           |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+|---------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add**             | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]… [c/COURSE_CODE[,COLOR]]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 c/CS2103T,yellow` |
 | **Birthday**        | `bday INDEX b/BIRTHDAY`<br> e.g., `bday 1 b/20-02-2007`                                                                                                                                    |
 | **Clear**           | `clear`                                                                                                                                                                                    |
 | **Delete**          | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                        |
 | **Edit**            | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]… [c/COURSE]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                    |
-| **Favourite**       | `fav INDEX` / `unfav INDEX`<br> e.g., `fav 1` / `unfav 2`                                                                                                                                  |
-| **Favourites**      | `favs`<br> Lists all favourite persons                                                                                                                                                     |
+| **Favourite**       | `favourite INDEX` / `unfavourite INDEX`<br> e.g., `favourite 1` / `unfavourite 2`                                                                                                          |
+| **View Favourites** | `favs`<br> Lists all favourite persons                                                                                                                                                     |
 | **AddCourse**       | `addcourse INDEX c/COURSE_CODE[,COLOR] [c/COURSE_CODE[,COLOR]]...`<br> e.g., `addcourse 1 c/CS2103T,blue`                                                                                  |
 | **EditCourseColor** | `editcourse c/COURSE_CODE,COLOR`<br> e.g., `editcourse c/CS2101,green`                                                                                                                     |
 | **RemoveCourse**    | `removecourse INDEX c/COURSE_CODE [c/COURSE_CODE]...`<br> e.g., `removecourse 1 c/CS2103T c/CS2101`                                                                                        |
