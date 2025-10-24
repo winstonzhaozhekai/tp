@@ -27,6 +27,7 @@ public class BirthdayCommandParser implements Parser<BirthdayCommand> {
      * @throws ParseException If the input format is invalid or required fields are missing.
      */
     public BirthdayCommand parse(String args) throws ParseException {
+
         if (!args.contains(PREFIX_BDAY.getPrefix())) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BirthdayCommand.MESSAGE_USAGE));
         }
