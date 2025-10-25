@@ -11,15 +11,16 @@ Class "<<interface>>\nModel" as Model
 Class CourseBook
 Class ModelManager
 Class UserPrefs
-
 Class UniquePersonList
+Class currentTheme
 Class Person
 Class Address
 Class Email
 Class Name
 Class Phone
 Class Tag
-
+Class Birthday
+Class Courses
 Class I #FFFFFF
 }
 
@@ -36,12 +37,15 @@ ModelManager -right-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
 CourseBook *--> "1" UniquePersonList
+CourseBook *--> "1" currentTheme
 UniquePersonList --> "~* all" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
+Person *--> "1"Name
+Person *--> "1"Phone
+Person *--> "1"Email
+Person *--> "1"Address
 Person *--> "*" Tag
+Person *--> "*" Courses
+Person --> "0..1" Birthday
 
 Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I
