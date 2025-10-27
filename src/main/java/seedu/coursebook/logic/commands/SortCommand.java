@@ -48,7 +48,12 @@ public class SortCommand extends Command {
 
         model.sortSelectedPersons(comparator);
 
-        return new CommandResult("Sorted contacts by name in " + order + "ending order.", false, false, true, false);
+        if (model.getFilteredPersonList().isEmpty()) {
+            return new CommandResult("No contacts to sort by name.", false, false, true, false);
+        } else {
+            return new CommandResult("Sorted contacts by name in " + order + "ending order.",
+                    false, false, true, false);
+        }
     }
 
     @Override
