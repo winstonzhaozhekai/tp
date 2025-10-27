@@ -2,6 +2,7 @@ package seedu.coursebook.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -31,6 +32,18 @@ public class CourseListPanel extends UiPart<Region> {
         this.personList = personList;
         courseListView.setItems(courseList);
         courseListView.setCellFactory(listView -> new CourseListViewCell());
+
+        // Add listener to personList to refresh course cards when persons change
+        personList.addListener((ListChangeListener<Person>) change -> {
+            logger.fine("Person list changed, refreshing course list view");
+            courseListView.refresh();
+        });
+
+        // Also add listener to courseList to handle course additions/removals
+        courseList.addListener((ListChangeListener<Course>) change -> {
+            logger.fine("Course list changed, refreshing course list view");
+            courseListView.refresh();
+        });
     }
 
     /**
