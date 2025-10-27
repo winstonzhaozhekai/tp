@@ -108,8 +108,6 @@ public class HelpWindow extends UiPart<Stage> {
                     "removecourse INDEX c/COURSE_CODE"),
             new CommandSummary("editcourse", "Sets the color for a course code globally",
                     "editcourse c/COURSE_CODE,COLOR"),
-            new CommandSummary("viewcourse", "Views details of a course",
-                    "viewcourse COURSE_CODE"),
             new CommandSummary("list | ls", "Lists persons in a course",
                     "list c/COURSE_CODE"),
             new CommandSummary("listcourses", "Lists all available courses",
