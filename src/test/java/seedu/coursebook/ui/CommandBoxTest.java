@@ -48,13 +48,13 @@ public class CommandBoxTest {
         // Execute commands
         logic.execute("list");
         logic.execute("listcourses");
-        logic.execute("summary");
+        logic.execute("help");
 
         // Verify history
         assertEquals(3, logic.getHistory().size());
         assertEquals("list", logic.getHistory().get(0));
         assertEquals("listcourses", logic.getHistory().get(1));
-        assertEquals("summary", logic.getHistory().get(2));
+        assertEquals("help", logic.getHistory().get(2));
     }
 
     @Test
@@ -84,16 +84,14 @@ public class CommandBoxTest {
     public void commandHistory_multipleCommands_orderedCorrectly() throws CommandException, ParseException {
         logic.execute("list");
         logic.execute("listcourses");
-        logic.execute("summary");
         logic.execute("help");
         logic.execute("exit");
 
-        assertEquals(5, logic.getHistory().size());
+        assertEquals(4, logic.getHistory().size());
         assertEquals("list", logic.getHistory().get(0));
         assertEquals("listcourses", logic.getHistory().get(1));
-        assertEquals("summary", logic.getHistory().get(2));
-        assertEquals("help", logic.getHistory().get(3));
-        assertEquals("exit", logic.getHistory().get(4));
+        assertEquals("help", logic.getHistory().get(2));
+        assertEquals("exit", logic.getHistory().get(3));
     }
 
     @Test
@@ -126,7 +124,7 @@ public class CommandBoxTest {
     public void commandHistory_testNavigationScenario_multipleCommands() throws CommandException, ParseException {
         // Simulate a typical user workflow
         logic.execute("list");
-        logic.execute("summary");
+        logic.execute("help");
         logic.execute("listcourses");
 
         // Verify we can access history in reverse order (newest to oldest)
@@ -134,7 +132,7 @@ public class CommandBoxTest {
         // Most recent command
         assertEquals("listcourses", logic.getHistory().get(logic.getHistory().size() - 1));
         // Second most recent
-        assertEquals("summary", logic.getHistory().get(logic.getHistory().size() - 2));
+        assertEquals("help", logic.getHistory().get(logic.getHistory().size() - 2));
         // Third most recent
         assertEquals("list", logic.getHistory().get(logic.getHistory().size() - 3));
     }
