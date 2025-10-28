@@ -27,9 +27,21 @@ public class SortBirthdayCommandTest {
         model = new ModelManager(new CourseBook(), new UserPrefs());
         history = new CommandHistory();
 
-        model.addPerson(new PersonBuilder().withName("Alice").withBirthday("02-06-2025").build());
-        model.addPerson(new PersonBuilder().withName("Bob").withBirthday("01-06-2025").build());
-        model.addPerson(new PersonBuilder().withName("Charlie").withBirthday("03-06-2025").build());
+        model.addPerson(new PersonBuilder()
+                .withName("Alice")
+                .withBirthday("02-06-2025")
+                .withPhone("98765432")
+                .withEmail("Alice@email.com").build());
+        model.addPerson(new PersonBuilder()
+                .withName("Bob")
+                .withBirthday("01-06-2025")
+                .withPhone("97865432")
+                .withEmail("Bob@gmail.com").build());
+        model.addPerson(new PersonBuilder()
+                .withName("Charlie")
+                .withBirthday("03-06-2025")
+                .withPhone("90876543")
+                .withEmail("Charlie@email.com").build());
     }
 
     @Test
@@ -38,9 +50,21 @@ public class SortBirthdayCommandTest {
         command.execute(model, history);
 
         List<Person> expectedOrder = Arrays.asList(
-                new PersonBuilder().withName("Bob").withBirthday("01-06-2025").build(),
-                new PersonBuilder().withName("Alice").withBirthday("02-06-2025").build(),
-                new PersonBuilder().withName("Charlie").withBirthday("03-06-2025").build()
+                new PersonBuilder()
+                        .withName("Bob")
+                        .withBirthday("01-06-2025")
+                        .withPhone("97865432")
+                        .withEmail("Bob@gmail.com").build(),
+                new PersonBuilder()
+                        .withName("Alice")
+                        .withBirthday("02-06-2025")
+                        .withPhone("98765432")
+                        .withEmail("Alice@email.com").build(),
+                new PersonBuilder()
+                        .withName("Charlie")
+                        .withBirthday("03-06-2025")
+                        .withPhone("90876543")
+                        .withEmail("Charlie@email.com").build()
         );
 
         assertEquals(expectedOrder.toString(), model.getFilteredPersonList().toString());
