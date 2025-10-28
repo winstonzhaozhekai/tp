@@ -102,7 +102,7 @@ Shows a list of all persons in the particular course.
 - If the course has no persons enrolled, an empty list is shown.
 - If the course does not exist, an empty list is shown along with an error message.
 
-Format: `list|ls c/COURSE_CODE` 
+Format: `list|ls c/COURSE_CODE`
 
 ### Editing a person : `edit`
 
@@ -408,7 +408,7 @@ Furthermore, certain edits can cause the CourseBook to behave in unexpected ways
 
 ### Copy phone number to clipboard
 
-There is a button at the right of the person's row to copy their phone number to clipboard. 
+There is a button at the right of the person's row to copy their phone number to clipboard.
 
 ---
 
