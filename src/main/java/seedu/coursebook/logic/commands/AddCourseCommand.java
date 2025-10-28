@@ -62,28 +62,25 @@ public class AddCourseCommand extends Command {
         Person personToEdit = model.getFilteredPersonList().get(index.getZeroBased());
         Set<Course> existingCourses = personToEdit.getCourses();
 
-        // Determine global color consistency and handle conflicts
+        Set<Course> newCourses = new HashSet<>(existingCourses);
+        newCourses.addAll(coursesToAdd);
+
+        if (existingCourses.containsAll(coursesToAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_COURSE);
+        }
+
+        // Determine global color consistency and handle conflicts only after we know command will succeed
         for (Course toAdd : coursesToAdd) {
-            // If any existing person has this course code, discover its color
             CourseColor existingColor = model.getFilteredCourseList().stream()
                     .filter(c -> c.courseCode.equalsIgnoreCase(toAdd.courseCode))
                     .map(c -> c.color)
                     .findFirst()
                     .orElse(null);
             if (existingColor != null && toAdd.color != null && existingColor != toAdd.color) {
-                // Conflict: update globally to new color
                 model.setCourseColor(toAdd.courseCode, toAdd.color);
             } else if (existingColor == null && toAdd.color == null) {
-                // New course with no color specified: default to GREEN globally
                 model.setCourseColor(toAdd.courseCode, CourseColor.GREEN);
             }
-        }
-
-        Set<Course> newCourses = new HashSet<>(existingCourses);
-        newCourses.addAll(coursesToAdd);
-
-        if (existingCourses.containsAll(coursesToAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_COURSE);
         }
 
         Person editedPerson = new Person(

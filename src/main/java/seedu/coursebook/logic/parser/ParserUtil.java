@@ -199,7 +199,8 @@ public class ParserUtil {
                 try {
                     color = CourseColor.fromName(colorName);
                 } catch (IllegalArgumentException ex) {
-                    throw new ParseException("Invalid course color: " + colorName);
+                    throw new ParseException("Invalid course color: " + colorName
+                            + ". Available colors: " + CourseColor.allowedNamesCsv());
                 }
             }
             courseSet.add(new Course(code, color));

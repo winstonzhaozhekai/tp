@@ -38,6 +38,21 @@ public enum CourseColor {
         }
         return CourseColor.valueOf(normalized.toUpperCase());
     }
+
+    /**
+     * Returns a comma-separated list of allowed color names in lowercase.
+     */
+    public static String allowedNamesCsv() {
+        StringBuilder sb = new StringBuilder();
+        CourseColor[] values = values();
+        for (int i = 0; i < values.length; i++) {
+            sb.append(values[i].name().toLowerCase());
+            if (i < values.length - 1) {
+                sb.append(", ");
+            }
+        }
+        return sb.toString();
+    }
 }
 
 
