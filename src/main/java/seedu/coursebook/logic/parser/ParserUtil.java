@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.coursebook.commons.core.index.Index;
-import seedu.coursebook.commons.util.StringUtil;
 import seedu.coursebook.logic.parser.exceptions.ParseException;
 import seedu.coursebook.model.course.Course;
 import seedu.coursebook.model.course.CourseColor;
@@ -35,16 +34,18 @@ public class ParserUtil {
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
 
-        // Check for negative integers first
-        if (trimmedIndex.matches("-\\d+")) {
-            throw new ParseException(MESSAGE_NEGATIVE_INDEX);
-        }
-
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
+        // Must be digits only
+        if (!trimmedIndex.matches("\\d+")) {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
+
+        // Use long to detect overflow and enforce 1..Integer.MAX_VALUE
         try {
-            return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+            long value = Long.parseLong(trimmedIndex);
+            if (value < 1 || value > Integer.MAX_VALUE) {
+                throw new ParseException(MESSAGE_INVALID_INDEX);
+            }
+            return Index.fromOneBased((int) value);
         } catch (NumberFormatException nfe) {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
