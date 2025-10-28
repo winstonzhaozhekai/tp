@@ -61,6 +61,6 @@ public class ViewPersonCommandParserTest {
     public void parse_negativeNumber_throwsParseException() {
         // "-1" fails as an index and also fails as a name (hyphen not allowed)
         assertParseFailure(parser, "-1",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewPersonCommand.MESSAGE_USAGE));
+                ParserUtil.MESSAGE_NEGATIVE_INDEX);
     }
 }
