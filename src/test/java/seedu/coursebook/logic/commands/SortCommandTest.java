@@ -29,9 +29,18 @@ public class SortCommandTest {
         model = new ModelManager(new CourseBook(), new UserPrefs());
         history = new CommandHistory();
 
-        model.addPerson(new PersonBuilder().withName("Charlie").build());
-        model.addPerson(new PersonBuilder().withName("Alice").build());
-        model.addPerson(new PersonBuilder().withName("Bob").build());
+        model.addPerson(new PersonBuilder()
+                .withName("Charlie")
+                .withPhone("90876543")
+                .withEmail("Charlie@email.com").build());
+        model.addPerson(new PersonBuilder()
+                .withName("Alice")
+                .withPhone("98765432")
+                .withEmail("Alice@email.com").build());
+        model.addPerson(new PersonBuilder()
+                .withName("Bob")
+                .withPhone("97865432")
+                .withEmail("Bob@gmail.com").build());
     }
 
     @Test
@@ -40,9 +49,18 @@ public class SortCommandTest {
         command.execute(model, history);
 
         List<Person> expectedOrder = Arrays.asList(
-                new PersonBuilder().withName("Alice").build(),
-                new PersonBuilder().withName("Bob").build(),
-                new PersonBuilder().withName("Charlie").build()
+                new PersonBuilder()
+                    .withName("Alice")
+                    .withPhone("98765432")
+                    .withEmail("Alice@email.com").build(),
+                new PersonBuilder()
+                        .withName("Bob")
+                        .withPhone("97865432")
+                        .withEmail("Bob@gmail.com").build(),
+                new PersonBuilder()
+                        .withName("Charlie")
+                        .withPhone("90876543")
+                        .withEmail("Charlie@email.com").build()
         );
 
         assertEquals(expectedOrder.toString(), model.getFilteredPersonList().toString());
@@ -54,9 +72,18 @@ public class SortCommandTest {
         command.execute(model, history);
 
         List<Person> expectedOrder = Arrays.asList(
-                new PersonBuilder().withName("Charlie").build(),
-                new PersonBuilder().withName("Bob").build(),
-                new PersonBuilder().withName("Alice").build()
+                new PersonBuilder()
+                        .withName("Charlie")
+                        .withPhone("90876543")
+                        .withEmail("Charlie@email.com").build(),
+                new PersonBuilder()
+                        .withName("Bob")
+                        .withPhone("97865432")
+                        .withEmail("Bob@gmail.com").build(),
+                new PersonBuilder()
+                        .withName("Alice")
+                        .withPhone("98765432")
+                        .withEmail("Alice@email.com").build()
         );
 
         assertEquals(expectedOrder.toString(), model.getFilteredPersonList().toString());
