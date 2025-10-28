@@ -35,7 +35,6 @@ import seedu.coursebook.logic.commands.SummaryCommand;
 import seedu.coursebook.logic.commands.ThemeCommand;
 import seedu.coursebook.logic.commands.UndoCommand;
 import seedu.coursebook.logic.commands.UnfavouriteCommand;
-import seedu.coursebook.logic.commands.ViewCourseCommand;
 import seedu.coursebook.logic.commands.ViewPersonCommand;
 import seedu.coursebook.logic.parser.exceptions.ParseException;
 
@@ -160,9 +159,6 @@ public class CourseBookParser {
                 );
             }
             return new ListCoursesCommand();
-
-        case ViewCourseCommand.COMMAND_WORD:
-            return new ViewCourseCommandParser().parse(arguments);
 
         case HistoryCommand.COMMAND_WORD:
             if (!arguments.isEmpty()) {
