@@ -51,7 +51,7 @@ public class ArgumentTokenizer {
         while (prefixPosition != -1) {
             PrefixPosition extendedPrefix = new PrefixPosition(prefix, prefixPosition);
             positions.add(extendedPrefix);
-            prefixPosition = findPrefixPosition(argsString, prefix.getPrefix(), prefixPosition);
+            prefixPosition = findPrefixPosition(argsString, prefix.getPrefix(), prefixPosition + 1);
         }
 
         return positions;
@@ -70,9 +70,14 @@ public class ArgumentTokenizer {
      * {@code fromIndex} = 0, this method returns 5.
      */
     private static int findPrefixPosition(String argsString, String prefix, int fromIndex) {
+        // Match prefix at start of string
+        if (fromIndex == 0 && argsString.startsWith(prefix)) {
+            return 0;
+        }
+
+        // Match prefix preceded by whitespace
         int prefixIndex = argsString.indexOf(" " + prefix, fromIndex);
-        return prefixIndex == -1 ? -1
-                : prefixIndex + 1; // +1 as offset for whitespace
+        return prefixIndex == -1 ? -1 : prefixIndex + 1; // +1 to offset the whitespace
     }
 
     /**
