@@ -102,7 +102,7 @@ Shows a list of all persons in the particular course.
 - If the course has no persons enrolled, an empty list is shown.
 - If the course does not exist, an empty list is shown along with an error message.
 
-Format: `list|ls c/COURSE_CODE` 
+Format: `list|ls c/COURSE_CODE`
 
 ### Editing a person : `edit`
 
@@ -368,17 +368,14 @@ Examples:R
 - `viewperson 1` - Shows details of the 1st person
 - `viewperson John Doe` - Shows details of John Doe
 
-### Viewing course information: `viewcourse` and `listcourses`
+### Listing all courses: `listcourses`
 
-**Viewing persons in a course:**
-Format: `viewcourse c/COURSE_CODE`
+Lists all available courses in the coursebook.
 
-**Listing all courses:**
 Format: `listcourses`
 
-Examples:
+Example:
 
-- `viewcourse c/CS2103T` - Shows all persons enrolled in CS2103T
 - `listcourses` - Lists all available courses
 
 ### Clearing all entries : `clear`
@@ -408,7 +405,7 @@ Furthermore, certain edits can cause the CourseBook to behave in unexpected ways
 
 ### Copy phone number to clipboard
 
-There is a button at the right of the person's row to copy their phone number to clipboard. 
+There is a button at the right of the person's row to copy their phone number to clipboard.
 
 ---
 
@@ -440,7 +437,6 @@ There is a button at the right of the person's row to copy their phone number to
 | **AddCourse**       | `addcourse INDEX c/COURSE_CODE[,COLOR] [c/COURSE_CODE[,COLOR]]...`<br> e.g., `addcourse 1 c/CS2103T,blue`                                                                                  |
 | **EditCourseColor** | `editcourse c/COURSE_CODE,COLOR`<br> e.g., `editcourse c/CS2101,green`                                                                                                                     |
 | **RemoveCourse**    | `removecourse INDEX c/COURSE_CODE [c/COURSE_CODE]...`<br> e.g., `removecourse 1 c/CS2103T c/CS2101`                                                                                        |
-| **ViewCourse**      | `viewcourse c/COURSE_CODE`<br> e.g., `viewcourse c/CS2103T`                                                                                                                                |
 | **ListCourses**     | `listcourses`<br> Lists all available courses                                                                                                                                              |
 | **Find**            | `find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…`<br> e.g., `find n/James t/colleague`                                                                                              |
 | **List**            | `list`                                                                                                                                                                                     |

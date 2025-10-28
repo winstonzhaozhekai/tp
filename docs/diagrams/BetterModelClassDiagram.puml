@@ -6,6 +6,7 @@ skinparam classBackgroundColor MODEL_COLOR
 
 CourseBook *-right-> "1" UniquePersonList
 CourseBook *-right-> "1" UniqueTagList
+CourseBook *--> "1" CurrentTheme
 UniqueTagList -[hidden]down- UniquePersonList
 UniqueTagList -[hidden]down- UniquePersonList
 
@@ -14,8 +15,10 @@ UniquePersonList -right-> Person
 
 Person -up-> "*" Tag
 
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
+Person *--> "1" Name
+Person *--> "1" Phone
+Person *--> "1" Email
+Person *--> "1" Address
+Person *--> "0..1" Birthday
+Person *--> "*" Courses
 @enduml

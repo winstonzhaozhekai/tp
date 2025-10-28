@@ -10,7 +10,7 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-- SE-EDU Address Book (Level 4) https://se-education.org/addressbook-level4/
+- The features undo and redo were inspired by similar features of the SE-EDU Address Book (Level 4) https://se-education.org/addressbook-level4/
 
 ---
 
@@ -159,37 +159,37 @@ Classes used by multiple components are in the `seedu.coursebook.commons` packag
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### \[Proposed\] Undo/redo feature
+### Undo/redo feature
 
-#### Proposed Implementation
+#### Implementation
 
-The proposed undo/redo mechanism is facilitated by `VersionedCourseBook`. It extends `CourseBook` with an undo/redo history, stored internally as an `CourseBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+The  undo/redo mechanism is facilitated by `VersionedCourseBook`. It extends `CourseBook` with an undo/redo history, stored internally as an `CourseBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
 
-- `VersionedCourseBook#commit()` — Saves the current address book state in its history.
-- `VersionedCourseBook#undo()` — Restores the previous address book state from its history.
-- `VersionedCourseBook#redo()` — Restores a previously undone address book state from its history.
+- `VersionedCourseBook#commit()` — Saves the current course book state in its history.
+- `VersionedCourseBook#undo()` — Restores the previous course book state from its history.
+- `VersionedCourseBook#redo()` — Restores a previously undone course book state from its history.
 
 These operations are exposed in the `Model` interface as `Model#commitCourseBook()`, `Model#undoCourseBook()` and `Model#redoCourseBook()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedCourseBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedCourseBook` will be initialized with the initial course book state, and the `currentStatePointer` pointing to that single course book state.
 
 ![UndoRedoState0](images/UndoRedoState0.png)
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitCourseBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `CourseBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th person in the course book. The `delete` command calls `Model#commitCourseBook()`, causing the modified state of the course book after the `delete 5` command executes to be saved in the `CourseBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitCourseBook()`, causing another modified address book state to be saved into the `CourseBookStateList`.
+Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitCourseBook()`, causing another modified course book state to be saved into the `CourseBookStateList`.
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitCourseBook()`, so the address book state will not be saved into the `CourseBookStateList`.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitCourseBook()`, so the course book state will not be saved into the `CourseBookStateList`.
 
 </div>
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoCourseBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoCourseBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous course book state, and restores the course book to that state.
 
 ![UndoRedoState3](images/UndoRedoState3.png)
 
@@ -210,17 +210,17 @@ Similarly, how an undo operation goes through the `Model` component is shown bel
 
 ![UndoSequenceDiagram](images/UndoSequenceDiagram-Model.png)
 
-The `redo` command does the opposite — it calls `Model#redoCourseBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite — it calls `Model#redoCourseBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the course book to that state.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `CourseBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone CourseBook states to restore. The `redo` command uses `Model#canRedoCourseBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `CourseBookStateList.size() - 1`, pointing to the latest course book state, then there are no undone CourseBook states to restore. The `redo` command uses `Model#canRedoCourseBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
 </div>
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitCourseBook()`, `Model#undoCourseBook()` or `Model#redoCourseBook()`. Thus, the `CourseBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the course book, such as `list`, will usually not call `Model#commitCourseBook()`, `Model#undoCourseBook()` or `Model#redoCourseBook()`. Thus, the `CourseBookStateList` remains unchanged.
 
 ![UndoRedoState4](images/UndoRedoState4.png)
 
-Step 6. The user executes `clear`, which calls `Model#commitCourseBook()`. Since the `currentStatePointer` is not pointing at the end of the `CourseBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitCourseBook()`. Since the `currentStatePointer` is not pointing at the end of the `CourseBookStateList`, all course book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
 
 ![UndoRedoState5](images/UndoRedoState5.png)
 
@@ -232,23 +232,10 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 **Aspect: How undo & redo executes:**
 
-- **Alternative 1 (current choice):** Saves the entire address book.
+- Saves the entire course book.
 
   - Pros: Easy to implement.
   - Cons: May have performance issues in terms of memory usage.
-
-- **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-  - Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-  - Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
----
 
 ## **Documentation, logging, testing, configuration, dev-ops**
 
@@ -295,7 +282,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | time-conscious user                        | search for friends by name or keyword          | find a person quickly                                                  |
 | `* *`    | user                                       | see my friends who have common courses with me | identify and contact them for study groups or collaboration            |
 | `* *`    | user                                       | differentiate courses by colours               | visually identify which courses my friends take easily                 |
-| `* *`    | user with many persons in the address book | keep a list of favourite contacts              | find my close friends easily                                           |
+| `* *`    | user with many persons in the course book | keep a list of favourite contacts              | find my close friends easily                                           |
 | `* *`    | user                                       | see each course's professor and TA contact information | contact them to ask for help more easily                     |
 | `* *`    | user                                       | receive course recommendations based on what my friends are taking | discover relevant modules easily                        |
 | `* *`    | user                                       | filter contacts by academic year              | connect with peers at similar academic levels                          |
@@ -549,7 +536,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Private contact detail**: A contact detail that is not meant to be shared with others
 * **Actor**: A user or external entity that interacts with the system
 * **CourseBook**: The system that stores and manages contact information
-* **Contact**: A person whose details are stored in the address book
+* **Contact**: A person whose details are stored in the course book
 * **Main Success Scenario (MSS)**: The typical flow of events in a use case when everything goes as expected
 * **Parser**: The component that interprets user input and converts it into a command that the program can execute
 
@@ -596,7 +583,86 @@ testers are expected to do more *exploratory* testing.
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+2. Deleting a person that does not exist
+
+   1. Prerequisites: Have less than 10 records in the courseBook.
+   2. Test case: `delete 10` <br>
+      Expected: Status message shows `No valid persons to delete.`
+
+### Undo an operation
+
+1. Undo a command execution
+
+    1. Prerequisites: Execute a command that add/edit/delete a person, or changes the theme.
+
+    1. Test case: `undo`<br>
+       Expected: Undo the operation and shows`Undo success!` 
+
+1. No commands to undo
+
+    1. Prerequisites: Execute commands that do not change the state of the CourseBook, such as `list`, `viewperson 1`, `favs`
+
+   1. Test case: `undo`<br>
+      Expected: As there are no commands to undo, the status message shows `No more commands to undo!`
+
+### Redo an undone operation
+
+1. Redo a command execution
+
+    1. Prerequisites: Execute a command that add/edit/delete a person, or changes the theme.
+
+    1. Test case: `undo` and then `redo`<br>
+       Expected: First, the operation is undone, and next, it is redone
+
+1. No commands to redo
+
+    1. Prerequisites: Execute commands that do not change the state of the CourseBook, such as `list`, `viewperson 1`, `favs`
+
+    1. Test case: `redo`<br>
+       Expected: As there are no commands to redo, the status message shows `No more commands to redo!`
+
+### Show command history
+
+1. Show command history
+
+    1. Prerequisites: Execute any number of commands
+
+    1. Test case: Execute `list` and `home`, and then `history`<br>
+       Expected: The command history is displayed in the status bar <br> 
+   `History (from latest to earliest)`<br>
+    `1. home`<br>
+    `2. list`
+
+1. No commands in command history
+
+    1. Prerequisites: No command executed
+
+    1. Test case: `history`<br>
+       Expected: Status bar shows `No commands in history!`
+
+### Changing the theme
+
+1. Change the theme to `blue`
+
+    1. Prerequisites: Have a theme that is not `blue`
+
+    1. Test case: `theme blue`<br>
+       Expected: The theme changes to `blue` and the status window shows
+       `Theme changed to: blue`<br>
+
+1. Change the theme to `blue` when it is already `blue`
+
+    1. Prerequisites: The theme is `blue`
+
+       1. Test case: `theme blue`<br>
+          Expected: Status bar shows `Theme is already blue!`
+   
+2. Change the theme to a non-existing theme
+
+   1. Prerequisites: The theme is `blue`
+
+   1. Test case: `theme dragon`<br>
+      Expected: Status bar shows `Invalid theme name. Available themes: dark, blue, love, tree`
 
 ### Saving data
 
@@ -605,3 +671,8 @@ testers are expected to do more *exploratory* testing.
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+## **Appendix: Effort**
+
+
+## **Appendix: Planned Enhancements**

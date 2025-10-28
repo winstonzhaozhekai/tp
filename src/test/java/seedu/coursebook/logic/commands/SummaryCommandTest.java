@@ -1,5 +1,6 @@
 package seedu.coursebook.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.coursebook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.coursebook.testutil.TypicalPersons.getTypicalCourseBook;
 
@@ -9,6 +10,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.coursebook.logic.CommandHistory;
+import seedu.coursebook.logic.commands.exceptions.CommandException;
 import seedu.coursebook.model.Model;
 import seedu.coursebook.model.ModelManager;
 import seedu.coursebook.model.UserPrefs;
@@ -52,13 +54,11 @@ public class SummaryCommandTest {
     }
 
     @Test
-    public void execute_emptyList_success() {
+    public void execute_emptyList_throwsCommandException() {
         Model emptyModel = new ModelManager();
         SummaryCommand summaryCommand = new SummaryCommand();
+        CommandHistory commandHistory = new CommandHistory();
 
-        String expectedMessage = String.format(SummaryCommand.MESSAGE_SUCCESS, 0, "No courses found");
-        Model expectedModel = new ModelManager();
-
-        assertCommandSuccess(summaryCommand, emptyModel, new CommandHistory(), expectedMessage, expectedModel);
+        assertThrows(CommandException.class, () -> summaryCommand.execute(emptyModel, commandHistory));
     }
 }

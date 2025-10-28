@@ -114,6 +114,7 @@ public class HelpWindow extends UiPart<Stage> {
                     "removecourse 1 c/CS2103T c/CS2040S"),
             new CommandSummary("editcourse", "Sets the color for a course code globally",
                     "editcourse c/CS2103T,yellow"),
+                    "editcourse c/COURSE_CODE,COLOR"),
             new CommandSummary("list | ls", "Lists persons in a course",
                     "list c/CS2103T"),
             new CommandSummary("listcourses", "Lists all unique courses in the coursebook",
