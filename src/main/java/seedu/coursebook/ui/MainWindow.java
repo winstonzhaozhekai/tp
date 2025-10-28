@@ -243,6 +243,13 @@ public class MainWindow extends UiPart<Stage> {
         if (!personDetailWindow.isShowing()) {
             personDetailWindow.show();
         } else {
+            // Restore if minimized and bring to front, then focus
+            javafx.stage.Stage personStage = personDetailWindow.getRoot();
+            if (personStage.isIconified()) {
+                personStage.setIconified(false);
+            }
+            personStage.show();
+            personStage.toFront();
             personDetailWindow.focus();
         }
     }
