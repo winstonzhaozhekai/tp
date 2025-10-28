@@ -42,7 +42,7 @@ public class DeleteCommandTest {
             assertTrue(result.requiresConfirmation());
             assertEquals(1, result.getPersonsToDelete().size());
             assertTrue(result.getPersonsToDelete().contains(personToDelete));
-            assertTrue(result.getConfirmationMessage().contains("Are you sure"));
+            assertTrue(result.getConfirmationMessage().contains(personToDelete.getName().toString()));
         } catch (Exception e) {
             throw new AssertionError("Execution of command should not fail.", e);
         }
@@ -129,7 +129,9 @@ public class DeleteCommandTest {
             assertEquals(2, result.getPersonsToDelete().size());
             assertTrue(result.getPersonsToDelete().contains(firstPerson));
             assertTrue(result.getPersonsToDelete().contains(secondPerson));
-            assertTrue(result.getConfirmationMessage().contains("2 contacts"));
+            String msg = result.getConfirmationMessage();
+            assertTrue(msg.contains(firstPerson.getName().toString()));
+            assertTrue(msg.contains(secondPerson.getName().toString()));
         } catch (Exception e) {
             throw new AssertionError("Execution of command should not fail.", e);
         }
@@ -149,7 +151,8 @@ public class DeleteCommandTest {
             assertEquals(1, result.getPersonsToDelete().size());
             assertTrue(result.getPersonsToDelete().contains(firstPerson));
             assertTrue(result.getConfirmationMessage().contains("Warnings"));
-            assertTrue(result.getConfirmationMessage().contains("Index " + invalidIndex.getOneBased() + " is invalid"));
+            String expectedPrefix = "Index " + invalidIndex.getOneBased() + " does not exist";
+            assertTrue(result.getConfirmationMessage().contains(expectedPrefix));
         } catch (Exception e) {
             throw new AssertionError("Execution of command should not fail.", e);
         }
