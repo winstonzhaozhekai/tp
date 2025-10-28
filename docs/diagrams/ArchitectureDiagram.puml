@@ -4,6 +4,10 @@
 !include <office/Users/user>
 !include style.puml
 
+' Architecture diagram showing main components and their relationships
+' This diagram illustrates the high-level structure of the application
+' Components include UI, Logic, Storage, Model, and Main classes
+
 Package " "<<Rectangle>>{
     Class UI UI_COLOR
     Class Logic LOGIC_COLOR
