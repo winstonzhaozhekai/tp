@@ -75,7 +75,41 @@ public class DeleteCommandParserTest {
     }
 
     @Test
+    public void parse_negativeIndex_throwsInvalidIndex() {
+        assertParseFailure(parser, "-1", seedu.coursebook.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void parse_mixedNegativeAndValidIndex_returnsDeleteCommandWithWarning() {
+        // We don't have direct access to warnings from parser, but we assert parse success
+        // to ensure classification as indices still succeeds for the valid token.
+        DeleteCommand expectedCommand = new DeleteCommand(INDEX_SECOND_PERSON);
+        assertParseSuccess(parser, "-1 2", expectedCommand);
+    }
+
+    @Test
+    public void parse_negativesZeroAndValidIndex_returnsDeleteCommandWithWarnings() {
+        DeleteCommand expectedCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        assertParseSuccess(parser, "-1 0 1", expectedCommand);
+    }
+
+    @Test
+    public void parse_duplicateIndices_throwsParseException() {
+        assertParseFailure(parser, "1 1", "Duplicate indices are not allowed.");
+    }
+
+    @Test
+    public void parse_mixedInvalidAndDuplicate_throwsDuplicateError() {
+        assertParseFailure(parser, "0 1 1", "Duplicate indices are not allowed.");
+    }
+
+    @Test
     public void parse_invalidName_throwsParseException() {
         assertParseFailure(parser, "@#$%", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_duplicateNames_throwsParseException() {
+        assertParseFailure(parser, "John Doe, John Doe", "Duplicate names are not allowed.");
     }
 }
