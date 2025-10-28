@@ -52,10 +52,10 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         if (input.contains(",")) {
             return false;
         }
-        // Check if all tokens are numeric
+        // Check if all tokens are numeric (allow optional leading '-')
         String[] tokens = input.split("\\s+");
         for (String token : tokens) {
-            if (!token.matches("\\d+")) {
+            if (!token.matches("-?\\d+")) {
                 return false;
             }
         }
@@ -71,9 +71,6 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
 
         for (String token : tokens) {
             if (token.matches("0+")) {
-                throw new ParseException(seedu.coursebook.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-            }
-            if (token.matches("-\\d+")) {
                 throw new ParseException(seedu.coursebook.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
             indices.add(ParserUtil.parseIndex(token));

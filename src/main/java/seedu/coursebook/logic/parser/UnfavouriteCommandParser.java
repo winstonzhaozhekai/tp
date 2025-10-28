@@ -28,8 +28,12 @@ public class UnfavouriteCommandParser implements Parser<UnfavouriteCommand> {
         try {
             Index index = ParserUtil.parseIndex(trimmed);
             return new UnfavouriteCommand(index);
-        } catch (ParseException ignored) {
-            // Fall through to parse as name
+        } catch (ParseException pe) {
+            // If it's a negative index error, re-throw it
+            if (pe.getMessage().equals(ParserUtil.MESSAGE_NEGATIVE_INDEX)) {
+                throw pe;
+            }
+            // Fall through to parse as name for other index errors
         }
 
         // Parse as name
