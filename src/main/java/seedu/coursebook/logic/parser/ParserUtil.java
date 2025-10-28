@@ -34,8 +34,12 @@ public class ParserUtil {
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
 
-        // Must be digits only
+        // Must be digits only (no negative sign, no letters, etc.)
         if (!trimmedIndex.matches("\\d+")) {
+            // Check for negative integers specifically
+            if (trimmedIndex.matches("-\\d+")) {
+                throw new ParseException(MESSAGE_NEGATIVE_INDEX);
+            }
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
 
