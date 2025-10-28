@@ -29,7 +29,8 @@ public class EditCourseColorCommandParser implements Parser<EditCourseColorComma
         try {
             color = CourseColor.fromName(colorName);
         } catch (IllegalArgumentException e) {
-            throw new ParseException("Invalid course color: " + colorName);
+            throw new ParseException("Invalid course color: " + colorName
+                    + ". Available colors: " + CourseColor.allowedNamesCsv());
         }
         return new EditCourseColorCommand(code, color);
     }
