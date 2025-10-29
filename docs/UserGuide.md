@@ -5,9 +5,11 @@ title: User Guide
 
 # CourseBook User Guide (v1.5)
 
-CourseBook is a **desktop application for university students** to manage their academic network by organizing contacts based on shared courses. Optimized for use via a **Command Line Interface (CLI)** while still having the benefits of a **Graphical User Interface (GUI)**, CourseBook helps you quickly find classmates, organize study groups, and stay connected with peers in your modules.
+CourseBook is a desktop app that helps **university students** keep track of their course mates and the modules they’re taking. It’s designed to be fast and efficient. Just type in simple commands to add friends, see who’s taking which module, and find the right person to ask when you’re stuck on an assignment.
 
-If you can type fast, CourseBook can help you manage your academic contacts faster than traditional GUI apps.
+Even though CourseBook runs in a window like other apps, it’s built for speed: instead of clicking through menus, you type short commands to get things done quickly. Don’t worry if you’re new to this. CourseBook comes with helpful examples and a guide to get you started.
+
+#### Need to find your course friends? Use CourseBook!
 
 Need to find your course friends? Use CourseBook!
 
@@ -61,7 +63,8 @@ Need to find your course friends? Use CourseBook!
   * [6.2 Editing the Data File](#62-editing-the-data-file)
   * [6.3 Transferring Data to Another Computer](#63-transferring-data-to-another-computer)
 * [7. FAQ](#7-faq)
-* [8. Glossary](#8-glossary)
+* [8. Known Issues](#8-known-issues)
+* [9. Glossary](#9-glossary)
 
 ---
 
@@ -1588,8 +1591,17 @@ To transfer your CourseBook data:
 **A:** CourseBook will display an error message explaining what went wrong and suggest the correct format. If unsure of a command, use the `help` command to view the command summary.
 
 ---
+## 8. Known Issues
+**Issue:**
+When using multiple monitors, if the application window is moved to a secondary screen and that screen is later disconnected, the application may open off-screen and appear invisible.
 
-## 8. Glossary
+**Cause:**
+The application remembers its last window position using a preferences.json file. If that position was on a monitor that’s no longer connected, the window may launch outside the visible area.
+
+**Workaround:**
+Delete the preferences.json file before launching the application again. This resets the window position to its default location on the primary screen.
+---
+## 9. Glossary
 
 | Term | Definition |
 |------|------------|
