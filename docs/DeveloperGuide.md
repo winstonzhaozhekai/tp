@@ -3,8 +3,110 @@ layout: page
 title: Developer Guide
 ---
 
-* Table of Contents
-{:toc}
+## Table of Contents
+
+* [Acknowledgements](#acknowledgements)
+* [1. Introduction](#1-introduction)
+    * [1.1 About CourseBook](#11-about-coursebook)
+    * [1.2 Purpose of this Guide](#12-purpose-of-this-guide)
+    * [1.3 Target Audience](#13-target-audience)
+* [2. Setting up, getting started](#2-setting-up-getting-started)
+* [3. Architecture](#3-architecture)
+    * [3.1 High-Level Architecture](#31-high-level-architecture)
+    * [3.2 Architectural Patterns and Principles](#32-architectural-patterns-and-principles)
+* [4. UI Component](#4-ui-component)
+    * [4.1 Structure](#41-structure)
+    * [4.2 Technology Stack](#42-technology-stack)
+    * [4.3 Responsibilities](#43-responsibilities)
+    * [4.4 Key Interactions](#44-key-interactions)
+    * [4.5 Theming](#45-theming)
+* [5. Logic Component](#5-logic-component)
+    * [5.1 Structure](#51-structure)
+    * [5.2 Command Execution Lifecycle](#52-command-execution-lifecycle)
+    * [5.3 How the Logic Component Works](#53-how-the-logic-component-works)
+    * [5.4 Parsing Architecture](#54-parsing-architecture)
+    * [5.5 Command Classes](#55-command-classes)
+    * [5.6 Argument Parsing Infrastructure](#56-argument-parsing-infrastructure)
+    * [5.7 Design Rationale](#57-design-rationale)
+* [6. Model Component](#6-model-component)
+    * [6.1 Structure and Responsibilities](#61-structure-and-responsibilities)
+    * [6.2 Data Model](#62-data-model)
+    * [6.3 Alternative Model Design](#63-alternative-model-design)
+    * [6.4 Undo/Redo Implementation](#64-undoredo-implementation)
+    * [6.5 Undo/Redo Example Usage Scenario](#65-undoredo-example-usage-scenario)
+    * [6.6 Undo Sequence Diagram (Logic Layer)](#66-undo-sequence-diagram-logic-layer)
+    * [6.7 Undo Sequence Diagram (Model Layer)](#67-undo-sequence-diagram-model-layer)
+    * [6.8 Redo](#68-redo)
+    * [6.9 Design Considerations for Undo/Redo](#69-design-considerations-for-undoredo)
+    * [6.10 Filtering and Sorting](#610-filtering-and-sorting)
+* [7. Storage Component](#7-storage-component)
+    * [7.1 Structure and Responsibilities](#71-structure-and-responsibilities)
+    * [7.2 JSON Serialization](#72-json-serialization)
+    * [7.3 JSON Adapter Classes](#73-json-adapter-classes)
+    * [7.4 Data Loading and Saving Flow](#74-data-loading-and-saving-flow)
+    * [7.5 Error Handling and Data Integrity](#75-error-handling-and-data-integrity)
+    * [7.6 File Paths and Configuration](#76-file-paths-and-configuration)
+    * [7.7 Design Rationale](#77-design-rationale)
+* [8. Common Classes](#8-common-classes)
+    * [8.1 Commons Core](#81-commons-core)
+    * [8.2 Commons Exceptions](#82-commons-exceptions)
+    * [8.3 Commons Utilities](#83-commons-utilities)
+* [9. Implementation Details](#9-implementation-details)
+    * [9.1 Course Color Management](#91-course-color-management)
+    * [9.2 Delete Confirmation Dialog](#92-delete-confirmation-dialog)
+    * [9.3 Theme Persistence in Undo/Redo](#93-theme-persistence-in-undoredo)
+    * [9.4 Birthday Sorting](#94-birthday-sorting)
+    * [9.5 Favorite Status Preservation](#95-favorite-status-preservation)
+* [10. Testing](#10-testing)
+    * [10.1 Testing Philosophy](#101-testing-philosophy)
+    * [10.2 Test Structure](#102-test-structure)
+    * [10.3 Running Tests](#103-running-tests)
+    * [10.4 Unit Tests](#104-unit-tests)
+    * [10.5 Integration Tests](#105-integration-tests)
+    * [10.6 System Tests (Manual)](#106-system-tests-manual)
+    * [10.7 Test Utilities](#107-test-utilities)
+    * [10.8 Continuous Integration](#108-continuous-integration)
+* [11. Logging](#11-logging)
+    * [11.1 Logging Infrastructure](#111-logging-infrastructure)
+    * [11.2 Log Output](#112-log-output)
+    * [11.3 Using Logs](#113-using-logs)
+    * [11.4 Configuration](#114-configuration)
+* [12. Configuration](#12-configuration)
+* [13. Documentation, logging, testing, configuration, dev-ops](#13-documentation-logging-testing-configuration-dev-ops)
+* [14. Appendix: Requirements](#14-appendix-requirements)
+    * [14.1 Product Scope](#141-product-scope)
+    * [14.2 User Stories](#142-user-stories)
+    * [14.3 Use Cases](#143-use-cases)
+    * [14.4 Non-Functional Requirements](#144-non-functional-requirements)
+    * [14.5 Glossary](#145-glossary)
+* [15. Appendix: Instructions for Manual Testing](#15-appendix-instructions-for-manual-testing)
+    * [15.1 Launch and Shutdown](#151-launch-and-shutdown)
+    * [15.2 Adding a Person](#152-adding-a-person)
+    * [15.3 Deleting a Person](#153-deleting-a-person)
+    * [15.4 Editing a Person](#154-editing-a-person)
+    * [15.5 Finding Persons](#155-finding-persons)
+    * [15.6 Adding Courses to a Person](#156-adding-courses-to-a-person)
+    * [15.7 Listing by Course](#157-listing-by-course)
+    * [15.8 Undo and Redo](#158-undo-and-redo)
+    * [15.9 Command History](#159-command-history)
+    * [15.10 Changing Theme](#1510-changing-theme)
+    * [15.11 Sorting](#1511-sorting)
+    * [15.12 Favorites](#1512-favorites)
+    * [15.13 Birthday Management](#1513-birthday-management)
+    * [15.14 View Person Details](#1514-view-person-details)
+    * [15.15 Summary Statistics](#1515-summary-statistics)
+    * [15.16 Saving Data](#1516-saving-data)
+    * [15.17 Data Persistence](#1517-data-persistence)
+* [16. Appendix: Effort](#16-appendix-effort)
+    * [16.1 Difficulty Level](#161-difficulty-level)
+    * [16.2 Challenges Faced](#162-challenges-faced)
+    * [16.3 Effort Comparison to AB3](#163-effort-comparison-to-ab3)
+    * [16.4 Achievements](#164-achievements)
+    * [16.5 Effort Summary](#165-effort-summary)
+* [17. Appendix: Planned Enhancements](#17-appendix-planned-enhancements)
+* [18. Summary](#18-summary)
+
+
 
 ---
 
@@ -2010,21 +2112,7 @@ CourseBook represents a **moderate to high difficulty** extension of AB3. While 
 
 **Effort Estimate:** ~12 hours
 
-### Enhancement 2: Email Validation with DNS Lookup
-
-**Current Limitation:** Email validation only checks syntax, not whether the domain actually exists.
-
-**Proposed Enhancement:** Optionally validate email domains via DNS MX record lookup (with timeout).
-
-**Implementation:**
-- Add optional DNS validation to `Email.isValidEmail()`
-- Add configuration flag to enable/disable DNS validation
-- Add timeout handling (2 seconds max)
-- Add UI feedback for DNS validation
-
-**Effort Estimate:** ~8 hours
-
-### Enhancement 3: Fuzzy Search
+### Enhancement 2: Fuzzy Search
 
 **Current Limitation:** Search only supports exact substring matching.
 
@@ -2037,7 +2125,7 @@ CourseBook represents a **moderate to high difficulty** extension of AB3. While 
 
 **Effort Estimate:** ~10 hours
 
-### Enhancement 4: Export to CSV/vCard
+### Enhancement 3: Export to CSV/vCard
 
 **Current Limitation:** No way to export contacts for use in other applications.
 
@@ -2050,7 +2138,7 @@ CourseBook represents a **moderate to high difficulty** extension of AB3. While 
 
 **Effort Estimate:** ~15 hours
 
-### Enhancement 5: Import from CSV/vCard
+### Enhancement 4: Import from CSV/vCard
 
 **Current Limitation:** No way to bulk import contacts.
 
@@ -2063,7 +2151,7 @@ CourseBook represents a **moderate to high difficulty** extension of AB3. While 
 
 **Effort Estimate:** ~18 hours
 
-### Enhancement 6: Recurring Events/Reminders
+### Enhancement 5: Recurring Events/Reminders
 
 **Current Limitation:** Only birthdays are tracked; no support for other recurring events (e.g., group meetings).
 
@@ -2076,7 +2164,7 @@ CourseBook represents a **moderate to high difficulty** extension of AB3. While 
 
 **Effort Estimate:** ~25 hours
 
-### Enhancement 7: Profile Pictures
+### Enhancement 6: Profile Pictures
 
 **Current Limitation:** No visual representation of persons (all cards look similar).
 
@@ -2090,7 +2178,7 @@ CourseBook represents a **moderate to high difficulty** extension of AB3. While 
 
 **Effort Estimate:** ~12 hours
 
-### Enhancement 8: Keyboard Shortcuts for Commands
+### Enhancement 7: Keyboard Shortcuts for Commands
 
 **Current Limitation:** All commands must be typed fully (no shortcuts).
 
@@ -2103,7 +2191,7 @@ CourseBook represents a **moderate to high difficulty** extension of AB3. While 
 
 **Effort Estimate:** ~6 hours
 
-### Enhancement 9: Dark Mode Auto-Switch Based on System Theme
+### Enhancement 8: Dark Mode Auto-Switch Based on System Theme
 
 **Current Limitation:** Theme must be manually changed.
 
@@ -2116,7 +2204,7 @@ CourseBook represents a **moderate to high difficulty** extension of AB3. While 
 
 **Effort Estimate:** ~10 hours
 
-### Enhancement 10: Advanced Statistics View
+### Enhancement 9: Advanced Statistics View
 
 **Current Limitation:** `summary` command only shows basic counts.
 
@@ -2131,87 +2219,7 @@ CourseBook represents a **moderate to high difficulty** extension of AB3. While 
 
 ---
 
-## **18. Appendix: Mapping to Marking Criteria**
-
-This appendix demonstrates how CourseBook's Developer Guide addresses the CS2103T marking criteria.
-
-### ✓ **Architecture**
-
-- **Coverage:** Sections 3 (Architecture), 4 (UI), 5 (Logic), 6 (Model), 7 (Storage), 8 (Commons)
-- **Diagrams:** Architecture Diagram, Component Class Diagrams, Sequence Diagrams
-- **Quality:** Clear explanation of 4-layer architecture, component interactions, dependency inversion principle
-
-### ✓ **Design Patterns**
-
-- **Coverage:** Section 3.2 (Architectural Patterns), Section 5 (Command Pattern), Section 6 (Observer Pattern)
-- **Patterns Explained:** Command Pattern, Observer Pattern, Singleton, Builder, Factory, Dependency Inversion
-- **Justification:** Design rationale provided for each pattern (why chosen, trade-offs)
-
-### ✓ **Implementation Details**
-
-- **Coverage:** Section 9 (Implementation Details)
-- **Features Covered:** Course color management, delete confirmation, theme persistence in undo/redo, birthday sorting, favorite status preservation
-- **Code References:** Specific file and line references provided (e.g., `ModelManager.java:233-254`)
-- **Design Rationale:** Pros, cons, and trade-offs explained for each design decision
-
-### ✓ **Undo/Redo Feature**
-
-- **Coverage:** Section 6.4-6.9 (Undo/Redo Implementation)
-- **Diagrams:** State diagrams, sequence diagrams, activity diagram
-- **Completeness:** Step-by-step usage scenario, error handling, design considerations
-
-### ✓ **Testing**
-
-- **Coverage:** Section 10 (Testing)
-- **Test Types:** Unit tests, integration tests, system tests
-- **Test Utilities:** TypicalPersons, PersonBuilder explained
-- **Coverage Requirements:** Table with coverage targets
-
-### ✓ **Non-Functional Requirements**
-
-- **Coverage:** Section 14.4 (Non-Functional Requirements)
-- **Completeness:** 15 NFRs covering performance, usability, reliability, maintainability, security, portability
-- **Measurability:** Quantitative targets where applicable (e.g., <1 second response time, 1000 persons capacity)
-
-### ✓ **User Stories**
-
-- **Coverage:** Section 14.2 (User Stories)
-- **Completeness:** 22 user stories with priorities (high/medium/low)
-- **Format:** Standard "As a... I want to... So that I can..." format
-
-### ✓ **Use Cases**
-
-- **Coverage:** Section 14.3 (Use Cases)
-- **Completeness:** 10 detailed use cases with MSS and extensions
-- **Coverage of Features:** Add, delete, edit, list, find, undo, redo, course management, theme change
-
-### ✓ **Glossary**
-
-- **Coverage:** Section 14.5 (Glossary)
-- **Completeness:** 25+ terms defined
-- **Relevance:** All domain and technical terms used in the guide
-
-### ✓ **Instructions for Manual Testing**
-
-- **Coverage:** Section 15 (Appendix: Instructions for Manual Testing)
-- **Completeness:** Test cases for 17 feature categories
-- **Detail:** Expected outcomes specified for each test case
-
-### ✓ **Effort**
-
-- **Coverage:** Section 16 (Appendix: Effort)
-- **Completeness:** Challenges faced, effort comparison to AB3, achievements, time estimates
-- **Honesty:** Realistic assessment of difficulty and effort
-
-### ✓ **Planned Enhancements**
-
-- **Coverage:** Section 17 (Appendix: Planned Enhancements)
-- **Completeness:** 10 enhancements with implementation details and effort estimates
-- **Feasibility:** All enhancements are realistic extensions of the current system
-
----
-
-## **19. Summary**
+## **18. Summary**
 
 CourseBook is a robust, well-architected application for managing academic contacts. This Developer Guide provides comprehensive documentation of the system's design, implementation, and testing strategy. Key highlights:
 
