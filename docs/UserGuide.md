@@ -214,8 +214,9 @@ Format: `favs`
 ### Finding persons by fields: `find|f`
 
 Finds persons by matching ANY of the provided fields (OR across fields). Within each field, a person matches if ANY of that field’s keywords match.
+Allowed fields are: name, phone, email, address, tag
 
-Format: `find|f [n/NAME_KEYWORDS] [p/PHONE_KEYWORDS] [e/EMAIL_KEYWORDS] [a/ADDRESS_KEYWORDS] [t/TAG]…`
+Format: `find|f [n/NAME_KEYWORDS] [p/PHONE_KEYWORDS] [e/EMAIL_KEYWORDS] [a/ADDRESS_KEYWORDS] [t/TAG]`
 
 Notes:
 
@@ -226,6 +227,7 @@ Notes:
 - All fields (name, phone, email, address, tags) use partial/substring matching (e.g., 'Ali' matches 'Alice', 'fri' matches 'friend' tag).
 - if no prefixes are used, tokens are treated as name keywords .
 - Backwards-compatible: if no prefixes are used, tokens are treated as name keywords (partial match).
+- When searching by names (with or without `n/`), names must contain only alphabets (A–Z).
 
 Examples:
 
@@ -235,6 +237,7 @@ Examples:
 - `find t/fri` (finds persons with tags containing "fri" like "friend")
 - `find n/Alice t/friend` (matches if name contains "Alice" OR has tag containing "friend")
 - `find alex david` (no prefixes → name-only search, partial match)
+  - If no matching contacts are found, the app shows: "No such contact found".
 
 ### Deleting a person : `delete`
 
