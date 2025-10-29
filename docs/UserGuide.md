@@ -378,6 +378,7 @@ Edited Person: Betsy Crower; Phone: 1234567; Email: betsycrowe@example.com; Addr
 * `"The person index provided is invalid"` — Index out of range
 * `"At least one field to edit must be provided."` — No fields specified
 * `"This person's name/phone/email already exists in the address book."` — Duplicate detected
+* `"Index cannot be a negative integer."` — Negative index provided
 
 **Related:** [Adding a person](#411-adding-a-person-add), [Adding courses](#431-adding-courses-to-a-person-addcourse)
 
@@ -499,6 +500,7 @@ Index 99 is out of range.
 * `"No such contact found! Please specify correct contact names."` — Name doesn't match any contact
 * `"Multiple contacts found with that name. Please delete by index from the list:"` — Name matches multiple contacts
 * `"No valid persons to delete."` — All specified targets are invalid
+* `"Index cannot be a negative integer."` — Negative index provided
 
 **Related:** [Undoing commands](#47-undo--redo), [Finding persons](#415-finding-persons-find-or-f)
 
@@ -652,6 +654,7 @@ Showing details for: John Doe
 * `"The person index provided is invalid"` — Index out of range
 * `"No contacts found! Please specify correct contact names."` — Name doesn't match
 * `"Multiple contacts found with that name. Please view by index from the list:"` — Ambiguous name
+* `"Index cannot be a negative integer."` — Negative index provided
 
 **Related:** [Finding persons](#415-finding-persons-find-or-f), [Listing persons](#414-listing-all-persons-list-or-ls)
 
@@ -710,6 +713,7 @@ Added birthday: 20-02-2007 John Doe; Phone: 98765432; Email: johnd@example.com; 
 
 * `"The person index provided is invalid"` — Index out of range
 * `"Birthday has already been added!"` — Trying to add the same birthday again
+* `"Index cannot be a negative integer."` — Negative index provided
 
 **Related:** [Sorting by birthday](#442-sorting-by-birthday-sortb), [Editing a person](#412-editing-a-person-edit)
 
@@ -786,6 +790,7 @@ Removed from favourites: Jane Smith; Phone: 91234567; Email: janesmith@example.c
 * `"This person is already marked as favourite."` — Trying to favorite an already favorited person
 * `"This person is not marked as favourite."` — Trying to unfavorite a person who isn't favorited
 * `"Multiple contacts found with that name. Please favourite by index from the list:"` — Ambiguous name
+* `"Index cannot be a negative integer."` — Negative index provided
 
 **Related:** [Listing favorites](#419-listing-favorite-persons-favs)
 
@@ -869,6 +874,7 @@ Added courses to Person: John Doe; Phone: 98765432; Email: johnd@example.com; Ad
 
 * `"The person index provided is invalid"` — Index out of range
 * `"This person already has one or more of these courses"` — Duplicate course
+* `"Index cannot be a negative integer."` — Negative index provided
 
 **Related:** [Removing courses](#422-removing-courses-from-a-person-removecourse), [Editing course color](#423-editing-course-color-globally-editcourse)
 
@@ -911,6 +917,7 @@ Removed courses from Person: John Doe; Phone: 98765432; Email: johnd@example.com
 
 * `"The person index provided is invalid"` — Index out of range
 * `"None of the specified courses exist for this person"` — Courses not found
+* `"Index cannot be a negative integer."` — Negative index provided
 
 **Related:** [Adding courses](#421-adding-courses-to-a-person-addcourse), [Editing a person](#412-editing-a-person-edit)
 
