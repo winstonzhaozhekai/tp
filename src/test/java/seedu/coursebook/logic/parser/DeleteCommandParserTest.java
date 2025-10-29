@@ -71,7 +71,7 @@ public class DeleteCommandParserTest {
 
     @Test
     public void parse_invalidIndex_throwsParseException() {
-        assertParseFailure(parser, "0", seedu.coursebook.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertParseFailure(parser, "0", seedu.coursebook.logic.Messages.MESSAGE_INDEX_OUT_OF_RANGE);
     }
 
     @Test

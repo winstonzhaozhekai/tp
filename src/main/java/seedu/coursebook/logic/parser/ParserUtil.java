@@ -46,6 +46,10 @@ public class ParserUtil {
         // Use long to detect overflow and enforce 1..Integer.MAX_VALUE
         try {
             long value = Long.parseLong(trimmedIndex);
+            // Check for index 0 specifically
+            if (value == 0) {
+                throw new ParseException(seedu.coursebook.logic.Messages.MESSAGE_INDEX_OUT_OF_RANGE);
+            }
             if (value < 1 || value > Integer.MAX_VALUE) {
                 throw new ParseException(MESSAGE_INVALID_INDEX);
             }

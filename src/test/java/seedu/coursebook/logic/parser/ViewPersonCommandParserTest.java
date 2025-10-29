@@ -51,10 +51,10 @@ public class ViewPersonCommandParserTest {
     }
 
     @Test
-    public void parse_zeroIndex_returnsViewPersonCommandWithName() {
-        // "0" fails as an index but is accepted as a valid name
-        Name zeroName = new Name("0");
-        assertParseSuccess(parser, "0", new ViewPersonCommand(zeroName));
+    public void parse_zeroIndex_throwsParseException() {
+        // "0" fails as an index and shows "Index out of range" error
+        assertParseFailure(parser, "0",
+                seedu.coursebook.logic.Messages.MESSAGE_INDEX_OUT_OF_RANGE);
     }
 
     @Test

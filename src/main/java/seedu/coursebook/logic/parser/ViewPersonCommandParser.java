@@ -29,8 +29,9 @@ public class ViewPersonCommandParser implements Parser<ViewPersonCommand> {
             Index index = ParserUtil.parseIndex(trimmed);
             return new ViewPersonCommand(index);
         } catch (ParseException pe) {
-            // If it's a negative index error, re-throw it to surface the specific message
-            if (pe.getMessage().equals(ParserUtil.MESSAGE_NEGATIVE_INDEX)) {
+            // If it's a negative index error or index out of range (0), re-throw it to surface the specific message
+            if (pe.getMessage().equals(ParserUtil.MESSAGE_NEGATIVE_INDEX)
+                    || pe.getMessage().equals(seedu.coursebook.logic.Messages.MESSAGE_INDEX_OUT_OF_RANGE)) {
                 throw pe;
             }
             // Fall through to parse as name for other index errors

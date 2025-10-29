@@ -46,6 +46,12 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseIndex_zeroIndex_throwsParseException() {
+        assertThrows(ParseException.class, seedu.coursebook.logic.Messages.MESSAGE_INDEX_OUT_OF_RANGE,
+                () -> ParserUtil.parseIndex("0"));
+    }
+
+    @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
             -> ParserUtil.parseIndex(Long.toString((long) Integer.MAX_VALUE + 1)));
