@@ -1600,6 +1600,7 @@ The application remembers its last window position using a preferences.json file
 
 **Workaround:**
 Delete the preferences.json file before launching the application again. This resets the window position to its default location on the primary screen.
+
 ---
 ## 9. Glossary
 
