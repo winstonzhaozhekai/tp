@@ -1561,8 +1561,17 @@ To transfer your CourseBook data:
 **A:** CourseBook will display an error message explaining what went wrong and suggest the correct format. If unsure of a command, use the `help` command to view the command summary.
 
 ---
+## 8. Known Issues
+**Issue:**
+When using multiple monitors, if the application window is moved to a secondary screen and that screen is later disconnected, the application may open off-screen and appear invisible.
 
-## 8. Glossary
+**Cause:**
+The application remembers its last window position using a preferences.json file. If that position was on a monitor that’s no longer connected, the window may launch outside the visible area.
+
+**Workaround:**
+Delete the preferences.json file before launching the application again. This resets the window position to its default location on the primary screen.
+---
+## 9. Glossary
 
 | Term | Definition |
 |------|------------|
