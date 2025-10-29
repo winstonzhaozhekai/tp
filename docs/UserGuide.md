@@ -9,6 +9,8 @@ CourseBook is a **desktop application for university students** to manage their 
 
 If you can type fast, CourseBook can help you manage your academic contacts faster than traditional GUI apps.
 
+Need to find your course friends? Use CourseBook!
+
 ---
 
 ## Table of Contents
@@ -143,7 +145,7 @@ A window similar to the one below should appear in a few seconds:
 
 The CourseBook interface has several key areas:
 
-![UI Overview](images/ug-ui-overview.png)
+![UI Overview](images/UiClassDiagram.png)
 *Figure 2: CourseBook UI components breakdown*
 
 1. **Command Box** (top): Type your commands here and press Enter to execute
@@ -298,6 +300,9 @@ add n/Alice p/94351253 e/alice@example.com a/123, Jurong West Ave 6 c/CS2103T,ye
 New person added: John Doe; Phone: 98765432; Email: johnd@example.com; Address: John street, block 123, #01-01; Tags: ; Courses:
 ```
 
+![Add Command](images/AddCommand.png)
+*Figure 4: State of CourseBook after adding the three people.*
+
 <div markdown="span" class="alert alert-danger">
 
 **:exclamation: Warning:**
@@ -385,6 +390,9 @@ Deletes one or more contacts from the coursebook. Can delete by index or by name
 
 **Confirmation Required:**
 Before deletion, a confirmation dialog appears showing the contacts to be deleted. You must click "OK" to confirm or "Cancel" to abort.
+
+![Delete Confirmation](images/DeleteConfirmation.png)
+*Figure 5: Delete confirmation window pop up.*
 
 <div markdown="span" class="alert alert-danger">
 
@@ -614,6 +622,9 @@ Showing details for: David Ong; Phone: 91031282; Email: lidavid@example.com; Add
 ```
 *A popup window displays full contact details including courses, tags, birthday, etc.*
 
+![Viewperson Popup](images/ViewpersonPopup.png)
+*Figure 6: Popup window of the details of the person named "John Doe".*
+
 **Error Messages:**
 
 * `"The person index provided is invalid"` — Index out of range
@@ -770,6 +781,9 @@ Shows all contacts marked as favorites.
 ```
 Listed all favourite contacts.
 ```
+![Favs list](images/FavsList.png)
+*Figure 7: List of favourite contacts.*
+
 
 **Expected Output (no favorites):**
 ```
@@ -993,6 +1007,8 @@ ls c/cs2101
 ```
 Listed all persons in CS2103T
 ```
+![List By Course](images/ListByCourse.png)
+*Figure 8: List of contacts taking course CS2103T.*
 
 **Expected Output (not found):**
 ```
@@ -1022,6 +1038,8 @@ Returns to the home page showing all courses.
 ```
 Welcome home!
 ```
+![Course View](images/CoursesView.png)
+*Figure 9: Home view.*
 
 **Related:** [Listing courses](#424-listing-all-courses-listcourses)
 
@@ -1062,21 +1080,30 @@ Changes the application's visual theme.
 ```
 theme blue
 ```
-*Changes to blue theme*
-
+![Theme Blue](images/ThemeBlue.png)
+*Figure 9: Changes to blue theme.*
 ```
 theme dark
 ```
-*Changes to dark theme*
+![Theme Dark](images/ThemeDark.png)
+*Figure 10: Changes to dark theme.*
 
 ```
 theme love
 ```
-*Changes to love theme*
+![Theme Love](images/ThemeLove.png)
+*Figure 11: Changes to love theme.*
+
+```
+theme tree
+```
+![Theme Tree](images/ThemeTree.png)
+*Figure 12: Changes to tree theme.*
+
 
 **Expected Output:**
 ```
-Theme changed to: blue
+Theme changed to: tree
 ```
 
 **Error Messages:**
@@ -1168,6 +1195,8 @@ sortb
 ```
 Sorted contacts by upcoming birthday.
 ```
+![Sort By Birthday](images/SortBirthday.png)
+*Figure 13: Sorted contacts.*
 
 **Expected Output (empty list):**
 ```
@@ -1287,7 +1316,7 @@ help
 Opened help window.
 ```
 
-![Help Window](images/helpMessage.png)
+!Help message[Help Window](images/helpMessage.png)
 *Figure 3: Help window showing command summary table*
 
 <div markdown="span" class="alert alert-primary">
