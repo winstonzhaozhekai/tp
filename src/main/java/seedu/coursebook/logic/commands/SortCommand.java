@@ -1,5 +1,6 @@
 package seedu.coursebook.logic.commands;
 
+import java.util.logging.Logger;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Comparator;
@@ -12,6 +13,8 @@ import seedu.coursebook.model.person.Person;
  * Sorts the contact list by name in ascending or descending order.
  */
 public class SortCommand extends Command {
+    private static final Logger logger = Logger.getLogger(SortCommand.class.getName());
+
     public static final String COMMAND_WORD = "sortn";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts the contact list by name.\n"
@@ -45,6 +48,8 @@ public class SortCommand extends Command {
         if ("desc".equalsIgnoreCase(order)) {
             comparator = comparator.reversed();
         }
+
+        logger.info("Sorting contacts by name in " + order + " order.");
 
         model.sortSelectedPersons(comparator);
 
