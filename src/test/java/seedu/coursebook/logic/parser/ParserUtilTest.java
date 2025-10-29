@@ -47,8 +47,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseIndex_zeroIndex_throwsParseException() {
-        assertThrows(ParseException.class, seedu.coursebook.logic.Messages.MESSAGE_INDEX_OUT_OF_RANGE,
-                () -> ParserUtil.parseIndex("0"));
+        assertThrows(ParseException.class, seedu.coursebook.logic.Messages.MESSAGE_INDEX_OUT_OF_RANGE, () -> ParserUtil.parseIndex("0"));
     }
 
     @Test
