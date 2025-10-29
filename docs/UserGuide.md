@@ -315,7 +315,7 @@ New person added: John Doe; Phone: 98765432; Email: johnd@example.com; Address: 
 
 Edits an existing contact's details.
 
-**Format:** `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]... [c/COURSE]...`
+**Format:** `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 **Parameters:**
 
@@ -327,17 +327,14 @@ Edits an existing contact's details.
 
 * Existing values are replaced by new input values
 * When editing tags: all existing tags are replaced (not cumulative)
-* When editing courses: all existing courses are replaced (not cumulative)
 * Birthday and favorite status are preserved if not edited
 * To clear all tags: use `t/` with no value
-* To clear all courses: use `c/` with no value
 
 <div markdown="span" class="alert alert-primary">
 
 **:bulb: Tip:**
 
 * After editing, the view automatically switches to show all persons (not just the filtered list).
-* Use `addcourse` or `removecourse` if you want to modify courses without replacing all existing ones.
 
 </div>
 
@@ -354,18 +351,10 @@ edit 2 n/Betsy Crower t/
 *Edits the 2nd person's name and clears all tags*
 
 ```
-edit 3 c/CS2103T c/CS2040S
-```
-*Replaces the 3rd person's courses with CS2103T and CS2040S*
-
-```
-edit 4 c/
-```
-*Removes all courses from the 4th person*
 
 **Expected Output:**
 ```
-Edited Person: Betsy Crower; Phone: 1234567; Email: betsycrowe@example.com; Address: Newgate Prison; Tags: ; Courses:
+Edited Person: Betsy Crower; Phone: 1234567; Email: betsycrowe@example.com; Address: Newgate Prison; Tags: ; 
 ```
 
 **Error Messages:**
@@ -374,7 +363,7 @@ Edited Person: Betsy Crower; Phone: 1234567; Email: betsycrowe@example.com; Addr
 * `"At least one field to edit must be provided."` — No fields specified
 * `"This person's name/phone/email already exists in the address book."` — Duplicate detected
 
-**Related:** [Adding a person](#411-adding-a-person-add), [Adding courses](#431-adding-courses-to-a-person-addcourse)
+**Related:** [Adding a person](#411-adding-a-person-add)
 
 ---
 
