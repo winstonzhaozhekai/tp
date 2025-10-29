@@ -3,7 +3,7 @@ layout: page
 title: User Guide
 ---
 
-# CourseBook User Guide (v1.4)
+# CourseBook User Guide (v1.5)
 
 CourseBook is a **desktop application for university students** to manage their academic network by organizing contacts based on shared courses. Optimized for use via a **Command Line Interface (CLI)** while still having the benefits of a **Graphical User Interface (GUI)**, CourseBook helps you quickly find classmates, organize study groups, and stay connected with peers in your modules.
 
@@ -12,7 +12,54 @@ If you can type fast, CourseBook can help you manage your academic contacts fast
 ---
 
 ## Table of Contents
-{:toc}
+
+* [1. Introduction](#1-introduction)
+  * [1.1 Who This Guide Is For](#11-who-this-guide-is-for)
+  * [1.2 What CourseBook Does](#12-what-coursebook-does)
+* [2. Quick Start](#2-quick-start)
+* [3. Understanding Command Format](#3-understanding-command-format)
+* [4. Features](#4-features)
+  * [4.1 Person Management Commands](#41-person-management-commands)
+    * [4.1.1 Adding a person: `add`](#411-adding-a-person-add)
+    * [4.1.2 Editing a person: `edit`](#412-editing-a-person-edit)
+    * [4.1.3 Deleting person(s): `delete` or `rm`](#413-deleting-persons-delete-or-rm)
+    * [4.1.4 Listing all persons: `list` or `ls`](#414-listing-all-persons-list-or-ls)
+    * [4.1.5 Finding persons: `find` or `f`](#415-finding-persons-find-or-f)
+    * [4.1.6 Viewing detailed information: `viewperson`](#416-viewing-detailed-information-viewperson)
+    * [4.1.7 Adding a birthday: `bday`](#417-adding-a-birthday-bday)
+    * [4.1.8 Managing favorites: `favourite` and `unfavourite`](#418-managing-favorites-favourite-and-unfavourite)
+    * [4.1.9 Listing favorite persons: `favs`](#419-listing-favorite-persons-favs)
+  * [4.2 Course Management Commands](#42-course-management-commands)
+    * [4.2.1 Adding courses to a person: `addcourse`](#421-adding-courses-to-a-person-addcourse)
+    * [4.2.2 Removing courses from a person: `removecourse`](#422-removing-courses-from-a-person-removecourse)
+    * [4.2.3 Editing course color globally: `editcourse`](#423-editing-course-color-globally-editcourse)
+    * [4.2.4 Listing all courses: `listcourses`](#424-listing-all-courses-listcourses)
+    * [4.2.5 Listing persons in a course: `list c/COURSE_CODE`](#425-listing-persons-in-a-course-list-ccourse_code)
+  * [4.3 Display and Navigation Commands](#43-display-and-navigation-commands)
+    * [4.3.1 Navigating to home: `home`](#431-navigating-to-home-home)
+    * [4.3.2 Changing application theme: `theme`](#432-changing-application-theme-theme)
+  * [4.4 Sorting Commands](#44-sorting-commands)
+    * [4.4.1 Sorting by name: `sortn`](#441-sorting-by-name-sortn)
+    * [4.4.2 Sorting by birthday: `sortb`](#442-sorting-by-birthday-sortb)
+  * [4.5 History and Information Commands](#45-history-and-information-commands)
+    * [4.5.1 Viewing command history: `history`](#451-viewing-command-history-history)
+    * [4.5.2 Viewing summary statistics: `summary`](#452-viewing-summary-statistics-summary)
+  * [4.6 General Application Commands](#46-general-application-commands)
+    * [4.6.1 Viewing help: `help`](#461-viewing-help-help)
+    * [4.6.2 Clearing all entries: `clear`](#462-clearing-all-entries-clear)
+    * [4.6.3 Exiting the program: `exit`](#463-exiting-the-program-exit)
+  * [4.7 Undo & Redo](#47-undo--redo)
+    * [4.7.1 Undoing commands: `undo`](#471-undoing-commands-undo)
+    * [4.7.2 Redoing commands: `redo`](#472-redoing-commands-redo)
+  * [4.8 UI Features](#48-ui-features)
+    * [4.8.1 Copy phone number to clipboard](#481-copy-phone-number-to-clipboard)
+* [5. Command Summary](#5-command-summary)
+* [6. Data & Storage](#6-data--storage)
+  * [6.1 Automatic Saving](#61-automatic-saving)
+  * [6.2 Editing the Data File](#62-editing-the-data-file)
+  * [6.3 Transferring Data to Another Computer](#63-transferring-data-to-another-computer)
+* [7. FAQ](#7-faq)
+* [8. Glossary](#8-glossary)
 
 ---
 
@@ -21,30 +68,29 @@ If you can type fast, CourseBook can help you manage your academic contacts fast
 ### 1.1 Who This Guide Is For
 
 This User Guide is designed for:
-- **Students** who need to manage contacts by course enrollment
-- **First-time users** setting up CourseBook for the first time
-- **Existing users** looking for detailed command references
-- **Peer testers** verifying functionality during practical exam dry runs
+
+* **Students** who need to manage contacts by course enrollment
+* **First-time users** setting up CourseBook for the first time
+* **Existing users** looking for detailed command references
 
 **Prerequisites:**
-- Basic familiarity with command-line interfaces
-- Java 17 or above installed on your computer
-- Supported OS: Windows, macOS, or Linux
+
+* Basic familiarity with command-line interfaces
+* Java 17 or above installed on your computer
+* Supported OS: Windows, macOS, or Linux
 
 ### 1.2 What CourseBook Does
 
 CourseBook solves common academic networking challenges:
 
-**Problem:** "I need help with CS2103T Assignment 2 but I don't know who else is taking this module."
+**Problem:** "I need help with CS2103T Tutorial 6 but I don't know who else is taking this module."
 **Solution:** Use `list c/CS2103T` to instantly see all your contacts enrolled in CS2103T.
 
 **Problem:** "I have too many contacts and need to organize them better."
 **Solution:** Tag contacts by course, mark favorites with `favourite`, and use `find` to search across multiple fields.
 
-**Problem:** "I want to remember classmates' birthdays to send wishes."
-**Solution:** Add birthdays with `bday` and sort by upcoming birthdays with `sortb`.
-
 **Typical Workflows:**
+
 1. **Finding study partners:** Add contacts → Tag them with courses → List by course → View details
 2. **Managing favorites:** Mark close friends as favorites → Use `favs` to quickly access them
 3. **Quick lookups:** Use `find` with partial names/emails/tags to locate contacts instantly
@@ -59,8 +105,9 @@ Follow these steps to get CourseBook up and running:
 ### Step 1: Install Java 17
 
 Ensure you have Java 17 or above installed:
-- **Windows/Linux:** Download from [Oracle's website](https://www.oracle.com/java/technologies/javase-jdk17-downloads.html)
-- **macOS:** Follow the [precise installation guide](https://se-education.org/guides/tutorials/javaInstallationMac.html)
+
+* **Windows/Linux:** Download from [Oracle's website](https://www.oracle.com/java/technologies/javase-jdk17-downloads.html)
+* **macOS:** Follow the [precise installation guide](https://se-education.org/guides/tutorials/javaInstallationMac.html)
 
 Verify installation by opening a terminal and running:
 ```
@@ -163,25 +210,25 @@ Before diving into specific commands, familiarize yourself with these convention
 
 **:information_source: Command Format Notes:**
 
-- **UPPER_CASE** words are parameters you supply.
-  - Example: `add n/NAME` → you provide the actual name like `add n/John Doe`
+* **UPPER_CASE** words are parameters you supply.
+  * Example: `add n/NAME` → you provide the actual name like `add n/John Doe`
 
-- **[Square brackets]** indicate optional parameters.
-  - Example: `add n/NAME [t/TAG]` → can use as `add n/John Doe t/friend` or just `add n/John Doe`
+* **[Square brackets]** indicate optional parameters.
+  * Example: `add n/NAME [t/TAG]` → can use as `add n/John Doe t/friend` or just `add n/John Doe`
 
-- **Ellipsis `...`** means the parameter can be used multiple times (including zero times).
-  - Example: `[t/TAG]...` → can use as ` ` (0 times), `t/friend`, `t/friend t/classmate`, etc.
+* **Ellipsis `...`** means the parameter can be used multiple times (including zero times).
+  * Example: `[t/TAG]...` → can use as ` ` (0 times), `t/friend`, `t/friend t/classmate`, etc.
 
-- **Parameters can be in any order** unless stated otherwise.
-  - Example: `n/NAME p/PHONE` is the same as `p/PHONE n/NAME`
+* **Parameters can be in any order** unless stated otherwise.
+  * Example: `n/NAME p/PHONE` is the same as `p/PHONE n/NAME`
 
-- **Commands without parameters** (like `help`, `list`, `exit`, `clear`) ignore extra input.
-  - Example: `help 123` is interpreted as `help`
+* **Commands without parameters** (like `help`, `list`, `exit`, `clear`) ignore extra input.
+  * Example: `help 123` is interpreted as `help`
 
-- **INDEX** always refers to the position shown in the **currently displayed list** (not the full list).
-  - Example: After `find alex`, `delete 1` deletes the first person in the search results, not the first person in the full database.
+* **INDEX** always refers to the position shown in the **currently displayed list** (not the full list).
+  * Example: After `find alex`, `delete 1` deletes the first person in the search results, not the first person in the full database.
 
-- **Indices are 1-based** (first item is 1, not 0).
+* **Indices are 1-based** (first item is 1, not 0).
 
 </div>
 
@@ -206,23 +253,26 @@ Adds a new contact to your coursebook.
 **Format:** `add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]... [c/COURSE_CODE[,COLOR]]...`
 
 **Parameters:**
-- `n/NAME` (Required) — Full name (alphabetic characters only)
-- `p/PHONE` (Required) — Phone number (valid format required)
-- `e/EMAIL` (Required) — Email address (valid format required)
-- `a/ADDRESS` (Required) — Physical address (any characters)
-- `t/TAG` (Optional, multiple allowed) — Tags for categorization
-- `c/COURSE_CODE[,COLOR]` (Optional, multiple allowed) — Course code with optional color
+
+* `n/NAME` (Required) — Full name (alphabetic characters only)
+* `p/PHONE` (Required) — Phone number (valid format required)
+* `e/EMAIL` (Required) — Email address (valid format required)
+* `a/ADDRESS` (Required) — Physical address (any characters)
+* `t/TAG` (Optional, multiple allowed) — Tags for categorization
+* `c/COURSE_CODE[,COLOR]` (Optional, multiple allowed) — Course code with optional color
 
 **Available Course Colors:** `green`, `yellow`, `red`, `blue`, `orange`, `purple`, `pink`
-- If no color is specified, `green` is used by default.
-- If a course code already exists with a color, the existing color is enforced globally.
+
+* If no color is specified, `green` is used by default.
+* If a course code already exists with a color, the existing color is enforced globally.
 
 <div markdown="span" class="alert alert-primary">
 
 **:bulb: Tip:**
-- A person can have any number of tags and courses (including 0).
-- Use tags for categorization (e.g., `friend`, `groupmate`, `ta`).
-- Use colored course tags for quick visual identification.
+
+* A person can have any number of tags and courses (including 0).
+* Use tags for categorization (e.g., `friend`, `groupmate`, `ta`).
+* Use colored course tags for quick visual identification.
 
 </div>
 
@@ -251,8 +301,9 @@ New person added: John Doe; Phone: 98765432; Email: johnd@example.com; Address: 
 <div markdown="span" class="alert alert-danger">
 
 **:exclamation: Warning:**
-- Duplicate detection checks name, phone, and email. If any match an existing contact, the add will fail.
-- Names must contain only alphabetic characters (A-Z, a-z, spaces).
+
+* Duplicate detection checks name, phone, and email. If any match an existing contact, the add will fail.
+* Names must contain only alphabetic characters (A-Z, a-z, spaces).
 
 </div>
 
@@ -267,23 +318,26 @@ Edits an existing contact's details.
 **Format:** `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]... [c/COURSE]...`
 
 **Parameters:**
-- `INDEX` (Required) — Position in the currently displayed list (positive integer)
-- At least one optional field must be provided
-- All other parameters same as `add` command
+
+* `INDEX` (Required) — Position in the currently displayed list (positive integer)
+* At least one optional field must be provided
+* All other parameters same as `add` command
 
 **Behavior:**
-- Existing values are replaced by new input values
-- When editing tags: all existing tags are replaced (not cumulative)
-- When editing courses: all existing courses are replaced (not cumulative)
-- Birthday and favorite status are preserved if not edited
-- To clear all tags: use `t/` with no value
-- To clear all courses: use `c/` with no value
+
+* Existing values are replaced by new input values
+* When editing tags: all existing tags are replaced (not cumulative)
+* When editing courses: all existing courses are replaced (not cumulative)
+* Birthday and favorite status are preserved if not edited
+* To clear all tags: use `t/` with no value
+* To clear all courses: use `c/` with no value
 
 <div markdown="span" class="alert alert-primary">
 
 **:bulb: Tip:**
-- After editing, the view automatically switches to show all persons (not just the filtered list).
-- Use `addcourse` or `removecourse` if you want to modify courses without replacing all existing ones.
+
+* After editing, the view automatically switches to show all persons (not just the filtered list).
+* Use `addcourse` or `removecourse` if you want to modify courses without replacing all existing ones.
 
 </div>
 
@@ -315,9 +369,10 @@ Edited Person: Betsy Crower; Phone: 1234567; Email: betsycrowe@example.com; Addr
 ```
 
 **Error Messages:**
-- `"The person index provided is invalid"` — Index out of range
-- `"At least one field to edit must be provided."` — No fields specified
-- `"This person's name/phone/email already exists in the address book."` — Duplicate detected
+
+* `"The person index provided is invalid"` — Index out of range
+* `"At least one field to edit must be provided."` — No fields specified
+* `"This person's name/phone/email already exists in the address book."` — Duplicate detected
 
 **Related:** [Adding a person](#411-adding-a-person-add), [Adding courses](#431-adding-courses-to-a-person-addcourse)
 
@@ -334,9 +389,10 @@ Deletes one or more contacts from the coursebook. Can delete by index or by name
 **Alias:** `rm` can be used instead of `delete`
 
 **Parameters:**
-- **By index:** Space-separated positive integers (e.g., `1 2 3`)
-- **By name:** Comma-separated names, case-insensitive (e.g., `John Doe, Jane Smith`)
-- **Cannot mix:** You cannot use indices and names in the same command
+
+* **By index:** Space-separated positive integers (e.g., `1 2 3`)
+* **By name:** Comma-separated names, case-insensitive (e.g., `John Doe, Jane Smith`)
+* **Cannot mix:** You cannot use indices and names in the same command
 
 **Confirmation Required:**
 Before deletion, a confirmation dialog appears showing the contacts to be deleted. You must click "OK" to confirm or "Cancel" to abort.
@@ -344,21 +400,24 @@ Before deletion, a confirmation dialog appears showing the contacts to be delete
 <div markdown="span" class="alert alert-danger">
 
 **:exclamation: Warning:**
-- This action is irreversible after confirmation (except via `undo`).
-- Make sure you review the confirmation dialog carefully before clicking "OK".
+
+* This action is irreversible after confirmation (except via `undo`).
+* Make sure you review the confirmation dialog carefully before clicking "OK".
 
 </div>
 
 **Behavior:**
-- **Invalid indices:** If some indices are invalid, valid ones are still shown in the confirmation dialog with warnings.
-- **Name matching:** Full name must match (case-insensitive). Partial names won't work.
-- **Multiple name matches:** If a name matches multiple contacts, that name is skipped with an error. Use indices instead.
+
+* **Invalid indices:** If some indices are invalid, valid ones are still shown in the confirmation dialog with warnings.
+* **Name matching:** Full name must match (case-insensitive). Partial names won't work.
+* **Multiple name matches:** If a name matches multiple contacts, that name is skipped with an error. Use indices instead.
 
 <div markdown="span" class="alert alert-primary">
 
 **:bulb: Tip:**
-- After `find` or `list c/COURSE`, indices refer to the filtered results, not the full list.
-- If unsure about names, use `find` first to see exact names, then delete by index.
+
+* After `find` or `list c/COURSE`, indices refer to the filtered results, not the full list.
+* If unsure about names, use `find` first to see exact names, then delete by index.
 
 </div>
 
@@ -428,9 +487,10 @@ Index 99 is out of range.
 ```
 
 **Error Messages:**
-- `"No such contact found! Please specify correct contact names."` — Name doesn't match any contact
-- `"Multiple contacts found with that name. Please delete by index from the list:"` — Name matches multiple contacts
-- `"No valid persons to delete."` — All specified targets are invalid
+
+* `"No such contact found! Please specify correct contact names."` — Name doesn't match any contact
+* `"Multiple contacts found with that name. Please delete by index from the list:"` — Name matches multiple contacts
+* `"No valid persons to delete."` — All specified targets are invalid
 
 **Related:** [Undoing commands](#47-undo--redo), [Finding persons](#415-finding-persons-find-or-f)
 
@@ -464,25 +524,28 @@ Finds contacts by searching across multiple fields with partial/substring matchi
 **Alias:** `f`
 
 **Parameters:**
-- `n/NAME_KEYWORDS` (Optional) — Name search keywords (alphabetic only)
-- `p/PHONE_KEYWORDS` (Optional) — Phone search keywords
-- `e/EMAIL_KEYWORDS` (Optional) — Email search keywords
-- `a/ADDRESS_KEYWORDS` (Optional) — Address search keywords
-- `t/TAG` (Optional) — Tag search
-- **No prefixes:** If no prefixes are used, input is treated as name search
+
+* `n/NAME_KEYWORDS` (Optional) — Name search keywords (alphabetic only)
+* `p/PHONE_KEYWORDS` (Optional) — Phone search keywords
+* `e/EMAIL_KEYWORDS` (Optional) — Email search keywords
+* `a/ADDRESS_KEYWORDS` (Optional) — Address search keywords
+* `t/TAG` (Optional) — Tag search
+* **No prefixes:** If no prefixes are used, input is treated as name search
 
 **Search Logic:**
-- **Within a field:** OR logic — any keyword matches
-- **Across fields:** OR logic — match any field
-- **Case-insensitive** and **partial/substring matching**
-- For names (with or without `n/`): keywords must be alphabetic (A-Z, a-z)
+
+* **Within a field:** OR logic — any keyword matches
+* **Across fields:** OR logic — match any field
+* **Case-insensitive** and **partial/substring matching**
+* For names (with or without `n/`): keywords must be alphabetic (A-Z, a-z)
 
 <div markdown="span" class="alert alert-primary">
 
 **:bulb: Tip:**
-- Use partial matches to find contacts quickly: `find n/ali` finds "Alice", "Alicia", etc.
-- Combine multiple fields to broaden your search: `find n/John e/@gmail` finds anyone named John OR with a Gmail address.
-- Unknown prefixes are rejected to prevent typos.
+
+* Use partial matches to find contacts quickly: `find n/ali` finds "Alice", "Alicia", etc.
+* Combine multiple fields to broaden your search: `find n/John e/@gmail` finds anyone named John OR with a Gmail address.
+* Unknown prefixes are rejected to prevent typos.
 
 </div>
 
@@ -529,8 +592,9 @@ No such contact found
 ```
 
 **Error Messages:**
-- Unknown prefix error if you use prefixes other than `n/`, `p/`, `e/`, `a/`, `t/`
-- Invalid name keywords if names contain non-alphabetic characters
+
+* Unknown prefix error if you use prefixes other than `n/`, `p/`, `e/`, `a/`, `t/`
+* Invalid name keywords if names contain non-alphabetic characters
 
 **Related:** [Listing all persons](#414-listing-all-persons-list-or-ls), [Listing by course](#432-listing-persons-in-a-course-list-ccourse_code)
 
@@ -545,12 +609,14 @@ Shows detailed information about a specific contact in a popup window.
 **Format (by name):** `viewperson NAME`
 
 **Parameters:**
-- `INDEX` — Position in currently displayed list (positive integer)
-- `NAME` — Full name of the person (case-insensitive, must match exactly)
+
+* `INDEX` — Position in currently displayed list (positive integer)
+* `NAME` — Full name of the person (case-insensitive, must match exactly)
 
 **Behavior:**
-- If multiple persons have the same name, an error is shown. Use index instead.
-- Name matching is case-insensitive and automatically trims whitespace.
+
+* If multiple persons have the same name, an error is shown. Use index instead.
+* Name matching is case-insensitive and automatically trims whitespace.
 
 **Examples:**
 
@@ -571,9 +637,10 @@ Showing details for: John Doe
 *A popup window displays full contact details including courses, tags, birthday, etc.*
 
 **Error Messages:**
-- `"The person index provided is invalid"` — Index out of range
-- `"No contacts found! Please specify correct contact names."` — Name doesn't match
-- `"Multiple contacts found with that name. Please view by index from the list:"` — Ambiguous name
+
+* `"The person index provided is invalid"` — Index out of range
+* `"No contacts found! Please specify correct contact names."` — Name doesn't match
+* `"Multiple contacts found with that name. Please view by index from the list:"` — Ambiguous name
 
 **Related:** [Finding persons](#415-finding-persons-find-or-f), [Listing persons](#414-listing-all-persons-list-or-ls)
 
@@ -586,24 +653,28 @@ Adds a birthday to an existing contact.
 **Format:** `bday INDEX b/BIRTHDAY`
 
 **Parameters:**
-- `INDEX` (Required) — Position in currently displayed list (positive integer)
-- `b/BIRTHDAY` (Required) — Birthday in `DD-MM-YYYY` format
+
+* `INDEX` (Required) — Position in currently displayed list (positive integer)
+* `b/BIRTHDAY` (Required) — Birthday in `DD-MM-YYYY` format
 
 **Constraints:**
-- Date must be valid (e.g., 29-02-2000 is valid, 31-02-2000 is not)
-- Birthday cannot be in the future
-- Birthday cannot be before 01-01-1900
-- Only one birthday per person
+
+* Date must be valid (e.g., 29-02-2000 is valid, 31-02-2000 is not)
+* Birthday cannot be in the future
+* Birthday cannot be before 01-01-1900
+* Only one birthday per person
 
 **Behavior:**
-- If person already has a birthday, it is updated to the new one
-- If the new birthday is the same as the existing one, the command fails
+
+* If person already has a birthday, it is updated to the new one
+* If the new birthday is the same as the existing one, the command fails
 
 <div markdown="span" class="alert alert-primary">
 
 **:bulb: Tip:**
-- After adding birthdays, use `sortb` to sort contacts by upcoming birthdays.
-- Birthdays are displayed on person cards and in the detail view.
+
+* After adding birthdays, use `sortb` to sort contacts by upcoming birthdays.
+* Birthdays are displayed on person cards and in the detail view.
 
 </div>
 
@@ -625,8 +696,9 @@ Added birthday: 20-02-2007 John Doe; Phone: 98765432; Email: johnd@example.com; 
 ```
 
 **Error Messages:**
-- `"The person index provided is invalid"` — Index out of range
-- `"Birthday has already been added!"` — Trying to add the same birthday again
+
+* `"The person index provided is invalid"` — Index out of range
+* `"Birthday has already been added!"` — Trying to add the same birthday again
 
 **Related:** [Sorting by birthday](#442-sorting-by-birthday-sortb), [Editing a person](#412-editing-a-person-edit)
 
@@ -645,21 +717,24 @@ Mark contacts as favorites or remove them from favorites.
 **Format (remove from favorites, by name):** `unfavourite NAME`
 
 **Parameters:**
-- `INDEX` — Position in currently displayed list (positive integer)
-- `NAME` — Full name (case-insensitive, must match exactly)
+
+* `INDEX` — Position in currently displayed list (positive integer)
+* `NAME` — Full name (case-insensitive, must match exactly)
 
 **Behavior:**
-- Favorite persons are marked with a star (★) in the person list
-- Cannot favorite a person who is already favorited
-- Cannot unfavorite a person who is not favorited
-- Name matching is case-insensitive with automatic whitespace trimming
-- If multiple persons have the same name, an error is shown. Use index instead.
+
+* Favorite persons are marked with a star (★) in the person list
+* Cannot favorite a person who is already favorited
+* Cannot unfavorite a person who is not favorited
+* Name matching is case-insensitive with automatic whitespace trimming
+* If multiple persons have the same name, an error is shown. Use index instead.
 
 <div markdown="span" class="alert alert-primary">
 
 **:bulb: Tip:**
-- Use `favs` command to quickly view all your favorite contacts.
-- Combine favorites with course filtering to find your closest study partners in specific modules.
+
+* Use `favs` command to quickly view all your favorite contacts.
+* Combine favorites with course filtering to find your closest study partners in specific modules.
 
 </div>
 
@@ -696,9 +771,10 @@ Removed from favourites: Jane Smith; Phone: 91234567; Email: janesmith@example.c
 ```
 
 **Error Messages:**
-- `"This person is already marked as favourite."` — Trying to favorite an already favorited person
-- `"This person is not marked as favourite."` — Trying to unfavorite a person who isn't favorited
-- `"Multiple contacts found with that name. Please favourite by index from the list:"` — Ambiguous name
+
+* `"This person is already marked as favourite."` — Trying to favorite an already favorited person
+* `"This person is not marked as favourite."` — Trying to unfavorite a person who isn't favorited
+* `"Multiple contacts found with that name. Please favourite by index from the list:"` — Ambiguous name
 
 **Related:** [Listing favorites](#419-listing-favorite-persons-favs)
 
@@ -735,23 +811,26 @@ Adds one or more courses to a contact without replacing existing courses.
 **Format:** `addcourse INDEX c/COURSE_CODE[,COLOR] [c/COURSE_CODE[,COLOR]]...`
 
 **Parameters:**
-- `INDEX` (Required) — Position in currently displayed list (positive integer)
-- `c/COURSE_CODE[,COLOR]` (Required, multiple allowed) — Course code with optional color
+
+* `INDEX` (Required) — Position in currently displayed list (positive integer)
+* `c/COURSE_CODE[,COLOR]` (Required, multiple allowed) — Course code with optional color
 
 **Available Colors:** `green`, `yellow`, `red`, `blue`, `orange`, `purple`, `pink`
 
 **Behavior:**
-- Preserves existing courses (unlike `edit` which replaces)
-- If course already exists for the person, command fails
-- If a course code already exists globally and you supply a different color, the global color is updated
-- If a new course code is added without color, it defaults to `green`
+
+* Preserves existing courses (unlike `edit` which replaces)
+* If course already exists for the person, command fails
+* If a course code already exists globally and you supply a different color, the global color is updated
+* If a new course code is added without color, it defaults to `green`
 
 <div markdown="span" class="alert alert-primary">
 
 **:bulb: Tip:**
-- Use `addcourse` when you want to add courses without affecting existing ones.
-- Use `edit` when you want to completely replace all courses.
-- Course colors are global — changing a color for CS2103T changes it for all contacts with CS2103T.
+
+* Use `addcourse` when you want to add courses without affecting existing ones.
+* Use `edit` when you want to completely replace all courses.
+* Course colors are global — changing a color for CS2103T changes it for all contacts with CS2103T.
 
 </div>
 
@@ -773,8 +852,9 @@ Added courses to Person: John Doe; Phone: 98765432; Email: johnd@example.com; Ad
 ```
 
 **Error Messages:**
-- `"The person index provided is invalid"` — Index out of range
-- `"This person already has one or more of these courses"` — Duplicate course
+
+* `"The person index provided is invalid"` — Index out of range
+* `"This person already has one or more of these courses"` — Duplicate course
 
 **Related:** [Removing courses](#422-removing-courses-from-a-person-removecourse), [Editing course color](#423-editing-course-color-globally-editcourse)
 
@@ -787,12 +867,14 @@ Removes one or more courses from a contact.
 **Format:** `removecourse INDEX c/COURSE_CODE [c/COURSE_CODE]...`
 
 **Parameters:**
-- `INDEX` (Required) — Position in currently displayed list (positive integer)
-- `c/COURSE_CODE` (Required, multiple allowed) — Course codes to remove (case-insensitive)
+
+* `INDEX` (Required) — Position in currently displayed list (positive integer)
+* `c/COURSE_CODE` (Required, multiple allowed) — Course codes to remove (case-insensitive)
 
 **Behavior:**
-- Only removes courses that exist for the person
-- If none of the specified courses exist for the person, command fails
+
+* Only removes courses that exist for the person
+* If none of the specified courses exist for the person, command fails
 
 **Examples:**
 
@@ -812,8 +894,9 @@ Removed courses from Person: John Doe; Phone: 98765432; Email: johnd@example.com
 ```
 
 **Error Messages:**
-- `"The person index provided is invalid"` — Index out of range
-- `"None of the specified courses exist for this person"` — Courses not found
+
+* `"The person index provided is invalid"` — Index out of range
+* `"None of the specified courses exist for this person"` — Courses not found
 
 **Related:** [Adding courses](#421-adding-courses-to-a-person-addcourse), [Editing a person](#412-editing-a-person-edit)
 
@@ -826,20 +909,23 @@ Sets the color for a course code globally across all contacts.
 **Format:** `editcourse c/COURSE_CODE,COLOR`
 
 **Parameters:**
-- `c/COURSE_CODE,COLOR` (Required) — Course code and color (comma-separated)
+
+* `c/COURSE_CODE,COLOR` (Required) — Course code and color (comma-separated)
 
 **Available Colors:** `green`, `yellow`, `red`, `blue`, `orange`, `purple`, `pink`
 
 **Behavior:**
-- Updates the color for the course code globally
-- All contacts with this course code will reflect the new color
-- Both course code and color must be provided
+
+* Updates the color for the course code globally
+* All contacts with this course code will reflect the new color
+* Both course code and color must be provided
 
 <div markdown="span" class="alert alert-primary">
 
 **:bulb: Tip:**
-- Use consistent colors for similar course types (e.g., yellow for all CS courses, blue for math courses).
-- This helps with visual organization when viewing contact lists.
+
+* Use consistent colors for similar course types (e.g., yellow for all CS courses, blue for math courses).
+* This helps with visual organization when viewing contact lists.
 
 </div>
 
@@ -861,7 +947,8 @@ Updated color for CS2103T to red
 ```
 
 **Error Messages:**
-- `"Course code and color must be provided"` — Missing course code or color
+
+* `"Course code and color must be provided"` — Missing course code or color
 
 **Related:** [Adding courses](#421-adding-courses-to-a-person-addcourse), [Listing courses](#424-listing-all-courses-listcourses)
 
@@ -876,8 +963,9 @@ Lists all unique courses in the coursebook.
 **Parameters:** None
 
 **Behavior:**
-- Shows all courses with their enrollment counts
-- Switches to the courses view panel
+
+* Shows all courses with their enrollment counts
+* Switches to the courses view panel
 
 **Expected Output (with courses):**
 ```
@@ -902,12 +990,14 @@ Shows all contacts enrolled in a specific course.
 **Alias:** `ls c/COURSE_CODE`
 
 **Parameters:**
-- `c/COURSE_CODE` (Required) — Course code to filter by (case-insensitive)
+
+* `c/COURSE_CODE` (Required) — Course code to filter by (case-insensitive)
 
 **Behavior:**
-- Course code matching is case-insensitive
-- If course exists but has no enrollments, an empty list is shown
-- If course doesn't exist, an empty list is shown with an error message
+
+* Course code matching is case-insensitive
+* If course exists but has no enrollments, an empty list is shown
+* If course doesn't exist, an empty list is shown with an error message
 
 **Examples:**
 
@@ -946,8 +1036,9 @@ Returns to the home page showing all courses.
 **Parameters:** None
 
 **Behavior:**
-- Switches view to the courses panel
-- Shows all courses with enrollment counts
+
+* Switches view to the courses panel
+* Shows all courses with enrollment counts
 
 **Expected Output:**
 ```
@@ -965,24 +1056,28 @@ Changes the application's visual theme.
 **Format:** `theme THEME_NAME`
 
 **Available Themes:**
-- `dark` — Dark theme (default)
-- `blue` — Blue theme
-- `love` — Love theme (pink/romantic colors)
-- `tree` — Tree theme (nature-inspired)
+
+* `dark` — Dark theme (default)
+* `blue` — Blue theme
+* `love` — Love theme (pink/romantic colors)
+* `tree` — Tree theme (nature-inspired)
 
 **Parameters:**
-- `THEME_NAME` (Required) — One of: `dark`, `blue`, `love`, `tree` (case-insensitive)
+
+* `THEME_NAME` (Required) — One of: `dark`, `blue`, `love`, `tree` (case-insensitive)
 
 **Behavior:**
-- Theme change is applied immediately
-- Preference is saved for future sessions
-- Cannot switch to the currently active theme
+
+* Theme change is applied immediately
+* Preference is saved for future sessions
+* Cannot switch to the currently active theme
 
 <div markdown="span" class="alert alert-primary">
 
 **:bulb: Tip:**
-- Choose a theme that matches your preferences or reduces eye strain.
-- Theme persists across sessions — you only need to set it once.
+
+* Choose a theme that matches your preferences or reduces eye strain.
+* Theme persists across sessions — you only need to set it once.
 
 </div>
 
@@ -1009,8 +1104,9 @@ Theme changed to: blue
 ```
 
 **Error Messages:**
-- `"Invalid theme name. Available themes: dark, blue, love, tree"` — Unrecognized theme
-- `"Theme is already dark!"` — Trying to switch to current theme
+
+* `"Invalid theme name. Available themes: dark, blue, love, tree"` — Unrecognized theme
+* `"Theme is already dark!"` — Trying to switch to current theme
 
 **Related:** [Undoing commands](#47-undo--redo)
 
@@ -1025,12 +1121,14 @@ Sorts the contact list by name in ascending or descending order.
 **Format:** `sortn by/ORDER`
 
 **Parameters:**
-- `by/ORDER` (Required) — Sort order: `asc` (ascending A-Z) or `desc` (descending Z-A)
+
+* `by/ORDER` (Required) — Sort order: `asc` (ascending A-Z) or `desc` (descending Z-A)
 
 **Behavior:**
-- Case-insensitive order matching
-- Sorts by person's full name
-- Sort order persists until another list/filter command is used
+
+* Case-insensitive order matching
+* Sorts by person's full name
+* Sort order persists until another list/filter command is used
 
 **Examples:**
 
@@ -1055,7 +1153,8 @@ No contacts to sort by name.
 ```
 
 **Error Messages:**
-- Incorrect format if order is missing or invalid
+
+* Incorrect format if order is missing or invalid
 
 **Related:** [Sorting by birthday](#442-sorting-by-birthday-sortb), [Listing persons](#414-listing-all-persons-list-or-ls)
 
@@ -1070,15 +1169,17 @@ Sorts contacts by how soon their next birthday occurs.
 **Parameters:** None
 
 **Behavior:**
-- Contacts with upcoming birthdays appear first
-- Automatically handles year calculation (uses current year or next year if birthday has passed)
-- Contacts without birthdays are placed at the end
+
+* Contacts with upcoming birthdays appear first
+* Automatically handles year calculation (uses current year or next year if birthday has passed)
+* Contacts without birthdays are placed at the end
 
 <div markdown="span" class="alert alert-primary">
 
 **:bulb: Tip:**
-- Use this command to see whose birthdays are coming up soon.
-- Combine with `favs` to see favorite contacts' birthdays first: `favs` followed by `sortb`.
+
+* Use this command to see whose birthdays are coming up soon.
+* Combine with `favs` to see favorite contacts' birthdays first: `favs` followed by `sortb`.
 
 </div>
 
@@ -1114,9 +1215,10 @@ Shows all commands executed in the current session.
 **Parameters:** None
 
 **Behavior:**
-- Commands are listed from most recent to oldest (reverse chronological order)
-- Each command is numbered starting from 1
-- History is cleared when the application is closed
+
+* Commands are listed from most recent to oldest (reverse chronological order)
+* Each command is numbered starting from 1
+* History is cleared when the application is closed
 
 **Example:**
 
@@ -1151,10 +1253,11 @@ Shows a summary of all contacts with breakdown by course enrollment.
 **Parameters:** None
 
 **Behavior:**
-- Displays total number of persons
-- Shows enrollment counts for each course
-- Courses are sorted alphabetically
-- Handles persons with multiple courses correctly
+
+* Displays total number of persons
+* Shows enrollment counts for each course
+* Courses are sorted alphabetically
+* Handles persons with multiple courses correctly
 
 **Example:**
 
@@ -1193,10 +1296,11 @@ Opens the help window displaying all available commands.
 **Parameters:** None
 
 **Behavior:**
-- Opens a help window with a table of all commands
-- Shows command names, descriptions, and examples
-- Includes a link to the full User Guide
-- Has a "Copy URL" button to copy the User Guide link to clipboard
+
+* Opens a help window with a table of all commands
+* Shows command names, descriptions, and examples
+* Includes a link to the full User Guide
+* Has a "Copy URL" button to copy the User Guide link to clipboard
 
 **Example:**
 
@@ -1215,8 +1319,9 @@ Opened help window.
 <div markdown="span" class="alert alert-primary">
 
 **:bulb: Tip:**
-- Use keyboard shortcut `F1` to quickly open the help window.
-- Click "Copy URL" in the help window to get the link to the full online User Guide.
+
+* Use keyboard shortcut `F1` to quickly open the help window.
+* Click "Copy URL" in the help window to get the link to the full online User Guide.
 
 </div>
 
@@ -1235,8 +1340,9 @@ Removes all contacts from the coursebook.
 <div markdown="span" class="alert alert-danger">
 
 **:exclamation: Warning:**
-- This action removes ALL contacts permanently (except via `undo`).
-- Consider exporting your data file before using this command.
+
+* This action removes ALL contacts permanently (except via `undo`).
+* Consider exporting your data file before using this command.
 
 </div>
 
@@ -1264,8 +1370,9 @@ Exits the CourseBook application.
 **Parameters:** None
 
 **Behavior:**
-- Saves all data automatically before exiting
-- Closes all windows (main window, help window, etc.)
+
+* Saves all data automatically before exiting
+* Closes all windows (main window, help window, etc.)
 
 **Example:**
 
@@ -1293,16 +1400,18 @@ Reverts the last command that changed the coursebook.
 **Parameters:** None
 
 **Behavior:**
-- Only undoes commands that modify data (e.g., `add`, `delete`, `edit`)
-- Cannot undo read-only commands (e.g., `list`, `find`)
-- Can undo multiple times in sequence
-- After undo, the view switches to show all persons
+
+* Only undoes commands that modify data (e.g., `add`, `delete`, `edit`)
+* Cannot undo read-only commands (e.g., `list`, `find`)
+* Can undo multiple times in sequence
+* After undo, the view switches to show all persons
 
 <div markdown="span" class="alert alert-primary">
 
 **:bulb: Tip:**
-- You can undo multiple commands by running `undo` repeatedly.
-- Use `redo` to reapply undone commands if you change your mind.
+
+* You can undo multiple commands by running `undo` repeatedly.
+* Use `redo` to reapply undone commands if you change your mind.
 
 </div>
 
@@ -1318,7 +1427,8 @@ Undo success!
 ```
 
 **Error Messages:**
-- `"No more commands to undo!"` — No undoable commands in history
+
+* `"No more commands to undo!"` — No undoable commands in history
 
 **Related:** [Redoing commands](#472-redoing-commands-redo), [Command history](#451-viewing-command-history-history)
 
@@ -1333,9 +1443,10 @@ Reapplies the last undone command.
 **Parameters:** None
 
 **Behavior:**
-- Reapplies the last command that was undone
-- Can redo multiple times in sequence
-- After redo, the view switches to show all persons
+
+* Reapplies the last command that was undone
+* Can redo multiple times in sequence
+* After redo, the view switches to show all persons
 
 **Example:**
 
@@ -1349,7 +1460,8 @@ Redo success!
 ```
 
 **Error Messages:**
-- `"No more commands to redo!"` — No redoable commands
+
+* `"No more commands to redo!"` — No redoable commands
 
 **Related:** [Undoing commands](#471-undoing-commands-undo)
 
@@ -1362,6 +1474,7 @@ Redo success!
 Each person card has a copy button on the right side that copies the phone number to your clipboard.
 
 **How to use:**
+
 1. Locate the person card in the person list panel
 2. Click the copy icon button on the right side of the card
 3. The phone number is now in your clipboard and can be pasted anywhere
@@ -1369,8 +1482,9 @@ Each person card has a copy button on the right side that copies the phone numbe
 <div markdown="span" class="alert alert-primary">
 
 **:bulb: Tip:**
-- This is faster than manually selecting and copying phone numbers.
-- Use this feature when you need to call or message a contact.
+
+* This is faster than manually selecting and copying phone numbers.
+* Use this feature when you need to call or message a contact.
 
 </div>
 
@@ -1426,10 +1540,11 @@ Advanced users can update data directly by editing the `CourseBook.json` file.
 <div markdown="span" class="alert alert-danger">
 
 **:exclamation: Caution:**
-- If your changes make the format invalid, CourseBook will discard all data and start with an empty data file at the next run.
-- **Always backup the file before editing.**
-- Certain edits can cause unexpected behavior (e.g., values outside acceptable ranges).
-- Only edit if you are confident you can update it correctly.
+
+* If your changes make the format invalid, CourseBook will discard all data and start with an empty data file at the next run.
+* **Always backup the file before editing.**
+* Certain edits can cause unexpected behavior (e.g., values outside acceptable ranges).
+* Only edit if you are confident you can update it correctly.
 
 </div>
 
@@ -1444,7 +1559,7 @@ To transfer your CourseBook data:
 
 ---
 
-## 7.FAQ
+## 7. FAQ
 
 **Q: How do I transfer my data to another computer?**
 **A:** Install CourseBook on the new computer and replace the empty data file it creates with your existing `CourseBook.json` file. See [Section 6.3](#63-transferring-data-to-another-computer).
@@ -1511,12 +1626,13 @@ The following screenshots should be captured and placed in `docs/images/` to com
 | `ug-summary-output.png` | Result display showing summary statistics breakdown | 700px width |
 
 **Screenshot Guidelines:**
-- **Consistency:** Use the same theme (preferably dark or blue) for all screenshots
-- **Resolution:** Capture in high DPI (Retina/HiDPI) for clarity
-- **Cropping:** Crop to relevant area, removing unnecessary desktop elements
-- **Annotations:** Add red boxes or arrows where needed to highlight specific features
-- **Format:** PNG format with transparent backgrounds where applicable
-- **Alt Text:** Always include descriptive alt text for accessibility
+
+* **Consistency:** Use the same theme (preferably dark or blue) for all screenshots
+* **Resolution:** Capture in high DPI (Retina/HiDPI) for clarity
+* **Cropping:** Crop to relevant area, removing unnecessary desktop elements
+* **Annotations:** Add red boxes or arrows where needed to highlight specific features
+* **Format:** PNG format with transparent backgrounds where applicable
+* **Alt Text:** Always include descriptive alt text for accessibility
 
 ---
 
