@@ -1,9 +1,9 @@
 package seedu.coursebook.logic.commands;
 
-import java.util.logging.Logger;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Comparator;
+import java.util.logging.Logger;
 
 import seedu.coursebook.logic.CommandHistory;
 import seedu.coursebook.model.Model;
@@ -13,13 +13,13 @@ import seedu.coursebook.model.person.Person;
  * Sorts the contact list by name in ascending or descending order.
  */
 public class SortCommand extends Command {
-    private static final Logger logger = Logger.getLogger(SortCommand.class.getName());
-
     public static final String COMMAND_WORD = "sortn";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts the contact list by name.\n"
             + "Parameters: by/ [asc|desc]\n"
             + "Example: " + COMMAND_WORD + " by/ asc";
+
+    private static final Logger logger = Logger.getLogger(SortCommand.class.getName());
 
     private final String order;
 

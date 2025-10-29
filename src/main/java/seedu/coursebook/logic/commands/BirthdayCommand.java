@@ -1,7 +1,8 @@
 package seedu.coursebook.logic.commands;
 
-import java.util.logging.Logger;
 import static java.util.Objects.requireNonNull;
+
+import java.util.logging.Logger;
 
 import seedu.coursebook.commons.core.index.Index;
 import seedu.coursebook.commons.util.ToStringBuilder;
@@ -16,8 +17,6 @@ import seedu.coursebook.model.person.Person;
  * Adds a birthday to an existing person in the course book.
  */
 public class BirthdayCommand extends Command {
-    private static final Logger logger = Logger.getLogger(BirthdayCommand.class.getName());
-
     public static final String COMMAND_WORD = "bday";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a birthday to the person identified "
@@ -28,6 +27,8 @@ public class BirthdayCommand extends Command {
 
     public static final String MESSAGE_ADD_BIRTHDAY_SUCCESS = "Added birthday: ";
     public static final String MESSAGE_DUPLICATE_BIRTHDAY = "Birthday has already been added!";
+
+    private static final Logger logger = Logger.getLogger(BirthdayCommand.class.getName());
 
     private final Index index;
     private final Birthday birthday;
