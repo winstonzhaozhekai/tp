@@ -3,7 +3,7 @@ layout: page
 title: User Guide
 ---
 
-# CourseBook User Guide (v1.4)
+# CourseBook User Guide (v1.5)
 
 CourseBook is a **desktop application for university students** to manage their academic network by organizing contacts based on shared courses. Optimized for use via a **Command Line Interface (CLI)** while still having the benefits of a **Graphical User Interface (GUI)**, CourseBook helps you quickly find classmates, organize study groups, and stay connected with peers in your modules.
 
