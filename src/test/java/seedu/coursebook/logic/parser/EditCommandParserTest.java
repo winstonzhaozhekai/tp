@@ -82,6 +82,13 @@ public class EditCommandParserTest {
     }
 
     @Test
+    public void parse_disallowedPrefixes_throwsParseException() {
+        assertParseFailure(parser, "1 c/CS2103", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "1 b/2020-01-01", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "1 z/foo", MESSAGE_INVALID_FORMAT);
+    }
+
+    @Test
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone

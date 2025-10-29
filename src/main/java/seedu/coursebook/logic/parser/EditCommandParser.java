@@ -3,7 +3,6 @@ package seedu.coursebook.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.coursebook.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.coursebook.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.coursebook.logic.parser.CliSyntax.PREFIX_COURSE;
 import static seedu.coursebook.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.coursebook.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.coursebook.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -33,9 +32,20 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
+        // Reject any unknown/disallowed prefixes immediately
+        // Allowed: n/, p/, e/, a/, t/
+        String trimmedArgs = args.trim();
+        String[] tokens = trimmedArgs.split("\\s+");
+        java.util.List<String> allowedPrefixes = java.util.Arrays.asList("n/", "p/", "e/", "a/", "t/");
+        for (String token : tokens) {
+            if (token.matches("[A-Za-z]+/.*")
+                    && allowedPrefixes.stream().noneMatch(token::startsWith)) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+            }
+        }
+
         ArgumentMultimap argMultimap =
-               ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG,
-                PREFIX_COURSE);
+               ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
         Index index;
 
