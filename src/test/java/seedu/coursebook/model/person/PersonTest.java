@@ -29,26 +29,45 @@ public class PersonTest {
     public void isSamePerson() {
         // same object -> returns true
         assertTrue(ALICE.isSamePerson(ALICE));
+    }
+
+    @Test
+    public void isSamePersonAsNull() {
 
         // null -> returns false
         assertFalse(ALICE.isSamePerson(null));
+    }
+
+    @Test
+    public void isSamePersonWithDiffAttributes() {
 
         // same name, all other attributes different -> returns true
         Person editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
                 .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSamePerson(editedAlice));
+    }
 
-        // different name, all other attributes same -> returns false
-        editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSamePerson(editedAlice));
+    @Test
+    public void isSamePersonWithSamePhoneNumberButDiffName() {
+        // different name, all other attributes same -> same phone number, email -> return true
+        Person editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        assertTrue(ALICE.isSamePerson(editedAlice));
+    }
+
+    @Test
+    public void isSamePersonWithSameNameCapitalised() {
 
         // name differs in case, all other attributes same -> returns true (names are auto-capitalized)
         Person editedBob = new PersonBuilder(BOB).withName(VALID_NAME_BOB.toLowerCase()).build();
         assertTrue(BOB.isSamePerson(editedBob));
+    }
 
+    @Test
+    public void isSamePersonWithTrailingSpace() {
         // name has trailing spaces, all other attributes same -> returns false
         String nameWithTrailingSpaces = VALID_NAME_BOB + " ";
-        editedBob = new PersonBuilder(BOB).withName(nameWithTrailingSpaces).build();
+        Person editedBob = new PersonBuilder(BOB).withName(nameWithTrailingSpaces)
+                .withEmail("Bob@gmail.com").withPhone("98127831").build();
         assertFalse(BOB.isSamePerson(editedBob));
     }
 

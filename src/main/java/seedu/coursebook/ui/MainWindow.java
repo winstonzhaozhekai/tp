@@ -243,6 +243,13 @@ public class MainWindow extends UiPart<Stage> {
         if (!personDetailWindow.isShowing()) {
             personDetailWindow.show();
         } else {
+            // Restore if minimized and bring to front, then focus
+            javafx.stage.Stage personStage = personDetailWindow.getRoot();
+            if (personStage.isIconified()) {
+                personStage.setIconified(false);
+            }
+            personStage.show();
+            personStage.toFront();
             personDetailWindow.focus();
         }
     }
@@ -354,7 +361,17 @@ public class MainWindow extends UiPart<Stage> {
         alert.initOwner(primaryStage);
         alert.setTitle(title);
         alert.setHeaderText(headerText);
-        alert.setContentText(contentText);
+
+        javafx.scene.control.TextArea content = new javafx.scene.control.TextArea(contentText);
+        content.setEditable(false);
+        content.setWrapText(true);
+        content.setPrefRowCount(Math.min(12, contentText.split("\n").length + 1));
+        content.setMaxWidth(Double.MAX_VALUE);
+        content.setMaxHeight(Double.MAX_VALUE);
+        alert.getDialogPane().setContent(content);
+
+        alert.setResizable(true);
+        alert.getDialogPane().setMinHeight(javafx.scene.layout.Region.USE_PREF_SIZE);
 
         // Apply current theme to dialog
         alert.getDialogPane().getStylesheets().add(currentTheme);

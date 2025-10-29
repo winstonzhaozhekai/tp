@@ -20,13 +20,15 @@ public class FindCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds persons by matching any provided field and "
             + "displays them as a list with index numbers.\n"
             + "Parameters: [n/NAME_KEYWORDS] [p/PHONE_KEYWORDS] [e/EMAIL_KEYWORDS] [a/ADDRESS_KEYWORDS] "
-            + "[t/TAG]...\n"
+            + "[t/TAG]\n"
+            + "- Prefixes can appear multiple times; values are aggregated per field (OR within field).\n"
             + "- OR across fields: a person matches if ANY provided field matches.\n"
             + "- Within a field, ANY keyword may match using partial/substring matching.\n"
             + "- All fields support case-insensitive partial matching (e.g., 'Ali' matches 'Alice').\n"
-            + "- If no prefixes are present, input will be treated as a name \n"
+            + "- If no prefixes are present, input will be treated as a name.\n"
+            + "- Only supports prefixes: n/, p/, e/, a/, t/. Any other prefix causes an error.\n"
             + "Alias: f\n"
-            + "Examples: find n/Alice t/friend | find p/9123 e/example.com | find alex bob";
+            + "Examples: find n/John n/Alice | find p/9123 p/9876 | find t/friend t/colleague | find alex bob";
 
     private final PersonContainsKeywordsPredicate predicate;
 
@@ -38,10 +40,11 @@ public class FindCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredPersonList(predicate);
-        return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()),
-                false, false, true, false
-        );
+        int count = model.getFilteredPersonList().size();
+        String message = count == 0
+                ? Messages.MESSAGE_NO_CONTACT_FOUND
+                : String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, count);
+        return new CommandResult(message, false, false, true, false);
     }
 
     @Override

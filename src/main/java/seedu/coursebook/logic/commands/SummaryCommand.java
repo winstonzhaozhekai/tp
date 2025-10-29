@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import seedu.coursebook.logic.CommandHistory;
+import seedu.coursebook.logic.commands.exceptions.CommandException;
 import seedu.coursebook.model.Model;
 
 /**
@@ -20,12 +21,20 @@ public class SummaryCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Summary: %d person(s) found\n\nBreakdown by course:\n%s";
 
+    public static final String MESSAGE_EMPTY_COURSE_BOOK = "Course book is empty. "
+            + "Please add persons before viewing summary.";
+
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
         // Get the person count from the course book
         int personCount = model.getCourseBook().getPersonList().size();
+
+        // Throw exception if course book is empty
+        if (personCount == 0) {
+            throw new CommandException(MESSAGE_EMPTY_COURSE_BOOK);
+        }
 
         // Group people by course and count (handling multiple courses per person)
         Map<String, Long> courseBreakdown = model.getCourseBook().getPersonList().stream()

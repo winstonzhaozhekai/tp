@@ -31,6 +31,17 @@ public class FindCommandParser implements Parser<FindCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
+        // Reject any unknown/disallowed prefixes immediately
+        // Allowed: n/, p/, e/, a/, t/
+        String[] tokens = trimmedArgs.split("\\s+");
+        List<String> allowedPrefixes = Arrays.asList("n/", "p/", "e/", "a/", "t/");
+        for (String token : tokens) {
+            if (token.matches("[A-Za-z]+/.*")
+                    && allowedPrefixes.stream().noneMatch(token::startsWith)) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+            }
+        }
+
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
                 PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
@@ -40,14 +51,19 @@ public class FindCommandParser implements Parser<FindCommand> {
         List<String> addressKeywords = new ArrayList<>();
         List<String> tagKeywords = new ArrayList<>();
 
-        // Collect prefixed values (split by whitespace into individual keywords)
-        argMultimap.getValue(PREFIX_NAME).ifPresent(v -> nameKeywords.addAll(Arrays.asList(v.trim().split("\\s+"))));
-        argMultimap.getValue(PREFIX_PHONE).ifPresent(v -> phoneKeywords.addAll(Arrays.asList(v.trim().split("\\s+"))));
-        argMultimap.getValue(PREFIX_EMAIL)
-                .ifPresent(v -> emailKeywords.addAll(Arrays.asList(v.trim().split("\\s+"))));
-        argMultimap.getValue(PREFIX_ADDRESS)
-                .ifPresent(v -> addressKeywords.addAll(Arrays.asList(v.trim().split("\\s+"))));
-        // tags can appear multiple times; split each occurrence by whitespace
+        // Collect all prefixed values (each occurrence split by whitespace into individual keywords)
+        for (String value : argMultimap.getAllValues(PREFIX_NAME)) {
+            nameKeywords.addAll(Arrays.asList(value.trim().split("\\s+")));
+        }
+        for (String value : argMultimap.getAllValues(PREFIX_PHONE)) {
+            phoneKeywords.addAll(Arrays.asList(value.trim().split("\\s+")));
+        }
+        for (String value : argMultimap.getAllValues(PREFIX_EMAIL)) {
+            emailKeywords.addAll(Arrays.asList(value.trim().split("\\s+")));
+        }
+        for (String value : argMultimap.getAllValues(PREFIX_ADDRESS)) {
+            addressKeywords.addAll(Arrays.asList(value.trim().split("\\s+")));
+        }
         for (String tagValue : argMultimap.getAllValues(PREFIX_TAG)) {
             tagKeywords.addAll(Arrays.asList(tagValue.trim().split("\\s+")));
         }
@@ -59,6 +75,15 @@ public class FindCommandParser implements Parser<FindCommand> {
             // Fallback to legacy behavior: treat entire args as name keywords
             String[] keywords = trimmedArgs.split("\\s+");
             nameKeywords.addAll(Arrays.asList(keywords));
+        }
+
+        // Validate name tokens are ASCII letters only (A–Z) when provided, whether via prefixes or fallback
+        if (!nameKeywords.isEmpty()) {
+            boolean invalidNameToken = nameKeywords.stream()
+                    .anyMatch(s -> s == null || s.isBlank() || !s.matches("[A-Za-z]+"));
+            if (invalidNameToken) {
+                throw new ParseException(seedu.coursebook.logic.Messages.MESSAGE_NAME_ALPHA_ONLY);
+            }
         }
 
         // Validate that at least one non-empty keyword exists

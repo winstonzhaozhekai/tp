@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.coursebook.commons.core.index.Index;
-import seedu.coursebook.commons.util.StringUtil;
 import seedu.coursebook.logic.parser.exceptions.ParseException;
 import seedu.coursebook.model.course.Course;
 import seedu.coursebook.model.course.CourseColor;
@@ -25,6 +24,7 @@ import seedu.coursebook.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_NEGATIVE_INDEX = "Index cannot be a negative integer.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -33,10 +33,26 @@ public class ParserUtil {
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
+
+        // Must be digits only (no negative sign, no letters, etc.)
+        if (!trimmedIndex.matches("\\d+")) {
+            // Check for negative integers specifically
+            if (trimmedIndex.matches("-\\d+")) {
+                throw new ParseException(MESSAGE_NEGATIVE_INDEX);
+            }
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
-        return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+
+        // Use long to detect overflow and enforce 1..Integer.MAX_VALUE
+        try {
+            long value = Long.parseLong(trimmedIndex);
+            if (value < 1 || value > Integer.MAX_VALUE) {
+                throw new ParseException(MESSAGE_INVALID_INDEX);
+            }
+            return Index.fromOneBased((int) value);
+        } catch (NumberFormatException nfe) {
+            throw new ParseException(MESSAGE_INVALID_INDEX);
+        }
     }
 
     /**
@@ -183,7 +199,8 @@ public class ParserUtil {
                 try {
                     color = CourseColor.fromName(colorName);
                 } catch (IllegalArgumentException ex) {
-                    throw new ParseException("Invalid course color: " + colorName);
+                    throw new ParseException("Invalid course color: " + colorName
+                            + ". Available colors: " + CourseColor.allowedNamesCsv());
                 }
             }
             courseSet.add(new Course(code, color));

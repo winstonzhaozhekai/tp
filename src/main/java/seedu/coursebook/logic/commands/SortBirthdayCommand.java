@@ -48,7 +48,7 @@ public class SortBirthdayCommand extends Command {
             LocalDate birthday = person.getBirthday().getDate();
             LocalDate nextBirthday = birthday.withYear(today.getYear());
 
-            if (!nextBirthday.isAfter(today)) {
+            if (nextBirthday.isBefore(today)) {
                 nextBirthday = nextBirthday.plusYears(1);
             }
 
@@ -56,8 +56,11 @@ public class SortBirthdayCommand extends Command {
         });
 
         model.sortSelectedPersons(comparator);
-
-        return new CommandResult("Sorted contacts by upcoming birthday.", false, false, true, false);
+        if (model.getFilteredPersonList().isEmpty()) {
+            return new CommandResult("No contacts to sort by birthday.", false, false, true, false);
+        } else {
+            return new CommandResult("Sorted contacts by upcoming birthday.", false, false, true, false);
+        }
     }
 
     /**

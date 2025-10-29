@@ -22,13 +22,17 @@ import seedu.coursebook.model.tag.Tag;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_PHONE = "+651234";
+    private static final String INVALID_PHONE1 = "+651234";
+    private static final String INVALID_PHONE2 = "651234";
+    private static final String INVALID_PHONE3 = "6512345678901234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_PHONE = "123456";
+    private static final String VALID_PHONE1 = "1234567";
+    private static final String VALID_PHONE2 = "123456789012345";
+    private static final String VALID_PHONE3 = "1234512345";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
@@ -44,7 +48,7 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
-            -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
+            -> ParserUtil.parseIndex(Long.toString((long) Integer.MAX_VALUE + 1)));
     }
 
     @Test
@@ -85,20 +89,42 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parsePhone_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE));
+    public void parsePhone_invalidValueNotAllDigits_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE1));
+    }
+
+    @Test
+    public void parsePhone_invalidValueTooShort_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE2));
+    }
+
+    @Test
+    public void parsePhone_invalidValueTooLong_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE3));
     }
 
     @Test
     public void parsePhone_validValueWithoutWhitespace_returnsPhone() throws Exception {
-        Phone expectedPhone = new Phone(VALID_PHONE);
-        assertEquals(expectedPhone, ParserUtil.parsePhone(VALID_PHONE));
+        Phone expectedPhone = new Phone(VALID_PHONE1);
+        assertEquals(expectedPhone, ParserUtil.parsePhone(VALID_PHONE1));
+    }
+
+    @Test
+    public void parsePhone_validValueHighBoundary_returnsPhone() throws Exception {
+        Phone expectedPhone = new Phone(VALID_PHONE2);
+        assertEquals(expectedPhone, ParserUtil.parsePhone(VALID_PHONE2));
+    }
+
+    @Test
+    public void parsePhone_validValueWithinBoundary_returnsPhone() throws Exception {
+        Phone expectedPhone = new Phone(VALID_PHONE3);
+        assertEquals(expectedPhone, ParserUtil.parsePhone(VALID_PHONE3));
     }
 
     @Test
     public void parsePhone_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
-        String phoneWithWhitespace = WHITESPACE + VALID_PHONE + WHITESPACE;
-        Phone expectedPhone = new Phone(VALID_PHONE);
+        String phoneWithWhitespace = WHITESPACE + VALID_PHONE1 + WHITESPACE;
+        Phone expectedPhone = new Phone(VALID_PHONE1);
         assertEquals(expectedPhone, ParserUtil.parsePhone(phoneWithWhitespace));
     }
 

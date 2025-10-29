@@ -64,7 +64,8 @@ class JsonAdaptedCourse {
             try {
                 parsedColor = CourseColor.valueOf(color.trim().toUpperCase());
             } catch (IllegalArgumentException e) {
-                throw new IllegalValueException("Invalid course color: " + color);
+                throw new IllegalValueException("Invalid course color: " + color
+                        + ". Available colors: " + CourseColor.allowedNamesCsv());
             }
         }
         return new Course(courseCode, parsedColor);

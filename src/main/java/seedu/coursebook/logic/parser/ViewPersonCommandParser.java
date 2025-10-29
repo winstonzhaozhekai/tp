@@ -28,8 +28,12 @@ public class ViewPersonCommandParser implements Parser<ViewPersonCommand> {
         try {
             Index index = ParserUtil.parseIndex(trimmed);
             return new ViewPersonCommand(index);
-        } catch (ParseException ignored) {
-            // Fall through to parse as name
+        } catch (ParseException pe) {
+            // If it's a negative index error, re-throw it to surface the specific message
+            if (pe.getMessage().equals(ParserUtil.MESSAGE_NEGATIVE_INDEX)) {
+                throw pe;
+            }
+            // Fall through to parse as name for other index errors
         }
 
         // Parse as name

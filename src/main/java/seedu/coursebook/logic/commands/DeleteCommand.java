@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 import seedu.coursebook.commons.core.index.Index;
 import seedu.coursebook.commons.util.ToStringBuilder;
 import seedu.coursebook.logic.CommandHistory;
-import seedu.coursebook.logic.Messages;
 import seedu.coursebook.logic.commands.exceptions.CommandException;
 import seedu.coursebook.model.Model;
 import seedu.coursebook.model.person.Name;
@@ -46,6 +45,7 @@ public class DeleteCommand extends Command {
 
     private final List<Index> targetIndices; // may be null when deleting by name
     private final List<Name> targetNames; // may be null when deleting by index
+    private final List<String> initialWarnings; // warnings collected during parsing (e.g., invalid indices)
 
     /**
      * Creates a {@code DeleteCommand} for deleting by index.
@@ -53,6 +53,7 @@ public class DeleteCommand extends Command {
     public DeleteCommand(Index targetIndex) {
         this.targetIndices = List.of(targetIndex);
         this.targetNames = null;
+        this.initialWarnings = List.of();
     }
 
     /**
@@ -61,6 +62,7 @@ public class DeleteCommand extends Command {
     public DeleteCommand(Name targetName) {
         this.targetIndices = null;
         this.targetNames = List.of(targetName);
+        this.initialWarnings = List.of();
     }
 
     /**
@@ -69,6 +71,7 @@ public class DeleteCommand extends Command {
     public DeleteCommand(List<Index> targetIndices) {
         this.targetIndices = new ArrayList<>(targetIndices);
         this.targetNames = null;
+        this.initialWarnings = List.of();
     }
 
     /**
@@ -77,6 +80,16 @@ public class DeleteCommand extends Command {
     public DeleteCommand(List<Name> targetNames, boolean isByName) {
         this.targetIndices = null;
         this.targetNames = new ArrayList<>(targetNames);
+        this.initialWarnings = List.of();
+    }
+
+    /**
+     * Creates a {@code DeleteCommand} for deleting by indices with pre-collected warnings.
+     */
+    public DeleteCommand(List<Index> targetIndices, List<String> initialWarnings) {
+        this.targetIndices = new ArrayList<>(targetIndices);
+        this.targetNames = null;
+        this.initialWarnings = new ArrayList<>(initialWarnings);
     }
 
     @Override
@@ -96,11 +109,11 @@ public class DeleteCommand extends Command {
      */
     private CommandResult executeByIndices(Model model, List<Person> lastShownList) throws CommandException {
         List<Person> personsToDelete = new ArrayList<>();
-        List<String> warnings = new ArrayList<>();
+        List<String> warnings = new ArrayList<>(initialWarnings);
 
         for (Index index : targetIndices) {
             if (index.getZeroBased() >= lastShownList.size()) {
-                warnings.add("Index " + index.getOneBased() + " is invalid");
+                warnings.add("Index " + index.getOneBased() + " does not exist (max " + lastShownList.size() + ")");
             } else {
                 Person person = lastShownList.get(index.getZeroBased());
                 if (!personsToDelete.contains(person)) {
@@ -156,29 +169,19 @@ public class DeleteCommand extends Command {
      * Formats the confirmation message based on the number of persons to delete and warnings.
      */
     private String formatConfirmationMessage(List<Person> personsToDelete, List<String> warnings) {
-        String personList = personsToDelete.stream()
-                .map(Messages::format)
+        String namesList = personsToDelete.stream()
+                .map(p -> "- " + p.getName().toString())
                 .collect(Collectors.joining("\n"));
 
-        StringBuilder message = new StringBuilder();
-        if (personsToDelete.size() == 1) {
-            message.append("Are you sure you want to delete this contact?\n\n");
-        } else {
-            message.append("Are you sure you want to delete these ")
-                    .append(personsToDelete.size())
-                    .append(" contacts?\n\n");
-        }
-        message.append(personList);
-
-        if (!warnings.isEmpty()) {
-            message.append("\n\nWarnings:\n");
-            String warningText = warnings.stream()
-                    .map(w -> "- " + w)
-                    .collect(Collectors.joining("\n"));
-            message.append(warningText);
+        if (warnings.isEmpty()) {
+            return namesList;
         }
 
-        return message.toString();
+        String warningText = warnings.stream()
+                .map(w -> "- " + w)
+                .collect(Collectors.joining("\n"));
+
+        return namesList + "\n\nWarnings:\n" + warningText;
     }
 
     private static String normalizeName(String name) {

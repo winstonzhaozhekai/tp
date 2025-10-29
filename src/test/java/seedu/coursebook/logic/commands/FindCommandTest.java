@@ -13,6 +13,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import seedu.coursebook.logic.CommandHistory;
+import seedu.coursebook.logic.Messages;
 import seedu.coursebook.model.Model;
 import seedu.coursebook.model.ModelManager;
 import seedu.coursebook.model.UserPrefs;
@@ -58,7 +59,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_zeroKeywords_noPersonFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        String expectedMessage = Messages.MESSAGE_NO_CONTACT_FOUND;
         PersonContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
