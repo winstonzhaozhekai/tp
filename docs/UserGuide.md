@@ -5,9 +5,11 @@ title: User Guide
 
 # CourseBook User Guide (v1.5)
 
-CourseBook is a **desktop application for university students** to manage their academic network by organizing contacts based on shared courses. Optimized for use via a **Command Line Interface (CLI)** while still having the benefits of a **Graphical User Interface (GUI)**, CourseBook helps you quickly find classmates, organize study groups, and stay connected with peers in your modules.
+CourseBook is a desktop app that helps **university students** keep track of their course mates and the modules they’re taking. It’s designed to be fast and efficient. Just type in simple commands to add friends, see who’s taking which module, and find the right person to ask when you’re stuck on an assignment.
 
-If you can type fast, CourseBook can help you manage your academic contacts faster than traditional GUI apps.
+Even though CourseBook runs in a window like other apps, it’s built for speed: instead of clicking through menus, you type short commands to get things done quickly. Don’t worry if you’re new to this. CourseBook comes with helpful examples and a guide to get you started.
+
+#### Need to find your course friends? Use CourseBook!
 
 ---
 
