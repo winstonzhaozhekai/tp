@@ -63,7 +63,8 @@ Need to find your course friends? Use CourseBook!
   * [6.2 Editing the Data File](#62-editing-the-data-file)
   * [6.3 Transferring Data to Another Computer](#63-transferring-data-to-another-computer)
 * [7. FAQ](#7-faq)
-* [8. Glossary](#8-glossary)
+* [8. Known Issues](#8-known-issues)
+* [9. Glossary](#9-glossary)
 
 ---
 
