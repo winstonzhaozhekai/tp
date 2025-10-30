@@ -12,7 +12,6 @@ Class CourseBook
 Class ModelManager
 Class UserPrefs
 Class UniquePersonList
-Class currentTheme
 Class Person
 Class Address
 Class Email
@@ -20,7 +19,9 @@ Class Name
 Class Phone
 Class Tag
 Class Birthday
-Class Courses
+Class Course
+Class CourseColor
+Class Theme
 Class I #FFFFFF
 }
 
@@ -37,15 +38,17 @@ ModelManager -right-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
 CourseBook *--> "1" UniquePersonList
-CourseBook *--> "1" currentTheme
+CourseBook *--> "1" Theme
 UniquePersonList --> "~* all" Person
 Person *--> "1"Name
 Person *--> "1"Phone
 Person *--> "1"Email
 Person *--> "1"Address
 Person *--> "*" Tag
-Person *--> "*" Courses
+Person *--> "*" Course
 Person --> "0..1" Birthday
+
+Course *--> "1" CourseColor
 
 Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I
