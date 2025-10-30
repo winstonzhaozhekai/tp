@@ -5,20 +5,16 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 CourseBook *-right-> "1" UniquePersonList
-CourseBook *-right-> "1" UniqueTagList
-CourseBook *--> "1" CurrentTheme
-UniqueTagList -[hidden]down- UniquePersonList
-UniqueTagList -[hidden]down- UniquePersonList
-
-UniqueTagList -right-> "*" Tag
-UniquePersonList -right-> Person
-
-Person -up-> "*" Tag
+CourseBook *--> "1" Theme
+UniquePersonList -right-> "*" Person
 
 Person *--> "1" Name
 Person *--> "1" Phone
 Person *--> "1" Email
 Person *--> "1" Address
 Person *--> "0..1" Birthday
-Person *--> "*" Courses
+Person *--> "*" Tag
+Person *--> "*" Course
+
+Course *--> "1" CourseColor
 @enduml
