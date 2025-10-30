@@ -11,8 +11,6 @@ Even though CourseBook runs in a window like other apps, it’s built for speed:
 
 #### Need to find your course friends? Use CourseBook!
 
-Need to find your course friends? Use CourseBook!
-
 ---
 
 ## Table of Contents
@@ -464,9 +462,11 @@ Deleted Person: John Doe; Phone: 98765432; Email: johnd@example.com; Address: Jo
 ```
 
 **Expected Output (multiple deletions):**
+    
 ![Multiple Delete Confirmation](images/multiple_confirm.jpg)
 
 **Expected Output (with warnings):**
+
 ![Delete Warning](images/delete_warning.jpg)
 
 **Error Messages:**
@@ -1323,7 +1323,7 @@ help
 Opened help window.
 ```
 
-!Help message[Help Window](images/helpMessage.png)
+![Help Window](images/helpMessage.png)
 *Figure 3: Help window showing command summary table*
 
 <div markdown="span" class="alert alert-primary">
