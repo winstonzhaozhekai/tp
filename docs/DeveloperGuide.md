@@ -793,7 +793,7 @@ Person personObject = jsonPerson.toModelType(); // throws IllegalValueException 
 
 ---
 
-## **8. Common Classes**
+## 8. Common Classes
 
 Classes used by multiple components are in the `seedu.coursebook.commons` package.
 
@@ -1296,7 +1296,7 @@ Refer to the guide [_Configuration guide_](Configuration.md).
 
 ---
 
-## **13. Documentation, logging, testing, configuration, dev-ops**
+## 13. Documentation, logging, testing, configuration, dev-ops
 
 - [Documentation guide](Documentation.md)
 - [Testing guide](Testing.md)
