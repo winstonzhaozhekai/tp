@@ -3,6 +3,8 @@ layout: page
 title: Developer Guide
 ---
 
+# CourseBook (v1.5)
+
 ## Table of Contents
 
 * [Acknowledgements](#acknowledgements)
@@ -205,7 +207,7 @@ For example, the `Logic` component defines its API in the [Logic.java](https://g
 
 <img src="images/ComponentManagers.png" width="300" />
 
-*Figure 3: Shows the interface-implementation pattern for component managers*
+*Figure 14: Shows the interface-implementation pattern for component managers*
 
 The sections below give more details of each component.
 

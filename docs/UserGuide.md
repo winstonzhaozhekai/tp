@@ -3,7 +3,7 @@ layout: page
 title: User Guide
 ---
 
-# CourseBook User Guide (v1.5)
+# CourseBook (v1.5)
 
 CourseBook is a desktop app that helps **university students** keep track of their course mates and the modules they’re taking. It’s designed to be fast and efficient. Just type in simple commands to add friends, see who’s taking which module, and find the right person to ask when you’re stuck on an assignment.
 
@@ -1484,6 +1484,8 @@ Redo success!
 Each person card has a copy button on the right side that copies the phone number to your clipboard.
 
 ![Copy Button](images/copy.jpg)
+
+*Figure 15: Copy person's phone number to clipboard*
 
 **How to use:**
 
