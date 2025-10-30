@@ -3,6 +3,7 @@ package seedu.coursebook.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Comparator;
+import java.util.logging.Logger;
 
 import seedu.coursebook.logic.CommandHistory;
 import seedu.coursebook.model.Model;
@@ -17,6 +18,8 @@ public class SortCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts the contact list by name.\n"
             + "Parameters: by/ [asc|desc]\n"
             + "Example: " + COMMAND_WORD + " by/ asc";
+
+    private static final Logger logger = Logger.getLogger(SortCommand.class.getName());
 
     private final String order;
 
@@ -45,6 +48,8 @@ public class SortCommand extends Command {
         if ("desc".equalsIgnoreCase(order)) {
             comparator = comparator.reversed();
         }
+
+        logger.info("Sorting contacts by name in " + order + " order.");
 
         model.sortSelectedPersons(comparator);
 

@@ -2,6 +2,8 @@ package seedu.coursebook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
+
 import seedu.coursebook.commons.core.index.Index;
 import seedu.coursebook.commons.util.ToStringBuilder;
 import seedu.coursebook.logic.CommandHistory;
@@ -25,6 +27,8 @@ public class BirthdayCommand extends Command {
 
     public static final String MESSAGE_ADD_BIRTHDAY_SUCCESS = "Added birthday: ";
     public static final String MESSAGE_DUPLICATE_BIRTHDAY = "Birthday has already been added!";
+
+    private static final Logger logger = Logger.getLogger(BirthdayCommand.class.getName());
 
     private final Index index;
     private final Birthday birthday;
@@ -55,12 +59,16 @@ public class BirthdayCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        logger.info("Executing BirthdayCommand for index: " + index);
 
         if (index.getZeroBased() >= model.getFilteredPersonList().size()) {
+            logger.warning("Invalid index: " + index.getZeroBased());
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
         Person personToEdit = model.getFilteredPersonList().get(index.getZeroBased());
+        logger.fine("Person to edit: " + personToEdit.getName());
+
         Birthday existingBirthday = personToEdit.getBirthday();
 
         if (existingBirthday != null && existingBirthday.equals(birthday)) {
@@ -77,6 +85,8 @@ public class BirthdayCommand extends Command {
                 birthday,
                 personToEdit.isFavourite()
         );
+
+        logger.info("Birthday added successfully: " + birthday + " to " + editedPerson.getName());
 
         model.setPerson(personToEdit, editedPerson);
         model.commitCourseBook();
