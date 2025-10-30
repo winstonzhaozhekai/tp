@@ -40,7 +40,12 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             boolean hasDuplicate = false;
 
             for (String token : tokens) {
-                if (token.matches("0+") || token.matches("-\\d+")) {
+                if (token.matches("0+")) {
+                    sawInvalidNonPositive = true;
+                    warnings.add("Index " + token + " is out of range");
+                    continue;
+                }
+                if (token.matches("-\\d+")) {
                     sawInvalidNonPositive = true;
                     warnings.add("Index " + token + " is invalid");
                     continue;
@@ -72,6 +77,17 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
 
             // No valid indices at all
             if (sawInvalidNonPositive) {
+                // Check if any token was "0" (index out of range) vs negative (invalid)
+                boolean hasZero = false;
+                for (String token : tokens) {
+                    if (token.matches("0+")) {
+                        hasZero = true;
+                        break;
+                    }
+                }
+                if (hasZero) {
+                    throw new ParseException(seedu.coursebook.logic.Messages.MESSAGE_INDEX_OUT_OF_RANGE);
+                }
                 throw new ParseException(seedu.coursebook.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
@@ -112,7 +128,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
 
         for (String token : tokens) {
             if (token.matches("0+")) {
-                throw new ParseException(seedu.coursebook.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+                throw new ParseException(seedu.coursebook.logic.Messages.MESSAGE_INDEX_OUT_OF_RANGE);
             }
             indices.add(ParserUtil.parseIndex(token));
         }
