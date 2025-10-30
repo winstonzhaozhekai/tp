@@ -3,7 +3,7 @@ layout: page
 title: User Guide
 ---
 
-# CourseBook User Guide (v1.5)
+# CourseBook (v1.5)
 
 CourseBook is a desktop app that helps **university students** keep track of their course mates and the modules they’re taking. It’s designed to be fast and efficient. Just type in simple commands to add friends, see who’s taking which module, and find the right person to ask when you’re stuck on an assignment.
 
@@ -146,13 +146,13 @@ A window similar to the one below should appear in a few seconds:
 
 The CourseBook interface has several key areas:
 
-![UI Overview](images/UiClassDiagram.png)
+![UI Overview](images/interface.jpg)
 *Figure 2: CourseBook UI components breakdown*
 
 1. **Command Box** (top): Type your commands here and press Enter to execute
 2. **Result Display** (below command box): Shows feedback and results from your commands
-3. **Person List Panel** (left): Displays contacts matching your current view/filter
-4. **Course View Panel** (right): Shows all courses with enrollment counts
+3. **Person List Panel** (right): Displays contacts matching your current view/filter
+4. **Course View Panel** (left): Shows all courses with enrollment counts
 5. **Copy Button** (on each person card): Click to copy phone number to clipboard
 
 ### Step 5: Try Your First Commands
@@ -399,7 +399,7 @@ Before deletion, a confirmation dialog appears showing the contacts to be delete
 
 **:exclamation: Warning:**
 
-* This action is irreversible after confirmation (except via `undo`).
+
 * Make sure you review the confirmation dialog carefully before clicking "OK".
 
 </div>
@@ -1484,6 +1484,8 @@ Redo success!
 Each person card has a copy button on the right side that copies the phone number to your clipboard.
 
 ![Copy Button](images/copy.jpg)
+
+*Figure 15: Copy person's phone number to clipboard*
 
 **How to use:**
 

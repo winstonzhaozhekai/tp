@@ -3,6 +3,8 @@ layout: page
 title: Developer Guide
 ---
 
+# CourseBook (v1.5)
+
 ## Table of Contents
 
 * [Acknowledgements](#acknowledgements)
@@ -83,14 +85,14 @@ title: Developer Guide
 
 ---
 
-## **Acknowledgements**
+## Acknowledgements
 
 - The features undo and redo were inspired by similar features of the SE-EDU Address Book (Level 4) https://se-education.org/addressbook-level4/
 - CourseBook is built upon the AddressBook-Level3 (AB3) foundation created by the [SE-EDU initiative](https://se-education.org)
 
 ---
 
-## **1. Introduction**
+## 1. Introduction
 
 ### 1.1 About CourseBook
 
@@ -123,13 +125,13 @@ This guide is intended for:
 
 ---
 
-## **2. Setting up, getting started**
+## 2. Setting up, getting started
 
 Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 ---
 
-## **3. Architecture**
+## 3. Architecture
 
 <div markdown="span" class="alert alert-primary">
 
@@ -167,7 +169,7 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
-*Figure 2: Shows inter-component interactions for `delete 1` command)*
+*Figure 2: Shows inter-component interactions for `delete 1` command*
 
 Each of the four main components:
 
@@ -178,7 +180,7 @@ For example, the `Logic` component defines its API in the [Logic.java](https://g
 
 <img src="images/ComponentManagers.png" width="300" />
 
-*Figure 3: Shows the interface-implementation pattern for component managers*
+*Figure 14: Shows the interface-implementation pattern for component managers*
 
 The sections below give more details of each component.
 
@@ -212,13 +214,13 @@ These patterns enable maintainability, testability, and extensibility. The layer
 
 ---
 
-## **4. UI Component**
+## 4. UI Component
 
 **API**: [`Ui.java`](https://github.com/AY2526S1-CS2103T-F10-2/tp/tree/master/src/main/java/seedu/coursebook/ui/Ui.java)
 
 ![Structure of the UI Component](images/UiClassDiagram.png)
 
-*Figure 4: Shows the structure of UI components including MainWindow, PersonListPanel, CourseListPanel, CommandBox, ResultDisplay, etc.)*
+*Figure 4: Shows the structure of UI components including MainWindow, PersonListPanel, CourseListPanel, CommandBox, ResultDisplay, etc.*
 
 ### 4.1 Structure
 
@@ -276,7 +278,7 @@ The `theme` command triggers a theme change by updating the `CommandResult` with
 
 ---
 
-## **5. Logic Component**
+## 5. Logic Component
 
 **API**: [`Logic.java`](https://github.com/AY2526S1-CS2103T-F10-2/tp/tree/master/src/main/java/seedu/coursebook/logic/Logic.java)
 
@@ -286,7 +288,7 @@ Here's a (partial) class diagram of the `Logic` component:
 
 <img src="images/LogicClassDiagram.png" width="550"/>
 
-*Figure 6: Shows LogicManager, CourseBookParser, Command hierarchy, and parser classes)*
+*Figure 5: Shows LogicManager, CourseBookParser, Command hierarchy, and parser classes*
 
 ### 5.2 Command Execution Lifecycle
 
@@ -294,7 +296,7 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 
 ![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
 
-*Figure 7: Shows the detailed flow from parsing to execution for a delete command*
+*Figure 6: Shows the detailed flow from parsing to execution for a delete command*
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
 </div>
@@ -330,7 +332,7 @@ Here are the classes in `Logic` used for parsing a user command:
 
 <img src="images/ParserClasses.png" width="600"/>
 
-*Figure 8: Shows the parser hierarchy and how CourseBookParser dispatches to specific command parsers*
+*Figure 7: Shows the parser hierarchy and how CourseBookParser dispatches to specific command parsers*
 
 **How Parsing Works:**
 
@@ -407,13 +409,13 @@ CourseBook implements **27 command classes** following the Command Pattern:
 
 ---
 
-## **6. Model Component**
+## 6. Model Component
 
 **API**: [`Model.java`](https://github.com/AY2526S1-CS2103T-F10-2/tp/tree/master/src/main/java/seedu/coursebook/model/Model.java)
 
 <img src="images/ModelClassDiagram.png" width="450" />
 
-*Figure 9: Shows ModelManager, CourseBook, VersionedCourseBook, Person, Course, Tag, UniquePersonList, and their relationships*
+*Figure 8: Shows ModelManager, CourseBook, VersionedCourseBook, Person, Course, Tag, UniquePersonList, and their relationships*
 
 ### 6.1 Structure and Responsibilities
 
@@ -458,7 +460,8 @@ A `Tag` is a simple label with a `tagName` (alphanumeric only).
 
 <img src="images/BetterModelClassDiagram.png" width="450" />
 
-*Figure 10: Shows a design where CourseBook maintains a centralized Tag list referenced by Persons*
+
+*Figure 9: Shows a design where CourseBook maintains a centralized Tag list referenced by Persons*
 
 </div>
 
@@ -491,21 +494,21 @@ The user launches the application for the first time. The `VersionedCourseBook` 
 
 ![UndoRedoState0](images/UndoRedoState0.png)
 
-*Figure 11: Shows initial state with one CourseBook snapshot and pointer at index 0*
+*Figure 10: Shows initial state with one CourseBook snapshot and pointer at index 0*
 
 **Step 2. Delete Command**
 The user executes `delete 5` command to delete the 5th person in the course book. The `delete` command calls `Model#commitCourseBook()`, causing the modified state of the course book after the `delete 5` command executes to be saved in the `courseBookStateList`, and the `currentStatePointer` is shifted to the newly inserted state.
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
-*Figure 12: Shows two states: initial and after delete, pointer at index 1*
+*Figure 11: Shows two states: initial and after delete, pointer at index 1*
 
 **Step 3. Add Command**
 The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitCourseBook()`, causing another modified course book state to be saved into the `courseBookStateList`.
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 
-*Figure 13: Shows three states, pointer at index 2*
+*Figure 12: Shows three states, pointer at index 2*
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitCourseBook()`, so the course book state will not be saved into the `courseBookStateList`.
 </div>
@@ -515,7 +518,7 @@ The user now decides that adding the person was a mistake, and decides to undo t
 
 ![UndoRedoState3](images/UndoRedoState3.png)
 
-*Figure 14: Shows three states with pointer moved back to index 1*
+*Figure 13: Shows three states with pointer moved back to index 1*
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial CourseBook state, then there are no previous CourseBook states to restore. The `undo` command uses `Model#canUndoCourseBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 </div>
@@ -526,7 +529,7 @@ The following sequence diagram shows how an undo operation goes through the `Log
 
 ![UndoSequenceDiagram](images/UndoSequenceDiagram-Logic.png)
 
-*Figure 15: Shows the flow from UndoCommand through LogicManager and back*
+*Figure 14: Shows the flow from UndoCommand through LogicManager and back*
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 </div>
@@ -537,7 +540,7 @@ Similarly, how an undo operation goes through the `Model` component is shown bel
 
 ![UndoSequenceDiagram](images/UndoSequenceDiagram-Model.png)
 
-*Figure 16: Shows interactions between ModelManager and VersionedCourseBook during undo*
+*Figure 15: Shows interactions between ModelManager and VersionedCourseBook during undo*
 
 ### 6.8 Redo
 
@@ -551,20 +554,20 @@ The user then decides to execute the command `list`. Commands that do not modify
 
 ![UndoRedoState4](images/UndoRedoState4.png)
 
-*Figure 17: Shows three states with pointer still at index 1 after list command*
+*Figure 16: Shows three states with pointer still at index 1 after list command*
 
 **Step 6. State Branching**
 The user executes `clear`, which calls `Model#commitCourseBook()`. Since the `currentStatePointer` is not pointing at the end of the `courseBookStateList`, all course book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
 
 ![UndoRedoState5](images/UndoRedoState5.png)
 
-*Figure 18: Shows two states: original and clear state, with the "add David" state purged*
+*Figure 17: Shows two states: original and clear state, with the "add David" state purged*
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
 <img src="images/CommitActivityDiagram.png" width="250" />
 
-*Figure 19: Shows decision flow: if command modifies data → check if states after pointer exist → purge if yes → add new state*
+*Figure 18: Shows decision flow: if command modifies data → check if states after pointer exist → purge if yes → add new state*
 
 ### 6.9 Design Considerations for Undo/Redo
 
@@ -572,7 +575,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 **Alternative 1 (current choice): Saves the entire course book.**
 - **Pros:** Easy to implement, guaranteed consistency (entire state snapshot)
-- **Cons:** May have performance issues in terms of memory usage (multiple full copies in memory)
+- **Cons:** My have performance issues in terms of memory usage (multiple full copies in memory)
 
 **Alternative 2: Individual command undo (Command Pattern with reverse operations).**
 - **Pros:** Memory efficient (only store deltas), potentially faster
@@ -605,13 +608,13 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 ---
 
-## **7. Storage Component**
+## 7. Storage Component
 
 **API**: [`Storage.java`](https://github.com/AY2526S1-CS2103T-F10-2/tp/tree/master/src/main/java/seedu/coursebook/storage/Storage.java)
 
 <img src="images/StorageClassDiagram.png" width="550" />
 
-*Figure 20: Shows StorageManager, JsonCourseBookStorage, JsonUserPrefsStorage, and JSON adapter classes)*
+*Figure 19: Shows StorageManager, JsonCourseBookStorage, JsonUserPrefsStorage, and JSON adapter classes*
 
 ### 7.1 Structure and Responsibilities
 
@@ -763,7 +766,7 @@ Person personObject = jsonPerson.toModelType(); // throws IllegalValueException 
 
 ---
 
-## **8. Common Classes**
+## 8. Common Classes
 
 Classes used by multiple components are in the `seedu.coursebook.commons` package.
 
@@ -823,7 +826,7 @@ Classes used by multiple components are in the `seedu.coursebook.commons` packag
 
 ---
 
-## **9. Implementation Details**
+## 9. Implementation Details
 
 ### 9.1 Course Color Management
 
