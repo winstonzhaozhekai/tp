@@ -10,6 +10,7 @@ import static seedu.coursebook.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.coursebook.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.coursebook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.coursebook.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.coursebook.logic.commands.CommandTestUtil.assertDuplicateFailure;
 import static seedu.coursebook.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.coursebook.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.coursebook.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
@@ -128,7 +129,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(personInList).build());
 
-        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertDuplicateFailure(editCommand, model, commandHistory, "Operation would result in duplicate persons");
     }
 
     @Test

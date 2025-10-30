@@ -20,6 +20,7 @@ import seedu.coursebook.model.CourseBook;
 import seedu.coursebook.model.Model;
 import seedu.coursebook.model.person.NameContainsKeywordsPredicate;
 import seedu.coursebook.model.person.Person;
+import seedu.coursebook.model.person.exceptions.DuplicatePersonException;
 import seedu.coursebook.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -119,6 +120,33 @@ public class CommandTestUtil {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel, actualCommandHistory));
+        assertEquals(expectedAddressBook, actualModel.getCourseBook());
+        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+        assertEquals(expectedSelectedPerson, actualModel.getSelectedPerson());
+        assertEquals(expectedCommandHistory, actualCommandHistory);
+    }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - a {@code DuplicatePersonException} is thrown <br>
+     * - the DuplicatePersonException message matches {@code expectedMessage} <br>
+     * - the address book, filtered person list and selected person in {@code actualModel} remain unchanged <br>
+     * - {@code actualCommandHistory} remains unchanged.
+     */
+    public static void assertDuplicateFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
+                                            String expectedMessage) {
+        // we are unable to defensively copy the model for comparison later, so we can
+        // only do so by copying its components.
+        CourseBook expectedAddressBook = new CourseBook(actualModel.getCourseBook());
+        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        Person expectedSelectedPerson = actualModel.getSelectedPerson();
+
+        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+
+        assertThrows(
+                DuplicatePersonException.class, expectedMessage, () ->
+                        command.execute(actualModel, actualCommandHistory)
+        );
         assertEquals(expectedAddressBook, actualModel.getCourseBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
         assertEquals(expectedSelectedPerson, actualModel.getSelectedPerson());
