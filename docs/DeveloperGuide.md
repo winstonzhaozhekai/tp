@@ -207,7 +207,7 @@ For example, the `Logic` component defines its API in the [Logic.java](https://g
 
 <img src="images/ComponentManagers.png" width="300" />
 
-*Figure 14: Shows the interface-implementation pattern for component managers*
+*Figure 3: Shows the interface-implementation pattern for component managers*
 
 The sections below give more details of each component.
 
@@ -246,7 +246,6 @@ These patterns enable maintainability, testability, and extensibility. The layer
 **API**: [`Ui.java`](https://github.com/AY2526S1-CS2103T-F10-2/tp/tree/master/src/main/java/seedu/coursebook/ui/Ui.java)
 
 ![Structure of the UI Component](images/UiClassDiagram.png)
-
 *Figure 4: Shows the structure of UI components including MainWindow, PersonListPanel, CourseListPanel, CommandBox, ResultDisplay, etc.*
 
 ### 4.1 Structure
@@ -322,7 +321,6 @@ Here's a (partial) class diagram of the `Logic` component:
 The sequence diagram below illustrates the interactions within the `Logic` component for the API call `execute("delete 1")`.
 
 ![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
-
 *Figure 6: Shows the detailed flow from parsing to execution for a delete command*
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
@@ -485,7 +483,7 @@ A `Tag` is a simple label with a `tagName` (alphanumeric only).
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `CourseBook`, which `Person` references. This allows `CourseBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
 
-<img src="images/BetterModelClassDiagram.png" width="450" />
+<img src="images/BetterModelClassDiagram.png" width="450" /><br>
 
 
 *Figure 9: Shows a design where CourseBook maintains a centralized Tag list referenced by Persons*
@@ -520,21 +518,17 @@ These operations are exposed in the `Model` interface as `Model#commitCourseBook
 The user launches the application for the first time. The `VersionedCourseBook` will be initialized with the initial course book state, and the `currentStatePointer` pointing to that single course book state.
 
 ![UndoRedoState0](images/UndoRedoState0.png)
-
 *Figure 10: Shows initial state with one CourseBook snapshot and pointer at index 0*
 
 **Step 2. Delete Command**
 The user executes `delete 5` command to delete the 5th person in the course book. The `delete` command calls `Model#commitCourseBook()`, causing the modified state of the course book after the `delete 5` command executes to be saved in the `courseBookStateList`, and the `currentStatePointer` is shifted to the newly inserted state.
 
 ![UndoRedoState1](images/UndoRedoState1.png)
-
 *Figure 11: Shows two states: initial and after delete, pointer at index 1*
 
 **Step 3. Add Command**
 The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitCourseBook()`, causing another modified course book state to be saved into the `courseBookStateList`.
-
 ![UndoRedoState2](images/UndoRedoState2.png)
-
 *Figure 12: Shows three states, pointer at index 2*
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitCourseBook()`, so the course book state will not be saved into the `courseBookStateList`.
@@ -544,7 +538,6 @@ The user executes `add n/David …​` to add a new person. The `add` command al
 The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoCourseBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous course book state, and restores the course book to that state.
 
 ![UndoRedoState3](images/UndoRedoState3.png)
-
 *Figure 13: Shows three states with pointer moved back to index 1*
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial CourseBook state, then there are no previous CourseBook states to restore. The `undo` command uses `Model#canUndoCourseBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
@@ -555,7 +548,6 @@ The user now decides that adding the person was a mistake, and decides to undo t
 The following sequence diagram shows how an undo operation goes through the `Logic` component:
 
 ![UndoSequenceDiagram](images/UndoSequenceDiagram-Logic.png)
-
 *Figure 14: Shows the flow from UndoCommand through LogicManager and back*
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
@@ -566,7 +558,6 @@ The following sequence diagram shows how an undo operation goes through the `Log
 Similarly, how an undo operation goes through the `Model` component is shown below:
 
 ![UndoSequenceDiagram](images/UndoSequenceDiagram-Model.png)
-
 *Figure 15: Shows interactions between ModelManager and VersionedCourseBook during undo*
 
 ### 6.8 Redo
@@ -580,14 +571,12 @@ The `redo` command does the opposite — it calls `Model#redoCourseBook()`, whic
 The user then decides to execute the command `list`. Commands that do not modify the course book, such as `list`, will usually not call `Model#commitCourseBook()`, `Model#undoCourseBook()`, or `Model#redoCourseBook()`. Thus, the `courseBookStateList` remains unchanged.
 
 ![UndoRedoState4](images/UndoRedoState4.png)
-
 *Figure 16: Shows three states with pointer still at index 1 after list command*
 
 **Step 6. State Branching**
 The user executes `clear`, which calls `Model#commitCourseBook()`. Since the `currentStatePointer` is not pointing at the end of the `courseBookStateList`, all course book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
 
 ![UndoRedoState5](images/UndoRedoState5.png)
-
 *Figure 17: Shows two states: original and clear state, with the "add David" state purged*
 
 The following activity diagram summarizes what happens when a user executes a new command:
