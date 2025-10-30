@@ -112,14 +112,14 @@ title: Developer Guide
 
 ---
 
-## **Acknowledgements**
+## Acknowledgements
 
 - The features undo and redo were inspired by similar features of the SE-EDU Address Book (Level 4) https://se-education.org/addressbook-level4/
 - CourseBook is built upon the AddressBook-Level3 (AB3) foundation created by the [SE-EDU initiative](https://se-education.org)
 
 ---
 
-## **1. Introduction**
+## 1. Introduction
 
 ### 1.1 About CourseBook
 
@@ -152,13 +152,13 @@ This guide is intended for:
 
 ---
 
-## **2. Setting up, getting started**
+## 2. Setting up, getting started
 
 Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 ---
 
-## **3. Architecture**
+## 3. Architecture
 
 <div markdown="span" class="alert alert-primary">
 
@@ -241,7 +241,7 @@ These patterns enable maintainability, testability, and extensibility. The layer
 
 ---
 
-## **4. UI Component**
+## 4. UI Component
 
 **API**: [`Ui.java`](https://github.com/AY2526S1-CS2103T-F10-2/tp/tree/master/src/main/java/seedu/coursebook/ui/Ui.java)
 
@@ -305,7 +305,7 @@ The `theme` command triggers a theme change by updating the `CommandResult` with
 
 ---
 
-## **5. Logic Component**
+## 5. Logic Component
 
 **API**: [`Logic.java`](https://github.com/AY2526S1-CS2103T-F10-2/tp/tree/master/src/main/java/seedu/coursebook/logic/Logic.java)
 
@@ -436,7 +436,7 @@ CourseBook implements **27 command classes** following the Command Pattern:
 
 ---
 
-## **6. Model Component**
+## 6. Model Component
 
 **API**: [`Model.java`](https://github.com/AY2526S1-CS2103T-F10-2/tp/tree/master/src/main/java/seedu/coursebook/model/Model.java)
 
@@ -635,7 +635,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 ---
 
-## **7. Storage Component**
+## 7. Storage Component
 
 **API**: [`Storage.java`](https://github.com/AY2526S1-CS2103T-F10-2/tp/tree/master/src/main/java/seedu/coursebook/storage/Storage.java)
 
@@ -793,7 +793,7 @@ Person personObject = jsonPerson.toModelType(); // throws IllegalValueException 
 
 ---
 
-## **8. Common Classes**
+## 8. Common Classes
 
 Classes used by multiple components are in the `seedu.coursebook.commons` package.
 
@@ -853,7 +853,7 @@ Classes used by multiple components are in the `seedu.coursebook.commons` packag
 
 ---
 
-## **9. Implementation Details**
+## 9. Implementation Details
 
 ### 9.1 Course Color Management
 
@@ -1006,7 +1006,7 @@ CourseBook uses a **two-phase deletion** process:
 
 ---
 
-## **10. Testing**
+## 10. Testing
 
 ### 10.1 Testing Philosophy
 
@@ -1224,7 +1224,7 @@ CourseBook uses **GitHub Actions** for CI:
 
 ---
 
-## **11. Logging**
+## 11. Logging
 
 ### 11.1 Logging Infrastructure
 
@@ -1284,7 +1284,7 @@ Log level is configured in `config.json`:
 
 ---
 
-## **12. Configuration**
+## 12. Configuration
 
 Refer to the guide [_Configuration guide_](Configuration.md).
 
@@ -1296,7 +1296,7 @@ Refer to the guide [_Configuration guide_](Configuration.md).
 
 ---
 
-## **13. Documentation, logging, testing, configuration, dev-ops**
+## 13. Documentation, logging, testing, configuration, dev-ops
 
 - [Documentation guide](Documentation.md)
 - [Testing guide](Testing.md)
@@ -1306,7 +1306,7 @@ Refer to the guide [_Configuration guide_](Configuration.md).
 
 ---
 
-## **14. Appendix: Requirements**
+## 14. Appendix: Requirements
 
 ### 14.1 Product Scope
 
@@ -1680,7 +1680,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-## **15. Appendix: Instructions for Manual Testing**
+## 15. Appendix: Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
 
@@ -1977,7 +1977,7 @@ History (from latest to earliest)
 
 ---
 
-## **16. Appendix: Effort**
+## 16. Appendix: Effort
 
 ### 16.1 Difficulty Level
 
@@ -2078,7 +2078,7 @@ CourseBook represents a **moderate to high difficulty** extension of AB3. While 
 
 ---
 
-## **17. Appendix: Planned Enhancements**
+## 17. Appendix: Planned Enhancements
 
 ### Team Size: 5
 
@@ -2203,7 +2203,7 @@ CourseBook represents a **moderate to high difficulty** extension of AB3. While 
 
 ---
 
-## **18. Summary**
+## 18. Summary
 
 CourseBook is a robust, well-architected application for managing academic contacts. This Developer Guide provides comprehensive documentation of the system's design, implementation, and testing strategy. Key highlights:
 
