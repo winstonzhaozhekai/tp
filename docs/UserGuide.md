@@ -140,14 +140,14 @@ You should see output indicating Java 17 or higher.
 A window similar to the one below should appear in a few seconds:
 
 ![CourseBook UI](images/Ui.jpg)
-*Figure 1: CourseBook main interface with sample data*
+*Figure 1: CourseBook main interface with sample data.*
 
 ### Step 4: Explore the Interface
 
 The CourseBook interface has several key areas:
 
 ![UI Overview](images/interface.jpg)
-*Figure 2: CourseBook UI components breakdown*
+*Figure 2: CourseBook UI components breakdown.*
 
 1. **Command Box** (top): Type your commands here and press Enter to execute
 2. **Result Display** (below command box): Shows feedback and results from your commands
@@ -302,7 +302,7 @@ New person added: John Doe; Phone: 98765432; Email: johnd@example.com; Address: 
 ```
 
 ![Add Command](images/AddCommand.png)
-*Figure 4: State of CourseBook after adding the three people.*
+*Figure 3: State of CourseBook after adding the three people.*
 
 <div markdown="span" class="alert alert-danger">
 
@@ -393,7 +393,7 @@ Deletes one or more contacts from the coursebook. Can delete by index or by name
 Before deletion, a confirmation dialog appears showing the contacts to be deleted. You must click "OK" to confirm or "Cancel" to abort.
 
 ![Delete Confirmation](images/DeleteConfirmation.png)
-*Figure 5: Delete confirmation window pop up.*
+*Figure 4: Delete confirmation window pop up.*
 
 <div markdown="span" class="alert alert-danger">
 
@@ -455,6 +455,7 @@ delete 1
 
 **Expected Output (before confirmation):**
 ![Delete Confirmation](images/confirmation.jpg)
+*Figure 5: Delete confirmation screen for singular person,*
 
 **Expected Output (after confirmation):**
 ```
@@ -464,10 +465,12 @@ Deleted Person: John Doe; Phone: 98765432; Email: johnd@example.com; Address: Jo
 **Expected Output (multiple deletions):**
     
 ![Multiple Delete Confirmation](images/multiple_confirm.jpg)
+*Figure 6: Delete confirmation screen for multiple persons.*
 
 **Expected Output (with warnings):**
 
 ![Delete Warning](images/delete_warning.jpg)
+*Figure 7: Delete confirmation screen for multiple persons and invalid index provided.*
 
 **Error Messages:**
 
@@ -626,7 +629,7 @@ Showing details for: David Ong; Phone: 91031282; Email: lidavid@example.com; Add
 *A popup window displays full contact details including courses, tags, birthday, etc.*
 
 ![Viewperson Popup](images/ViewpersonPopup.png)
-*Figure 6: Popup window of the details of the person named "John Doe".*
+*Figure 8: Popup window of the details of the person named "John Doe".*
 
 **Error Messages:**
 
@@ -787,7 +790,7 @@ Shows all contacts marked as favorites.
 Listed all favourite contacts.
 ```
 ![Favs list](images/FavsList.png)
-*Figure 7: List of favourite contacts.*
+*Figure 9: List of favourite contacts.*
 
 
 **Expected Output (no favorites):**
@@ -1015,7 +1018,7 @@ ls c/cs2101
 Listed all persons in CS2103T
 ```
 ![List By Course](images/ListByCourse.png)
-*Figure 8: List of contacts taking course CS2103T.*
+*Figure 10: List of contacts taking course CS2103T.*
 
 **Expected Output (not found):**
 ```
@@ -1046,7 +1049,7 @@ Returns to the home page showing all courses.
 Welcome home!
 ```
 ![Course View](images/CoursesView.png)
-*Figure 9: Home view.*
+*Figure 11: Home view.*
 
 **Related:** [Listing courses](#424-listing-all-courses-listcourses)
 
@@ -1088,24 +1091,24 @@ Changes the application's visual theme.
 theme blue
 ```
 ![Theme Blue](images/ThemeBlue.png)
-*Figure 9: Changes to blue theme.*
+*Figure 12: Changes to blue theme.*
 ```
 theme dark
 ```
 ![Theme Dark](images/ThemeDark.png)
-*Figure 10: Changes to dark theme.*
+*Figure 13: Changes to dark theme.*
 
 ```
 theme love
 ```
 ![Theme Love](images/ThemeLove.png)
-*Figure 11: Changes to love theme.*
+*Figure 14: Changes to love theme.*
 
 ```
 theme tree
 ```
 ![Theme Tree](images/ThemeTree.png)
-*Figure 12: Changes to tree theme.*
+*Figure 15: Changes to tree theme.*
 
 
 **Expected Output:**
@@ -1203,7 +1206,7 @@ sortb
 Sorted contacts by upcoming birthday.
 ```
 ![Sort By Birthday](images/SortBirthday.png)
-*Figure 13: Sorted contacts.*
+*Figure 16: Sorted contacts.*
 
 **Expected Output (empty list):**
 ```
@@ -1324,7 +1327,7 @@ Opened help window.
 ```
 
 ![Help Window](images/helpMessage.png)
-*Figure 3: Help window showing command summary table*
+*Figure 17: Help window showing command summary table.*
 
 <div markdown="span" class="alert alert-primary">
 
@@ -1484,8 +1487,7 @@ Redo success!
 Each person card has a copy button on the right side that copies the phone number to your clipboard.
 
 ![Copy Button](images/copy.jpg)
-
-*Figure 15: Copy person's phone number to clipboard*
+*Figure 18: Copy person's phone number to clipboard.*
 
 **How to use:**
 
