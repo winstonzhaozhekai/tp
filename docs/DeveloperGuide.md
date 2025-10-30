@@ -57,54 +57,27 @@ title: Developer Guide
     * [9.3 Theme Persistence in Undo/Redo](#93-theme-persistence-in-undoredo)
     * [9.4 Birthday Sorting](#94-birthday-sorting)
     * [9.5 Favorite Status Preservation](#95-favorite-status-preservation)
-* [10. Testing](#10-testing)
-    * [10.1 Testing Philosophy](#101-testing-philosophy)
-    * [10.2 Test Structure](#102-test-structure)
-    * [10.3 Running Tests](#103-running-tests)
-    * [10.4 Unit Tests](#104-unit-tests)
-    * [10.5 Integration Tests](#105-integration-tests)
-    * [10.6 System Tests (Manual)](#106-system-tests-manual)
-    * [10.7 Test Utilities](#107-test-utilities)
-    * [10.8 Continuous Integration](#108-continuous-integration)
-* [11. Logging](#11-logging)
-    * [11.1 Logging Infrastructure](#111-logging-infrastructure)
-    * [11.2 Log Output](#112-log-output)
-    * [11.3 Using Logs](#113-using-logs)
-    * [11.4 Configuration](#114-configuration)
-* [12. Configuration](#12-configuration)
-* [13. Documentation, logging, testing, configuration, dev-ops](#13-documentation-logging-testing-configuration-dev-ops)
-* [14. Appendix: Requirements](#14-appendix-requirements)
-    * [14.1 Product Scope](#141-product-scope)
-    * [14.2 User Stories](#142-user-stories)
-    * [14.3 Use Cases](#143-use-cases)
-    * [14.4 Non-Functional Requirements](#144-non-functional-requirements)
-    * [14.5 Glossary](#145-glossary)
-* [15. Appendix: Instructions for Manual Testing](#15-appendix-instructions-for-manual-testing)
-    * [15.1 Launch and Shutdown](#151-launch-and-shutdown)
-    * [15.2 Adding a Person](#152-adding-a-person)
-    * [15.3 Deleting a Person](#153-deleting-a-person)
-    * [15.4 Editing a Person](#154-editing-a-person)
-    * [15.5 Finding Persons](#155-finding-persons)
-    * [15.6 Adding Courses to a Person](#156-adding-courses-to-a-person)
-    * [15.7 Listing by Course](#157-listing-by-course)
-    * [15.8 Undo and Redo](#158-undo-and-redo)
-    * [15.9 Command History](#159-command-history)
-    * [15.10 Changing Theme](#1510-changing-theme)
-    * [15.11 Sorting](#1511-sorting)
-    * [15.12 Favorites](#1512-favorites)
-    * [15.13 Birthday Management](#1513-birthday-management)
-    * [15.14 View Person Details](#1514-view-person-details)
-    * [15.15 Summary Statistics](#1515-summary-statistics)
-    * [15.16 Saving Data](#1516-saving-data)
-    * [15.17 Data Persistence](#1517-data-persistence)
-* [16. Appendix: Effort](#16-appendix-effort)
-    * [16.1 Difficulty Level](#161-difficulty-level)
-    * [16.2 Challenges Faced](#162-challenges-faced)
-    * [16.3 Effort Comparison to AB3](#163-effort-comparison-to-ab3)
-    * [16.4 Achievements](#164-achievements)
-    * [16.5 Effort Summary](#165-effort-summary)
-* [17. Appendix: Planned Enhancements](#17-appendix-planned-enhancements)
-* [18. Summary](#18-summary)
+* [10. Logging](#10-logging)
+    * [10.1 Logging Infrastructure](#101-logging-infrastructure)
+    * [10.2 Log Output](#102-log-output)
+    * [10.3 Using Logs](#103-using-logs)
+    * [10.4 Configuration](#104-configuration)
+* [11. Configuration](#11-configuration)
+* [12. Documentation, logging, configuration, dev-ops](#12-documentation-logging-configuration-dev-ops)
+* [13. Appendix: Requirements](#13-appendix-requirements)
+    * [13.1 Product Scope](#131-product-scope)
+    * [13.2 User Stories](#132-user-stories)
+    * [13.3 Use Cases](#133-use-cases)
+    * [13.4 Non-Functional Requirements](#134-non-functional-requirements)
+    * [13.5 Glossary](#135-glossary)
+* [14. Appendix: Effort](#14-appendix-effort)
+    * [14.1 Difficulty Level](#141-difficulty-level)
+    * [14.2 Challenges Faced](#142-challenges-faced)
+    * [14.3 Effort Comparison to AB3](#143-effort-comparison-to-ab3)
+    * [14.4 Achievements](#144-achievements)
+    * [14.5 Effort Summary](#145-effort-summary)
+* [15. Appendix: Planned Enhancements](#15-appendix-planned-enhancements)
+* [16. Summary](#16-summary)
 
 
 
@@ -1003,227 +976,9 @@ CourseBook uses a **two-phase deletion** process:
 
 ---
 
-## **10. Testing**
+## **10. Logging**
 
-### 10.1 Testing Philosophy
-
-CourseBook employs a comprehensive testing strategy covering unit tests, integration tests, and system tests. The testing framework is JUnit 5 (Jupiter) with JaCoCo for code coverage reporting.
-
-**Testing Principles:**
-1. **Test Independence:** Tests should not depend on each other (no shared state)
-2. **Fast Feedback:** Unit tests should run quickly (entire suite in <30 seconds)
-3. **Meaningful Assertions:** Assert on expected behavior, not implementation details
-
-### 10.2 Test Structure
-
-```
-src/test/java/seedu/coursebook/
-├── commons/                  # Commons utility tests
-│   ├── core/                 # Config, Version, Index tests
-│   └── util/                 # StringUtil, FileUtil tests
-├── logic/                    # Logic layer tests
-│   ├── commands/             # 24 command test classes
-│   ├── parser/               # 13 parser test classes
-│   └── LogicManagerTest.java
-├── model/                    # Model layer tests
-│   ├── person/               # Person, UniquePersonList tests
-│   ├── course/               # Course tests
-│   └── ModelManagerTest.java
-├── storage/                  # Storage layer tests
-│   ├── JsonCourseBookStorageTest.java
-│   └── JsonUserPrefsStorageTest.java
-└── testutil/                 # Test utilities and builders
-    ├── TypicalPersons.java   # Standard test data
-    ├── PersonBuilder.java    # Fluent API for creating test persons
-    └── CourseBookBuilder.java
-```
-
-### 10.3 Running Tests
-
-**Run all tests:**
-```bash
-./gradlew test
-```
-
-**Run tests for a specific package:**
-```bash
-./gradlew test --tests seedu.coursebook.logic.commands.*
-```
-
-**Generate code coverage report:**
-```bash
-./gradlew coverage
-# Report generated at build/reports/jacoco/test/html/index.html
-```
-
-### 10.4 Unit Tests
-
-**Command Tests:**
-
-Each command class has a corresponding test class that verifies:
-- **Success cases:** Command executes correctly with valid inputs
-- **Failure cases:** Command throws `CommandException` for invalid states
-- **Model interactions:** Correct methods are called on Model
-- **Equivalence partitioning:** Boundary values, null values, empty strings
-
-**Example - AddCommandTest.java:**
-```java
-@Test
-public void execute_newPerson_success() {
-    Person validPerson = new PersonBuilder().build();
-    Model model = new ModelManager();
-
-    CommandResult result = new AddCommand(validPerson).execute(model);
-
-    assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson),
-                 result.getFeedbackToUser());
-    assertEquals(validPerson, model.getFilteredPersonList().get(0));
-}
-
-@Test
-public void execute_duplicatePerson_throwsCommandException() {
-    Person person = new PersonBuilder().build();
-    Model model = new ModelManager();
-    model.addPerson(person);
-
-    assertThrows(CommandException.class, () ->
-        new AddCommand(person).execute(model));
-}
-```
-
-**Parser Tests:**
-
-Each parser class is tested for:
-- **Valid inputs:** Correct Command object is created
-- **Invalid inputs:** `ParseException` is thrown
-- **Missing required fields:** Appropriate error messages
-- **Invalid field formats:** Appropriate validation errors
-
-**Example - AddCommandParserTest.java:**
-```java
-@Test
-public void parse_allFieldsPresent_success() {
-    String userInput = " n/John p/91234567 e/john@example.com a/123 Main St";
-
-    AddCommand command = new AddCommandParser().parse(userInput);
-
-    assertEquals(new AddCommand(/* expected person */), command);
-}
-
-@Test
-public void parse_missingName_throwsParseException() {
-    String userInput = " p/91234567 e/john@example.com a/123 Main St";
-
-    assertThrows(ParseException.class, () ->
-        new AddCommandParser().parse(userInput));
-}
-```
-
-### 10.5 Integration Tests
-
-**AddCommandIntegrationTest:**
-
-Tests the interaction between `AddCommand`, `Model`, and `Storage`:
-```java
-@Test
-public void execute_newPerson_addedToModelAndStorage() throws Exception {
-    Model model = new ModelManager();
-    Storage storage = new StorageManager(/* temp file paths */);
-    Logic logic = new LogicManager(model, storage);
-
-    logic.execute("add n/John p/91234567 e/john@example.com a/123 Main St");
-
-    // Verify model updated
-    assertEquals(1, model.getFilteredPersonList().size());
-
-    // Verify storage file updated
-    Optional<ReadOnlyCourseBook> savedData = storage.readCourseBook();
-    assertTrue(savedData.isPresent());
-    assertEquals(1, savedData.get().getPersonList().size());
-}
-```
-
-**LogicManagerTest:**
-
-Tests the full command execution pipeline:
-- Command parsing
-- Command execution
-- Model updates
-- Storage persistence
-- CommandResult generation
-
-### 10.6 System Tests (Manual)
-
-Refer to [Testing guide](Testing.md) and [User Guide - Manual Testing](UserGuide.md#appendix-instructions-for-manual-testing) for system test cases.
-
-**Key System Test Scenarios:**
-- Launch and shutdown
-- Data persistence across sessions
-- Invalid data file handling
-- Undo/redo across multiple commands
-- Theme persistence
-- Large dataset performance (1000 persons)
-
-### 10.7 Test Utilities
-
-**TypicalPersons.java:**
-
-Provides standard test data:
-```java
-public class TypicalPersons {
-    public static final Person ALICE = new PersonBuilder()
-        .withName("Alice Pauline")
-        .withPhone("94351253")
-        .withEmail("alice@example.com")
-        .withAddress("123, Jurong West Ave 6")
-        .withTags("friends")
-        .withCourses("CS2103T,YELLOW")
-        .build();
-
-    // ... more typical persons ...
-
-    public static CourseBook getTypicalCourseBook() {
-        CourseBook cb = new CourseBook();
-        cb.addPerson(ALICE);
-        cb.addPerson(BENSON);
-        // ... add all typical persons ...
-        return cb;
-    }
-}
-```
-
-**PersonBuilder.java:**
-
-Fluent API for creating test persons:
-```java
-Person person = new PersonBuilder()
-    .withName("John Doe")
-    .withPhone("91234567")
-    .withEmail("john@example.com")
-    .withAddress("123 Main St")
-    .withTags("friend", "classmate")
-    .withCourses("CS2103T,YELLOW", "CS2101,BLUE")
-    .withBirthday("20-02-2000")
-    .withFavourite(true)
-    .build();
-```
-
-### 10.8 Continuous Integration
-
-CourseBook uses **GitHub Actions** for CI:
-- Runs all tests on every push and pull request
-- Checks code style with Checkstyle
-- Generates code coverage reports
-- Uploads coverage to Codecov
-- Fails build if tests fail or coverage drops below threshold
-
-**CI Configuration:** `.github/workflows/gradle.yml`
-
----
-
-## **11. Logging**
-
-### 11.1 Logging Infrastructure
+### 10.1 Logging Infrastructure
 
 CourseBook uses **`java.util.logging`** package through a centralized `LogsCenter` class.
 
@@ -1235,7 +990,7 @@ CourseBook uses **`java.util.logging`** package through a centralized `LogsCente
 - `FINER` - Very detailed tracing
 - `FINEST` - Extremely detailed tracing
 
-### 11.2 Log Output
+### 10.2 Log Output
 
 **Console Output:**
 - Only `INFO` and above are logged to console by default
@@ -1246,7 +1001,7 @@ CourseBook uses **`java.util.logging`** package through a centralized `LogsCente
 - File is created in the same directory as the JAR file
 - Rotated when it exceeds 5MB
 
-### 11.3 Using Logs
+### 10.3 Using Logs
 
 **Obtaining a Logger:**
 ```java
@@ -1270,7 +1025,7 @@ public class MyClass {
 - Avoid logging sensitive data (passwords, etc.)
 - Use appropriate log levels (don't log everything at `INFO`)
 
-### 11.4 Configuration
+### 10.4 Configuration
 
 Log level is configured in `config.json`:
 ```json
@@ -1281,7 +1036,7 @@ Log level is configured in `config.json`:
 
 ---
 
-## **12. Configuration**
+## **11. Configuration**
 
 Refer to the guide [_Configuration guide_](Configuration.md).
 
@@ -1293,19 +1048,18 @@ Refer to the guide [_Configuration guide_](Configuration.md).
 
 ---
 
-## **13. Documentation, logging, testing, configuration, dev-ops**
+## **12. Documentation, logging, configuration, dev-ops**
 
 - [Documentation guide](Documentation.md)
-- [Testing guide](Testing.md)
 - [Logging guide](Logging.md)
 - [Configuration guide](Configuration.md)
 - [DevOps guide](DevOps.md)
 
 ---
 
-## **14. Appendix: Requirements**
+## **13. Appendix: Requirements**
 
-### 14.1 Product Scope
+### 13.1 Product Scope
 
 **Target user profile:**
 
@@ -1324,7 +1078,7 @@ Refer to the guide [_Configuration guide_](Configuration.md).
 
 CourseBook helps university students efficiently manage and organize their academic contacts by course affiliation, making it easy to identify classmates, access instructor information, and foster academic collaboration within specific modules. It is faster than typical mouse-driven GUI apps for users who can type fast.
 
-### 14.2 User Stories
+### 13.2 User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
@@ -1355,7 +1109,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`      | user                                       | export course contact lists                    | share them with study group members                                    |
 | `*`      | user                                       | import contacts from a file                    | quickly populate my address book                                       |
 
-### 14.3 Use Cases
+### 13.3 Use Cases
 
 (For all use cases below, the **System** is the `CourseBook` and the **Actor** is the `user`, unless specified otherwise)
 
@@ -1614,7 +1368,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   - 3a1. CourseBook shows "Theme is already {theme name}!"
   - Use case ends.
 
-### 14.4 Non-Functional Requirements
+### 13.4 Non-Functional Requirements
 
 1. **Platform Compatibility:** Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
 
@@ -1644,7 +1398,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 14. **Documentation:** The product should come with comprehensive user and developer documentation.
 
-### 14.5 Glossary
+### 13.5 Glossary
 
 | Term | Definition |
 |------|------------|
@@ -1677,306 +1431,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-## **15. Appendix: Instructions for Manual Testing**
+## **14. Appendix: Effort**
 
-Given below are instructions to test the app manually.
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** These instructions only provide a starting point for testers to work on; testers are expected to do more *exploratory* testing.
-</div>
-
-### 15.1 Launch and Shutdown
-
-**Initial launch**
-
-1. Download the jar file and copy into an empty folder
-2. Double-click the jar file
-
-   **Expected:** Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
-**Saving window preferences**
-
-1. Resize the window to an optimum size. Move the window to a different location. Close the window.
-2. Re-launch the app by double-clicking the jar file.
-
-   **Expected:** The most recent window size and location is retained.
-
-### 15.2 Adding a Person
-
-**Test case:** `add n/John Doe p/98765432 e/johnd@example.com a/123 Main St`
-
-**Expected:** New contact "John Doe" is added to the list. Success message shown. Timestamp in status bar updated.
-
-**Test case:** `add n/John Doe p/98765432 e/johnd@example.com a/123 Main St` (duplicate)
-
-**Expected:** No person added. Error message: "This person already exists in the address book."
-
-**Test case:** `add n/Alice p/abc e/alice@example.com a/123 Main St` (invalid phone)
-
-**Expected:** No person added. Error message: "Phone numbers should only contain numbers, and it should be 7-15 digits long"
-
-### 15.3 Deleting a Person
-
-**Deleting a person while all persons are being shown**
-
-1. **Prerequisites:** List all persons using the `list` command. Multiple persons in the list.
-
-2. **Test case:** `delete 1`
-
-   **Expected:** Confirmation dialog appears showing the 1st contact. Click "OK" → First contact is deleted from the list. Success message shown. Timestamp updated.
-
-3. **Test case:** `delete 0`
-
-   **Expected:** No person deleted. Error message: "Invalid command format!"
-
-4. **Test case:** `delete x` (where x is larger than the list size)
-
-   **Expected:** Confirmation dialog appears with warning: "Index x is out of range." No contacts listed for deletion. Click "OK" → No person deleted. Error message: "No valid persons to delete."
-
-**Deleting by name**
-
-1. **Test case:** `delete John Doe` (assuming John Doe exists and is unique)
-
-   **Expected:** Confirmation dialog appears showing John Doe. Click "OK" → John Doe is deleted. Success message shown.
-
-2. **Test case:** `delete Nonexistent Name`
-
-   **Expected:** Error message: "No such contact found! Please specify correct contact names."
-
-### 15.4 Editing a Person
-
-**Test case:** `list` → `edit 1 p/91234567 e/newemail@example.com`
-
-**Expected:** 1st person's phone and email updated. Success message shown.
-
-**Test case:** `edit 1 n/` (empty name)
-
-**Expected:** No person edited. Error message: "Names should only contain alphanumeric characters and spaces, and it should not be blank"
-
-**Test case:** `edit 1` (no fields specified)
-
-**Expected:** No person edited. Error message: "At least one field to edit must be provided."
-
-### 15.5 Finding Persons
-
-**Test case:** `find n/alice`
-
-**Expected:** All persons with names containing "alice" (case-insensitive) are listed. Count shown.
-
-**Test case:** `find n/alice n/bob`
-
-**Expected:** All persons with names containing "alice" OR "bob" are listed.
-
-**Test case:** `find p/9123 e/@gmail`
-
-**Expected:** All persons with phone containing "9123" OR email containing "@gmail" are listed.
-
-**Test case:** `find n/xyz` (no matches)
-
-**Expected:** Empty list shown. Message: "No such contact found"
-
-### 15.6 Adding Courses to a Person
-
-**Test case:** `list` → `addcourse 1 c/CS2103T,yellow`
-
-**Expected:** CS2103T (yellow) added to 1st person. Success message shown.
-
-**Test case:** `addcourse 1 c/CS2103T,yellow` (duplicate course)
-
-**Expected:** Error message: "This person already has one or more of these courses"
-
-**Test case:** `addcourse 999 c/CS2103T` (invalid index)
-
-**Expected:** Error message: "The person index provided is invalid"
-
-### 15.7 Listing by Course
-
-**Test case:** `list c/CS2103T`
-
-**Expected:** All persons enrolled in CS2103T are shown. Message: "Listed all persons in CS2103T"
-
-**Test case:** `list c/NONEXISTENT`
-
-**Expected:** Empty list shown. Message: "No such course: NONEXISTENT"
-
-### 15.8 Undo and Redo
-
-**Undo a command**
-
-1. **Prerequisites:** Execute a command that modifies the course book (e.g., `add`, `delete`, `edit`)
-
-2. **Test case:** `undo`
-
-   **Expected:** The last modification is reverted. Message: "Undo success!"
-
-**No commands to undo**
-
-1. **Prerequisites:** Execute commands that do not change the state of the CourseBook (e.g., `list`, `find`, `help`)
-
-2. **Test case:** `undo`
-
-   **Expected:** Error message: "No more commands to undo!"
-
-**Redo a command**
-
-1. **Prerequisites:** Execute a modifying command, then `undo` it.
-
-2. **Test case:** `redo`
-
-   **Expected:** The undone command is reapplied. Message: "Redo success!"
-
-**No commands to redo**
-
-1. **Prerequisites:** Have not undone anything, or made a new change after undoing.
-
-2. **Test case:** `redo`
-
-   **Expected:** Error message: "No more commands to redo!"
-
-### 15.9 Command History
-
-**Test case:** Execute `list`, then `find n/alice`, then `history`
-
-**Expected:** History displayed in reverse chronological order:
-```
-History (from latest to earliest)
-1. find n/alice
-2. list
-```
-
-**Test case:** `history` (with no prior commands)
-
-**Expected:** Message: "No commands in history!"
-
-### 15.10 Changing Theme
-
-**Test case:** `theme blue` (assuming current theme is not blue)
-
-**Expected:** Theme changes to blue. Message: "Theme changed to: blue"
-
-**Test case:** `theme blue` (assuming current theme is already blue)
-
-**Expected:** Error message: "Theme is already blue!"
-
-**Test case:** `theme invalidtheme`
-
-**Expected:** Error message: "Invalid theme name. Available themes: dark, blue, love, tree"
-
-### 15.11 Sorting
-
-**Sort by name**
-
-**Test case:** `sortn by/asc`
-
-**Expected:** Person list sorted alphabetically A-Z. Message: "Sorted contacts by name in ascending order."
-
-**Test case:** `sortn by/desc`
-
-**Expected:** Person list sorted alphabetically Z-A. Message: "Sorted contacts by name in descending order."
-
-**Sort by birthday**
-
-**Test case:** `sortb` (assuming some persons have birthdays)
-
-**Expected:** Person list sorted by upcoming birthdays. Message: "Sorted contacts by upcoming birthday."
-
-### 15.12 Favorites
-
-**Mark as favorite**
-
-**Test case:** `favourite 1`
-
-**Expected:** 1st person marked as favorite (star icon appears). Success message shown.
-
-**Test case:** `favourite 1` (already favorite)
-
-**Expected:** Error message: "This person is already marked as favourite."
-
-**Unmark favorite**
-
-**Test case:** `unfavourite 1` (assuming 1st person is favorite)
-
-**Expected:** 1st person unmarked as favorite (star icon removed). Success message shown.
-
-**List favorites**
-
-**Test case:** `favs` (assuming some favorites exist)
-
-**Expected:** Only favorite persons shown. Message: "Listed all favourite contacts."
-
-**Test case:** `favs` (no favorites)
-
-**Expected:** Empty list. Message: "No favourite contacts yet."
-
-### 15.13 Birthday Management
-
-**Test case:** `bday 1 b/20-02-2000`
-
-**Expected:** Birthday added to 1st person. Success message shown.
-
-**Test case:** `bday 1 b/31-02-2000` (invalid date)
-
-**Expected:** Error message: "Invalid birthday date: 31-02-2000"
-
-**Test case:** `bday 1 b/20-02-2000` (duplicate birthday)
-
-**Expected:** Error message: "Birthday has already been added!"
-
-### 15.14 View Person Details
-
-**Test case:** `viewperson 1`
-
-**Expected:** Popup window appears showing detailed information for the 1st person.
-
-**Test case:** `viewperson John Doe` (assuming John Doe exists and is unique)
-
-**Expected:** Popup window appears showing detailed information for John Doe.
-
-**Test case:** `viewperson 999` (invalid index)
-
-**Expected:** Error message: "The person index provided is invalid"
-
-### 15.15 Summary Statistics
-
-**Test case:** `summary`
-
-**Expected:** Summary displayed showing total persons and breakdown by course.
-
-**Test case:** `summary` (with empty course book)
-
-**Expected:** Message: "Course book is empty. Please add persons before viewing summary."
-
-### 15.16 Saving Data
-
-**Dealing with missing data file**
-
-1. Delete the `data/coursebook.json` file
-2. Launch the app
-
-   **Expected:** App starts with sample data.
-
-**Dealing with corrupted data file**
-
-1. Open `data/coursebook.json` and insert invalid JSON (e.g., remove a closing brace)
-2. Launch the app
-
-   **Expected:** App starts with empty data. Warning logged.
-
-### 15.17 Data Persistence
-
-**Test case:**
-
-1. Add a person: `add n/Test Person p/12345678 e/test@example.com a/123 Test St`
-2. Exit the app
-3. Relaunch the app
-4. Execute `find n/Test`
-
-   **Expected:** Test Person is still in the course book.
-
----
-
-## **16. Appendix: Effort**
-
-### 16.1 Difficulty Level
+### 14.1 Difficulty Level
 
 CourseBook represents a **moderate to high difficulty** extension of AB3. While the core architecture remained similar, significant effort was invested in:
 
@@ -2010,7 +1467,7 @@ CourseBook represents a **moderate to high difficulty** extension of AB3. While 
    - Making theme changes undoable
    - Persisting theme in both undo/redo history and user preferences
 
-### 16.2 Challenges Faced
+### 14.2 Challenges Faced
 
 **Challenge 1: Global Course Color Consistency**
 
@@ -2021,7 +1478,7 @@ CourseBook represents a **moderate to high difficulty** extension of AB3. While 
 - New course codes accept user-specified color or default to GREEN
 - `EditCourseColorCommand` globally updates all instances of a course code
 
-**Effort:** ~4 hours design + 6 hours implementation + 3 hours testing
+**Effort:** ~10 hours design and implementation
 
 **Challenge 2: Theme Persistence in Undo/Redo**
 
@@ -2029,7 +1486,7 @@ CourseBook represents a **moderate to high difficulty** extension of AB3. While 
 
 **Solution:** Added `currentTheme` field to `CourseBook` (Model), with special handling in `ModelManager` to detect theme changes during undo/redo and communicate them to UI via `CommandResult`.
 
-**Effort:** ~3 hours design + 4 hours implementation + 2 hours testing
+**Effort:** ~7 hours design and implementation
 
 **Challenge 3: Two-Phase Deletion with Bulk Operations**
 
@@ -2037,9 +1494,9 @@ CourseBook represents a **moderate to high difficulty** extension of AB3. While 
 
 **Solution:** `DeleteCommand` validates all indices/names, separates valid and invalid, returns `CommandResult` with confirmation request. `MainWindow` displays dialog. `ConfirmDeleteCommand` performs actual deletion.
 
-**Effort:** ~5 hours design + 8 hours implementation + 4 hours testing
+**Effort:** ~13 hours design and implementation
 
-### 16.3 Effort Comparison to AB3
+### 14.3 Effort Comparison to AB3
 
 | Aspect | AB3 | CourseBook | Effort Multiplier |
 |--------|-----|------------|-------------------|
@@ -2048,11 +1505,10 @@ CourseBook represents a **moderate to high difficulty** extension of AB3. While 
 | **Model Entities** | Person, Tag | Person, Course, Tag, Birthday | ~2x |
 | **Undo/Redo Complexity** | Basic | Theme-aware | ~1.5x |
 | **UI Components** | Basic | + Themes, CourseListPanel, PersonDetailWindow | ~1.8x |
-| **Test Classes** | ~40 | 88 | ~2.2x |
 
 **Overall Effort Multiplier:** ~2.5x relative to AB3
 
-### 16.4 Achievements
+### 14.4 Achievements
 
 1. **Comprehensive Feature Set:** 27 commands covering person management, course management, favorites, birthdays, sorting, searching, undo/redo, theming, and more.
 
@@ -2062,20 +1518,19 @@ CourseBook represents a **moderate to high difficulty** extension of AB3. While 
 
 4. **Thorough Documentation:** Comprehensive Developer Guide (this document) and User Guide with detailed command reference.
 
-### 16.5 Effort Summary
+### 14.5 Effort Summary
 
 **Total Effort (Team of 5):**
 - **Design & Planning:** ~30 person-hours
 - **Implementation:** ~250 person-hours
-- **Testing:** ~80 person-hours
 - **Documentation:** ~60 person-hours
 - **Bug Fixing & Refinement:** ~40 person-hours
 
-**Total:** ~460 person-hours (~92 hours per team member over ~8 weeks)
+**Total:** ~380 person-hours (~76 hours per team member over ~8 weeks)
 
 ---
 
-## **17. Appendix: Planned Enhancements**
+## **15. Appendix: Planned Enhancements**
 
 ### Team Size: 5
 
@@ -2200,9 +1655,9 @@ CourseBook represents a **moderate to high difficulty** extension of AB3. While 
 
 ---
 
-## **18. Summary**
+## **16. Summary**
 
-CourseBook is a robust, well-architected application for managing academic contacts. This Developer Guide provides comprehensive documentation of the system's design, implementation, and testing strategy. Key highlights:
+CourseBook is a robust, well-architected application for managing academic contacts. This Developer Guide provides comprehensive documentation of the system's design, and implementation. Key highlights:
 
 - **Clean 4-layer architecture** with strong separation of concerns
 - **27 feature-rich commands** covering all aspects of contact and course management
